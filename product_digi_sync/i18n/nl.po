@@ -1,0 +1,300 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_digi_sync
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: nl\n"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__password
+msgid "@Fresh Password"
+msgstr "@Fresh Wachtwoord"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__username
+msgid "@Fresh Username"
+msgstr "@Fresh Gebruikersnaam"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__api_url
+msgid "API URL"
+msgstr "API-URL"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_barcode_rule
+msgid "Barcode Rule"
+msgstr "Barcoderegel"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_res_config_settings__piece_barcode_rule_id
+msgid "Barcode Rule for Piece products"
+msgstr "Barcoderegel voor stuksproducten"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_res_config_settings__weighted_barcode_rule_id
+msgid "Barcode Rule for Weighted products"
+msgstr "Barcoderegel voor gewogen producten"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_barcode_rule__digi_barcode_type_id
+msgid "Barcode Type ID in @Fresh"
+msgstr "Barcodetype-ID in @Fresh"
+
+#. module: product_digi_sync
+#: model_terms:ir.actions.act_window,help:product_digi_sync.digi_client_action
+msgid "Click to create your first Digi Client."
+msgstr "Klik om uw eerste Digi Client aan te maken."
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_res_config_settings
+msgid "Config Settings"
+msgstr "Configuratie-instellingen"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__create_uid
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__create_uid
+msgid "Created by"
+msgstr "Gemaakt door"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__create_date
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__create_date
+msgid "Created on"
+msgstr "Gemaakt op"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_digi_sync_digi_client
+#: model:ir.model.fields,field_description:product_digi_sync.field_res_config_settings__digi_client_id
+msgid "Digi Client"
+msgstr "Digi Client"
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.digi_client_form_view
+msgid "Digi Client Form"
+msgstr "Digi Client-formulier"
+
+#. module: product_digi_sync
+#: model:ir.actions.act_window,name:product_digi_sync.digi_client_action
+#: model:ir.ui.menu,name:product_digi_sync.digi_client_menu
+msgid "Digi Clients"
+msgstr "Digi Clients"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_res_config_settings__digi_sync_products_enabled
+msgid "Digi Sync Products Enabled"
+msgstr "Digi Sync producten ingeschakeld"
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.res_config_settings_view_form
+msgid "Digi client"
+msgstr "Digi Client"
+
+#. module: product_digi_sync
+#: model:ir.model.constraint,message:product_digi_sync.constraint_product_food_fields_product_quality_digi_image_id_uniq
+msgid "Digi image id must be unique."
+msgstr "Digi afbeelding ID moet uniek zijn."
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.digi_sync_product_template_retailer_view_form
+msgid "Digi integration"
+msgstr "Digi-integratie"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__display_name
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__display_name
+msgid "Display Name"
+msgstr "Weergavenaam"
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.res_config_settings_view_form
+msgid "Documentation"
+msgstr "Documentatie"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_category__external_digi_id
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__external_digi_id
+msgid "External Digi identifier"
+msgstr "Externe Digi-ID"
+
+#. module: product_digi_sync
+#: model:ir.model.constraint,message:product_digi_sync.constraint_product_category_external_digi_id
+msgid "External Digi identifier must be unique."
+msgstr "Externe Digi-ID moet uniek zijn."
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_food_fields_product_quality__digi_image_id
+msgid "External digi id for the image"
+msgstr "Externe digi-ID voor de afbeelding"
+
+#. module: product_digi_sync
+#: model:ir.model.constraint,message:product_digi_sync.constraint_product_digi_sync_product_origin_external_digi_id_uniq
+msgid "External digi id must be unique."
+msgstr "Externe digi-ID moet uniek zijn."
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.digi_sync_product_category_view_form
+msgid "External digi identifier"
+msgstr "Externe digi-ID"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__id
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client____last_update
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__write_uid
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__write_date
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_digi_client__name
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_digi_sync_product_origin__name
+msgid "Name"
+msgstr "Naam"
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.res_config_settings_view_form
+msgid "Piece barcode rule"
+msgstr "Stuks barcoderegel"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__is_pieces_article
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__is_pieces_article
+msgid "Pieces article"
+msgstr "Stuks artikel"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__plu_code
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__plu_code
+msgid "Plu code"
+msgstr "Plu-code"
+
+#. module: product_digi_sync
+#: model:ir.model.constraint,message:product_digi_sync.constraint_product_template_plu_code_uniq
+msgid "Plu code must be unique."
+msgstr "Plu-code moet uniek zijn."
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_template
+msgid "Product"
+msgstr "Product"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_category
+msgid "Product Category"
+msgstr "Productcategorie"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_digi_sync_product_origin
+#: model:ir.ui.menu,name:product_digi_sync.menu_product_origin
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.product_origin_form
+msgid "Product Origin"
+msgstr "Productherkomst"
+
+#. module: product_digi_sync
+#: model:ir.actions.act_window,name:product_digi_sync.action_product_origin
+msgid "Product Origins"
+msgstr "Productherkomsten"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_food_fields_product_quality
+msgid "Product Quality"
+msgstr "Productkwaliteit"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_product
+msgid "Product Variant"
+msgstr "Productvariant"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__product_brand_id
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__product_brand_id
+msgid "Product brand"
+msgstr "Productmerk"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__product_origin_id
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__product_origin_id
+msgid "Product origin"
+msgstr "Productherkomst"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,help:product_digi_sync.field_product_product__product_brand_id
+#: model:ir.model.fields,help:product_digi_sync.field_product_template__product_brand_id
+msgid "Select a brand for this product"
+msgstr "Selecteer een merk voor dit product"
+
+#. module: product_digi_sync
+#: model:ir.actions.server,name:product_digi_sync.action_send_product_image_to_digi
+msgid "Send image to digi"
+msgstr "Stuur afbeelding naar digi"
+
+#. module: product_digi_sync
+#: model:ir.actions.server,name:product_digi_sync.action_send_product_origin_to_digi
+msgid "Send product origin to digi"
+msgstr "Stuur productherkomst naar digi"
+
+#. module: product_digi_sync
+#: model:ir.actions.server,name:product_digi_sync.action_send_product_to_digi
+msgid "Send product to digi"
+msgstr "Stuur product naar digi"
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.res_config_settings_view_form
+msgid "Send products to @fresh by Digi"
+msgstr "Stuur producten naar @fresh via Digi"
+
+#. module: product_digi_sync
+#: model:ir.actions.server,name:product_digi_sync.action_send_product_category_to_digi
+msgid "Send to digi"
+msgstr "Stuur naar digi"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__send_to_scale
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__send_to_scale
+msgid "Send to scale"
+msgstr "Stuur naar weegschaal"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_product__show_packed_date_on_label
+#: model:ir.model.fields,field_description:product_digi_sync.field_product_template__show_packed_date_on_label
+msgid "Show packed date on label"
+msgstr "Toon verpakte datum op etiket"
+
+#. module: product_digi_sync
+#: model:ir.model.fields,help:product_digi_sync.field_product_digi_sync_product_origin__name
+msgid "The origin name. Can be a country, region or producer."
+msgstr "De herkomstnaam. Kan een land, regio of producent zijn."
+
+#. module: product_digi_sync
+#: model_terms:ir.ui.view,arch_db:product_digi_sync.res_config_settings_view_form
+msgid "Weighted barcode rule"
+msgstr "Barcoderegel voor gewogen producten"
+
+#. module: product_digi_sync
+#: model:ir.model,name:product_digi_sync.model_product_digi_sync_digi_sync_base
+msgid "product_digi_sync.digi_sync_base"
+msgstr "product_digi_sync.digi_sync_basis"
