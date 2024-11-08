@@ -1,60 +1,117 @@
 <?xml version="1.0" encoding="ISO8859-1" ?>
 <xmlartikel>
-  <product>
-  <eancode>8714811142843</eancode>
-  <omschrijving>Volle yomio (12)</omschrijving>
-  <kassaomschrijving>Volle Yomio</kassaomschrijving>
-  <weegschaalartikel>0</weegschaalartikel>
-  <wichtartikel>0</wichtartikel>
-  <pluartikel>0</pluartikel>
-  <inhoud>1</inhoud>
-  <eenheid>Liter</eenheid>
-  <verpakkingce />
-  <merk>Zuiver Zuivel</merk>
-  <kwaliteit>BD</kwaliteit>
-  <herkomst>NL</herkomst>
-  <btw>6</btw>
-  <cblcode>1121505</cblcode>
-  <leveranciernummer>1001</leveranciernummer>
-  <bestelnummer>1263</bestelnummer>
-  <sve>1</sve>
-  <status>Actief</status>
-  <ingredienten
-        >IngrediÃ«nten: Gepasteuriseerde volle koeMELK* met de speciale Yomio cultures: B. Lactis en L. acidophilus,  * = Demeter</ingredienten>
-  <d204>3</d204>
-  <d209>2</d209>
-  <d210>3</d210>
-  <d212>2</d212>
-  <d213>2</d213>
-  <d214>1</d214>
-  <d234>2</d234>
-  <d215>1</d215>
-  <d239>2</d239>
-  <d216>3</d216>
-  <d217>2</d217>
-  <d217b>0</d217b>
-  <d220>2</d220>
-  <d221>2</d221>
-  <d221b>0</d221b>
-  <d222>0</d222>
-  <d223>2</d223>
-  <d236>2</d236>
-  <d235>2</d235>
-  <d238>2</d238>
-  <d238b>0</d238b>
-  <d225>3</d225>
-  <d226>0</d226>
-  <d228>2</d228>
-  <d230>0</d230>
-  <d232>2</d232>
-  <d237>2</d237>
-  <d240>2</d240>
-  <proefdiervrij>1</proefdiervrij>
-  <vegetarisch>1</vegetarisch>
-  <veganistisch>2</veganistisch>
-  <rauwemelk>2</rauwemelk>
-  <inkoopprijs>1.33</inkoopprijs>
-  <consumentenprijs>1.95</consumentenprijs>
-  <ingangsdatum>2016-03-29</ingangsdatum>
-  </product>
- </xmlartikel>
+    <product>
+        <eancode>8714811142843</eancode>
+        <omschrijving>Volle yomio (12)</omschrijving>
+        <kassaomschrijving>Volle Yomio</kassaomschrijving>
+        <weegschaalartikel>0</weegschaalartikel>
+        <wichtartikel>0</wichtartikel>
+        <pluartikel>0</pluartikel>
+        <inhoud>1</inhoud>
+        <eenheid>Liter</eenheid>
+        <verpakkingce />
+        <merk>Zuiver Zuivel</merk>
+        <kwaliteit>BD</kwaliteit>
+        <herkomst>NL</herkomst>
+        <btw>6</btw>
+        <cblcode>1121505</cblcode>
+        <leveranciernummer>1001</leveranciernummer>
+        <bestelnummer>1263</bestelnummer>
+        <sve>1</sve>
+        <status>Actief</status>
+        <ingredienten
+        >Ingrediënten: Gepasteuriseerde volle koeMELK* met de speciale Yomio cultures: B. Lactis en L. acidophilus,  * = Demeter</ingredienten>
+        <d204>3</d204>
+        <d209>2</d209>
+        <d210>3</d210>
+        <d212>2</d212>
+        <d213>2</d213>
+        <d214>1</d214>
+        <d234>2</d234>
+        <d215>1</d215>
+        <d239>2</d239>
+        <d216>3</d216>
+        <d217>2</d217>
+        <d217b>0</d217b>
+        <d220>2</d220>
+        <d221>2</d221>
+        <d221b>0</d221b>
+        <d222>0</d222>
+        <d223>2</d223>
+        <d236>2</d236>
+        <d235>2</d235>
+        <d238>2</d238>
+        <d238b>0</d238b>
+        <d225>3</d225>
+        <d226>0</d226>
+        <d228>2</d228>
+        <d230>0</d230>
+        <d232>2</d232>
+        <d237>2</d237>
+        <d240>2</d240>
+        <proefdiervrij>1</proefdiervrij>
+        <vegetarisch>1</vegetarisch>
+        <veganistisch>2</veganistisch>
+        <rauwemelk>2</rauwemelk>
+        <inkoopprijs>1.91</inkoopprijs>
+        <consumentenprijs>1.95</consumentenprijs>
+        <ingangsdatum>2016-03-29</ingangsdatum>
+    </product>
+    <product>
+        <eancode>8714811142843</eancode>
+        <omschrijving>Volle yomio</omschrijving>
+        <kassaomschrijving>Volle Yomio</kassaomschrijving>
+        <weegschaalartikel>0</weegschaalartikel>
+        <wichtartikel>0</wichtartikel>
+        <pluartikel>0</pluartikel>
+        <inhoud>1</inhoud>
+        <eenheid>Liter</eenheid>
+        <verpakkingce />
+        <merk>Zuiver Zuivel</merk>
+        <kwaliteit>BD</kwaliteit>
+        <herkomst>NL</herkomst>
+        <btw>6</btw>
+        <cblcode>1121505</cblcode>
+        <leveranciernummer>1039</leveranciernummer>
+        <bestelnummer>1263</bestelnummer>
+        <sve>1</sve>
+        <status>Actief</status>
+        <ingredienten
+        >Ingrediënten: Gepasteuriseerde volle koeMELK* met de speciale Yomio cultures: B. Lactis en L. acidophilus,  * = Demeter</ingredienten>
+        <d204>3</d204>
+        <d209>2</d209>
+        <d210>3</d210>
+        <d212>2</d212>
+        <d213>2</d213>
+        <d214>1</d214>
+        <d234>2</d234>
+        <d215>1</d215>
+        <d239>2</d239>
+        <d216>3</d216>
+        <d217>2</d217>
+        <d217b>0</d217b>
+        <d220>2</d220>
+        <d221>2</d221>
+        <d221b>0</d221b>
+        <d222>0</d222>
+        <d223>2</d223>
+        <d236>2</d236>
+        <d235>2</d235>
+        <d238>2</d238>
+        <d238b>0</d238b>
+        <d225>3</d225>
+        <d226>0</d226>
+        <d228>2</d228>
+        <d230>0</d230>
+        <d232>2</d232>
+        <d237>2</d237>
+        <d240>2</d240>
+        <proefdiervrij>1</proefdiervrij>
+        <vegetarisch>1</vegetarisch>
+        <veganistisch>2</veganistisch>
+        <rauwemelk>2</rauwemelk>
+        <inkoopprijs>1.85</inkoopprijs>
+        <consumentenprijs>1.95</consumentenprijs>
+        <ingangsdatum>2016-03-29</ingangsdatum>
+    </product>
+</xmlartikel>

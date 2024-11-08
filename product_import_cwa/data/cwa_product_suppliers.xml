@@ -56,6 +56,10 @@
 		<field name="res_partner_id" ref="product_import_cwa.supplier_code_1036" />
 		<field name="leveranciernummer">1036</field>
 	</record>
+	<record id="supplier_1039" model="cwa.product.suppliers">
+		<field name="res_partner_id" ref="product_import_cwa.supplier_code_1039" />
+		<field name="leveranciernummer">1039</field>
+	</record>
 	<record id="supplier_1040" model="cwa.product.suppliers">
 		<field name="res_partner_id" ref="product_import_cwa.supplier_code_1040" />
 		<field name="leveranciernummer">1040</field>
