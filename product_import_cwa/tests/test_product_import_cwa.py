@@ -102,6 +102,11 @@ class TestProductImportCwa(TransactionCase):
         )
         return count
 
+    def import_file_two_suppliers_one_product(self, cwa_product_obj):
+        path = os.path.dirname(os.path.realpath(__file__))
+        file1 = os.path.join(path, "data/products_test_subset.xml")
+        cwa_product_obj.with_context(new_cursor=False).import_xml_products(file1)
+
     def test_product_import_cwa_imports_all_records(self):
         cwa_product_obj = self.env["cwa.product"]
 
@@ -541,3 +546,18 @@ class TestProductImportCwa(TransactionCase):
         )
 
         self.assertEqual(imported_product.product_quality_id.id, expected_quality.id)
+
+    def test_when_a_product_is_imported_supplierinfo_from_other_suppliers_is_also_loaded(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_file_two_suppliers_one_product(cwa_product_obj)
+        product_name = "VOLLE YOMIO (12)"
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", product_name), ("leveranciernummer", "=", "1001")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin("NL")
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search(
+            [("name", "=", product_name)]
+        )
+
+        self.assertEqual(2, len(imported_product.seller_ids))
