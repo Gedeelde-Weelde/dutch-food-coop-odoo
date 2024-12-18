@@ -17,3 +17,5 @@ access_cwa_cblcode_translation_wizard_admin,cwa.cblcode.translation.wizard admin
 access_cwa_cblcode_translation_wizard_user,cwa.cblcode.translation.wizard user,model_cwa_cblcode_translation_wizard,base.group_user,1,1,1,1
 access_cwa_product_origin_translation_wizard_admin,cwa.product.origin.translation.wizard admin,model_cwa_product_origin_translation_wizard,base.group_no_one,1,1,1,1
 access_cwa_product_origin_translation_wizard_user,cwa.product.origin.translation.wizard user,model_cwa_product_origin_translation_wizard,base.group_user,1,1,1,1
+access_cwa_product_eancode_filter_wizard_admin,cwa.product.eancode.filter.wizard admin,model_cwa_product_eancode_filter_wizard,base.group_no_one,1,1,1,1
+access_cwa_product_eancode_filter_wizard_user,cwa.product.eancode.filter.wizard user,model_cwa_product_eancode_filter_wizard,base.group_user,1,1,1,1

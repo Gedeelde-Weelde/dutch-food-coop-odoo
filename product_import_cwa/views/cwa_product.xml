@@ -40,14 +40,6 @@
         <field name="model">cwa.product</field>
         <field name="arch" type="xml">
             <tree create="false">
-                <button
-                    class="oe_edit_only"
-                    states="new"
-                    name="to_product"
-                    type="object"
-                    icon="fa-mail-forward"
-                    string="Import Product and Supplierinfo, if not already imported"
-                />
                 <field name="leveranciernummer" />
                 <field name="bestelnummer" />
                 <field name="eancode" />
@@ -227,4 +219,12 @@
         parent="sale.sale_menu_root"
         sequence="5"
     />
+
+    <menuitem
+        id="menu_select_eans_wizard"
+        action="action_open_eancode_wizard"
+        parent="sale.sale_menu_root"
+        sequence="6"
+    />
+
 </odoo>

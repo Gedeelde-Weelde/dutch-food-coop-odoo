@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_eancode_filter_wizard_form" model="ir.ui.view">
+        <field name="name">cwa.product.eancode.filter.wizard.form</field>
+        <field name="model">cwa.product.eancode.filter.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Filter by EAN Codes">
+                <group>
+                    <field name="ean_list" />
+                </group>
+                <footer>
+                    <button
+                        name="apply_eancode_filter"
+                        type="object"
+                        string="Apply Filter"
+                        class="btn-primary"
+                    />
+                    <button
+                        name="clear_eancode_filter"
+                        type="object"
+                        string="Clear Filter"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_open_eancode_wizard" model="ir.actions.act_window">
+        <field name="name">Filter by Eancode</field>
+        <field name="res_model">cwa.product.eancode.filter.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>
