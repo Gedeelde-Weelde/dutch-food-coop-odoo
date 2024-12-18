@@ -207,6 +207,20 @@
         <field name="context">{'search_default_new': 1}</field>
     </record>
 
+    <record
+        id="server_action_import_product_and_supplier_info"
+        model="ir.actions.server"
+    >
+        <field name="name">Import Product and Supplier Info</field>
+        <field name="model_id" ref="model_cwa_product" />
+        <field name="binding_model_id" ref="model_cwa_product" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records.filtered(lambda p: p.state == "new"):
+                record.to_product()
+        </field>
+    </record>
+
     <menuitem
         id="menu_imported_leads"
         action="action_cwa_catalogue"
