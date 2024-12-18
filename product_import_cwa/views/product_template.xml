@@ -167,6 +167,11 @@
                                         widget="many2many_tags"
                                     />
                                     <field name="list_price" />
+                                    <field
+                                        name="tax_string"
+                                        readonly="True"
+                                        string=""
+                                    />
                                     <field name="standard_price" />
                                     <field name="price_per_standard_unit" />
                                     <field name="product_quality_id" />
