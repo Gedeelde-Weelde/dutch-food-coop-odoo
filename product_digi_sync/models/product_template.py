@@ -27,7 +27,7 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
     _sql_constraints = [
         (
             "shop_plucode_uniq",
-            "unique(shop_plu)",
+            "unique(shop_plucode)",
             "Plu code must be unique.",
         ),
     ]
@@ -38,11 +38,11 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
 
         return weighted_barcode_rule if self.is_weighted_article else piece_barcode_rule
 
-    @api.depends("shop_plucode", "is_weighted_article")
+    @api.depends("shop_plucode", "is_weighted_article", "send_to_scale")
     def _compute_barcode(self):
         for record in self:
-            if not record.shop_plucode:
-                continue
+            if not record.send_to_scale or not record.shop_plucode:
+                return super()._compute_barcode()
             current_rule = record.get_current_barcode_rule()
             if current_rule is not None:
                 record.set_barcode(current_rule)
