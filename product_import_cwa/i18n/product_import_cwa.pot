@@ -192,6 +192,11 @@ msgid "Apply"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_eancode_filter_wizard_form
+msgid "Apply Filter"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.ui.menu,name:product_import_cwa.retailer_view_menuitem
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
@@ -461,6 +466,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_uom_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.product_origin_translation_wizard_view
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_eancode_filter_wizard_form
 msgid "Cancel"
 msgstr ""
 
@@ -490,6 +496,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__changed_fields
 msgid "Changed Fields"
+msgstr ""
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_eancode_filter_wizard_form
+msgid "Clear Filter"
 msgstr ""
 
 #. module: product_import_cwa
@@ -584,6 +595,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__create_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__create_uid
@@ -609,6 +621,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__create_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__create_date
@@ -942,6 +955,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__display_name
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__display_name
@@ -980,6 +994,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_product_form_import_to_product
 msgid "Do you really want to import the selected items?"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__ean_list
+msgid "EAN Codes"
 msgstr ""
 
 #. module: product_import_cwa
@@ -1046,6 +1065,11 @@ msgid "Enable CWA FTP Import"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_product_eancode_filter_wizard__ean_list
+msgid "Enter EAN Codes separated by commas"
+msgstr ""
+
+#. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.res_config_settings_view_form_cwa
 msgid "Enter the FTP Address"
 msgstr ""
@@ -1068,6 +1092,18 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_res_config_settings__cwa_ftp_address
 msgid "FTP Address"
+msgstr ""
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_eancode_filter_wizard_form
+msgid "Filter by EAN Codes"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_open_eancode_wizard
+#: model:ir.model,name:product_import_cwa.model_cwa_product_eancode_filter_wizard
+#: model:ir.ui.menu,name:product_import_cwa.menu_select_eans_wizard
+msgid "Filter by Eancode"
 msgstr ""
 
 #. module: product_import_cwa
@@ -1169,6 +1205,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__id
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__id
@@ -1204,11 +1241,6 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.actions.server,name:product_import_cwa.server_action_import_product_and_supplier_info
 msgid "Import Product and Supplier Info"
-msgstr ""
-
-#. module: product_import_cwa
-#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tree_view
-msgid "Import Product and Supplierinfo, if not already imported"
 msgstr ""
 
 #. module: product_import_cwa
@@ -1452,6 +1484,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode____last_update
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard____last_update
@@ -1477,6 +1510,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__write_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__write_uid
@@ -1502,6 +1536,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__write_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode_wizard__write_date
