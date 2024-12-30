@@ -474,6 +474,15 @@ msgstr ""
 #. odoo-python
 #: code:addons/product_import_cwa/models/cwa_product.py:0
 #, python-format
+msgid ""
+"Cannot translate CBL code %s into internal category.Please change "
+"translation in translation model!"
+msgstr ""
+
+#. module: product_import_cwa
+#. odoo-python
+#: code:addons/product_import_cwa/models/cwa_product.py:0
+#, python-format
 msgid "Cannot translate CBL code %s into product categories."
 msgstr ""
 
