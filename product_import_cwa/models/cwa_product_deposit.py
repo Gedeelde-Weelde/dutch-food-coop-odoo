@@ -6,7 +6,6 @@ class CwaProductDeposit(models.Model):
     _description = "Product Deposit"
 
     source_deposit_price = fields.Float(
-        string="Source Deposit Price",
         required=True,
         help="Price of the product deposit.",
     )
@@ -17,3 +16,7 @@ class CwaProductDeposit(models.Model):
         domain=[("is_deposit", "=", True)],
         help="Select a product where the deposit is true.",
     )
+
+    @api.model
+    def get_translated(self, deposit):
+        return self.search([("source_deposit_price", "=", deposit)], limit=1)

@@ -12,8 +12,17 @@
                         <field name="target_deposit_product_id" required="1" />
                     </group>
                     <footer>
-                        <button name="action_apply" type="object" string="Apply" class="btn-primary" />
-                        <button string="Cancel" class="btn-secondary" special="cancel" />
+                        <button
+                            name="action_apply"
+                            type="object"
+                            string="Apply"
+                            class="btn-primary"
+                        />
+                        <button
+                            string="Cancel"
+                            class="btn-secondary"
+                            special="cancel"
+                        />
                     </footer>
                 </sheet>
             </form>
@@ -25,9 +34,8 @@
         <field name="name">CWA Deposit Wizard</field>
         <field name="res_model">cwa.deposit.wizard</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="cwa_deposit_wizard_form_view"/>
+        <field name="view_id" ref="cwa_deposit_wizard_form_view" />
         <field name="target">new</field>
         <field name="context" eval="{}" />
     </record>
 </odoo>
-

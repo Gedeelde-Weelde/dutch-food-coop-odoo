@@ -95,19 +95,14 @@ class TestProductImportCwa(TransactionCase):
         )
         wizard.action_apply()
 
-    def translate_deposit(self, prod):
-        """Add dummy deposit translation to product using wizards"""
-        deposit = self.env["product.template"].create({
-            "name": "Deposit 0.7",
-            "list_price": 0.7,
-            "is_deposit": True,
-        })
+    def translate_deposit(self, deposit):
         wizard_obj = self.env["cwa.deposit.wizard"]
-        wizard = wizard_obj.with_context(default_deposit_price=0.7).create({
-            "target_deposit_product_id": deposit.id,
-        })
+        wizard = wizard_obj.with_context(default_deposit_price=0.7).create(
+            {
+                "target_deposit_product_id": deposit.id,
+            }
+        )
         wizard.action_apply()
-        pass
 
     def import_first_file(self, cwa_product_obj):
         path = os.path.dirname(os.path.realpath(__file__))
@@ -656,14 +651,22 @@ class TestProductImportCwa(TransactionCase):
         self.assertEqual(len(message), 1)
 
     def test_deposit_is_linked_to_deposit_product_when_deposit_present(self):
+        deposit = self.env["product.template"].create(
+            {
+                "name": "Deposit 0.7",
+                "list_price": 0.7,
+                "is_deposit": True,
+            }
+        )
         cwa_product_obj = self.env["cwa.product"]
+
         self.import_subset_file(cwa_product_obj)
 
         cwa_prod = cwa_product_obj.search([("unique_id", "=", "1001-1263")])
 
         self.create_origin("NL")
         self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
-        self.translate_deposit(cwa_prod)
+        self.translate_deposit(deposit)
 
         cwa_prod.to_product()
 
@@ -671,8 +674,7 @@ class TestProductImportCwa(TransactionCase):
             [("eancode", "=", "8714811142843")]
         )
 
-
-        self.assertEqual(imported_product.deposit_product_id.list_price, 0.7)
+        self.assertEqual(imported_product.deposit_product_id.id, deposit.id)
 
     def test_cwa_import_changes_allow_for_automatic_update_of_product(self):
         cwa_product_obj = self.env["cwa.product"]

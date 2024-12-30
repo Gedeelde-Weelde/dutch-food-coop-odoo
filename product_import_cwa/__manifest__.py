@@ -13,7 +13,7 @@
         "product_brand",
         "uom",
         "product_food_fields",
-        "pos_container_deposit"
+        "pos_container_deposit",
     ],
     "assets": {
         "point_of_sale.assets": [
