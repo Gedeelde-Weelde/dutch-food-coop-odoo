@@ -2681,13 +2681,6 @@ msgid "UoM Translation Wizard"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_uom__uos_combo
-#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_uom_wizard__uos_combo
-#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_uom_translation_wizard__uos_combo
-msgid "UoM/UoS Combo"
-msgstr ""
-
-#. module: product_import_cwa
 #: model:ir.actions.act_window,name:product_import_cwa.action_cwa_cblcode_all
 msgid "Update All CBL translations"
 msgstr ""
