@@ -674,7 +674,9 @@ class TestProductImportCwa(TransactionCase):
             [("eancode", "=", "8714811142843")]
         )
 
-        self.assertEqual(imported_product.deposit_product_id.id, deposit.product_variant_id.id)
+        self.assertEqual(
+            imported_product.deposit_product_id.id, deposit.product_variant_id.id
+        )
 
     def test_cwa_import_changes_allow_for_automatic_update_of_product(self):
         cwa_product_obj = self.env["cwa.product"]
