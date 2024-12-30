@@ -4,6 +4,8 @@ import os
 
 from odoo.tests.common import TransactionCase
 
+from odoo.addons.product_import_cwa.models.cwa_product import IncompleteValidationError
+
 
 class TestProductImportCwa(TransactionCase):
     def setUp(self):
@@ -59,6 +61,18 @@ class TestProductImportCwa(TransactionCase):
         categ = self.env["product.category"].create({"name": "Beverage"})
         wizard.cblcode_ids.write(
             dict(pos_category=pos_categ.id, internal_category=categ.id)
+        )
+        wizard.action_apply()
+
+    def translate_cblcode_incomplete(self, prod):
+        """Add dummy CBL code translation to product using wizards"""
+        wizard_obj = self.env["cwa.product.import.cblcode"]
+        wizard = wizard_obj.with_context(active_ids=prod.ids).create({})
+        pos_categ = self.env["pos.category"].create({"name": "Beverage"})
+        wizard.cblcode_ids.write(
+            dict(
+                pos_category=pos_categ.id,
+            )
         )
         wizard.action_apply()
 
@@ -146,6 +160,20 @@ class TestProductImportCwa(TransactionCase):
         self.assertEqual(self.env["cwa.product.uom"].search_count([]), 1)
         self.assertEqual(self.env["cwa.product.cblcode"].search_count([]), 1)
         self.assertEqual(self.env["cwa.vat.tax"].search_count([]), 1)
+
+    def test_product_import_with_incomplete_cbl_translation(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.reset_translations()
+        self.translate_brand(cwa_prod)
+        self.translate_uom(cwa_prod)
+        self.translate_cblcode_incomplete(cwa_prod)
+        self.translate_tax(cwa_prod)
+        self.create_origin()
+
+        with self.assertRaises(IncompleteValidationError):
+            cwa_prod.to_product()
 
     def test_product_import_cwa_product_to_state_imported(self):
         cwa_product_obj = self.env["cwa.product"]
