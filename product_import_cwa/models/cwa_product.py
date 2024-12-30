@@ -3,7 +3,7 @@ import logging
 import os
 
 from odoo import _, api, fields, models, tools
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 
 from .utils import PRESENCE_SELECTION, YESNO_SELECTION, XMLProductLoader, split_data
 
@@ -96,6 +96,10 @@ KEY_MAPPINGS_CWA_TO_PRODUCT = {
     "bewaartemperatuur": "storage_temperature",
     "aantaldagenhoudbaar": "use_by_days",
 }
+
+
+class IncompleteValidationError(UserError):
+    pass
 
 
 def map_key(key):
@@ -660,6 +664,12 @@ class CwaProduct(models.Model):
                 self.cblcode,
             )
             raise ValidationError(msg)
+        elif not translated_cblcode.internal_category.id:
+            msg = _(
+                "Cannot translate CBL code %s into internal category."
+                "Please change translation in translation model!"
+            ) % (self.cblcode,)
+            raise IncompleteValidationError(msg)
         else:
             extra_prod_dict["categ_id"] = translated_cblcode.internal_category.id
             extra_prod_dict["pos_categ_id"] = translated_cblcode.pos_category.id
