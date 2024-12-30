@@ -14,7 +14,6 @@
                         <field name="target_inhoud" />
                         <field name="uom_id" />
                         <field name="uom_po_id" />
-                        <field name="uos_combo" readonly="0" />
                     </tree>
                 </field>
                 <footer>

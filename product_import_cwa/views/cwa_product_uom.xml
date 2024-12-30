@@ -9,7 +9,6 @@
                 <field name="inhoud" />
                 <field name="uom_id" />
                 <field name="uom_po_id" />
-                <field name="uos_combo" />
             </tree>
         </field>
     </record>
@@ -25,7 +24,6 @@
                         <field name="inhoud" />
                         <field name="uom_id" />
                         <field name="uom_po_id" />
-                        <field name="uos_combo" />
                     </group>
                 </sheet>
             </form>

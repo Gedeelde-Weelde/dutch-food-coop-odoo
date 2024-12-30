@@ -18,7 +18,6 @@ class CwaUomTranslationWizard(models.TransientModel):
     uom_id = fields.Many2one("uom.uom", "Standard UoM")
     uom_po_id = fields.Many2one("uom.uom", "Purchase UoM")
     target_inhoud = fields.Float()
-    uos_combo = fields.Char("UoM/UoS Combo")
 
     def action_translate_product_uom(self):
         for this in self:
@@ -29,6 +28,5 @@ class CwaUomTranslationWizard(models.TransientModel):
                     "uom_id": this.uom_id.id,
                     "uom_po_id": this.uom_po_id.id,
                     "target_inhoud": this.target_inhoud,
-                    "uos_combo": this.uos_combo,
                 }
             )
