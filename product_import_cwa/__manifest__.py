@@ -13,6 +13,7 @@
         "product_brand",
         "uom",
         "product_food_fields",
+        "pos_container_deposit"
     ],
     "assets": {
         "point_of_sale.assets": [
@@ -34,12 +35,14 @@
         "views/cwa_import_action.xml",
         "views/cwa_import_product_change.xml",
         "views/cwa_product_brands.xml",
+        "views/cwa_product_deposit.xml",
         "views/cwa_product_cblcode.xml",
         "views/cwa_product_quality.xml",
         "views/cwa_product_suppliers.xml",
         "views/cwa_product_uom.xml",
         "views/cwa_vat_tax.xml",
         "wizard/cwa_brand_translation_wizard.xml",
+        "wizard/cwa_deposit_wizard.xml",
         "wizard/cwa_uom_translation_wizard.xml",
         "wizard/cwa_cblcode_translation_wizard.xml",
         "wizard/cwa_product_origin_translation_wizard.xml",
