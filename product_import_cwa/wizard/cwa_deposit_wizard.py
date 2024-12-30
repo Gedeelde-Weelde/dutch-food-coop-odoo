@@ -10,7 +10,7 @@ class CwaDepositWizard(models.TransientModel):
         default=lambda self: self.env.context.get("default_deposit_price"),
     )
     target_deposit_product_id = fields.Many2one(
-        "product.template", string="Target Deposit Product", required=True
+        "product.template", string="Target Deposit Product"
     )
 
     def action_apply(self):

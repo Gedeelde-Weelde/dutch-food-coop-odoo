@@ -797,7 +797,7 @@ class CwaProduct(models.Model):
             if translated_deposit.deposit_product_id.id:
                 extra_prod_dict[
                     "deposit_product_id"
-                ] = translated_deposit.deposit_product_id.id
+                ] = translated_deposit.deposit_product_id.product_variant_id
 
     def _translate_product_origin(self, extra_prod_dict):
         country_code = self.herkomst
