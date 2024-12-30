@@ -10,7 +10,6 @@
                     <field name="uom_id" required="1" />
                     <field name="uom_po_id" required="1" />
                     <field name="target_inhoud" />
-                    <field name="uos_combo" />
                 </group>
                 <footer>
                     <button

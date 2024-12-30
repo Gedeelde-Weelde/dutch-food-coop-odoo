@@ -12,7 +12,6 @@ class CwaProductUom(models.Model):
     uom_id = fields.Many2one("uom.uom", "Standard UoM", size=64, required=True)
     uom_po_id = fields.Many2one("uom.uom", "Purchase UoM", size=64, required=True)
     target_inhoud = fields.Float()
-    uos_combo = fields.Char("UoM/UoS Combo")
 
     @api.model
     def get_translated(self, source):

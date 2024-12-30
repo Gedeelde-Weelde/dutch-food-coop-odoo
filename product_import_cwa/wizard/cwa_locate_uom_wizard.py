@@ -23,7 +23,6 @@ class CwaProductImportUoMWizard(models.TransientModel):
                             "cwa_product_id": this.id,
                             "eenheid": this.eenheid,
                             "inhoud": this.inhoud,
-                            "uos_combo": combo,
                         },
                     )
                 )
@@ -55,7 +54,6 @@ class CwaProductImportWizard(models.TransientModel):
     uom_id = fields.Many2one("uom.uom", "Standard UoM", size=64)
     uom_po_id = fields.Many2one("uom.uom", "Purchase UoM", size=64)
     target_inhoud = fields.Float()
-    uos_combo = fields.Char("UoM/UoS Combo")
 
     # assume the purchase unit is same as uom, saves time!
     @api.onchange("uom_id")
@@ -72,6 +70,5 @@ class CwaProductImportWizard(models.TransientModel):
                     "inhoud": this.inhoud,
                     "uom_id": this.uom_id.id,
                     "uom_po_id": this.uom_po_id.id,
-                    "uos_combo": this.uos_combo,
                 }
                 self.env["cwa.product.uom"].create(values)
