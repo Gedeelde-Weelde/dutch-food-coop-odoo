@@ -154,6 +154,7 @@
                                     <field name="product_brand_id" />
                                     <field name="inhoud" />
                                     <field name="uom_id" />
+                                    <field name="eenheid" />
                                     <field name="statiegeld" />
                                     <field name="plucode" />
                                     <field name="preferred_supplier_id" />
