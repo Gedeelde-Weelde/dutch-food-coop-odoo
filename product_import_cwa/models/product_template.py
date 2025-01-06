@@ -68,6 +68,19 @@ class ProductTemplate(models.Model):
         "Price per Standard Unit", compute="_compute_price_per_su"
     )
     has_new_price = fields.Boolean()
+    margin = fields.Float(compute="_compute_margin", store=False)
+
+    @api.depends("list_price", "standard_price")
+    def _compute_margin(self):
+        for template in self:
+            margin = (
+                template.list_price - template.standard_price
+                if template.list_price and template.standard_price
+                else 0.0
+            )
+            template.margin = (
+                margin / template.list_price if template.list_price else 0.0
+            )
 
     def make_available_in_pos(self):
         for product in self:
