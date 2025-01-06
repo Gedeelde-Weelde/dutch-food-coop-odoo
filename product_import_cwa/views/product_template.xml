@@ -184,6 +184,7 @@
                                         string=""
                                     />
                                     <field name="standard_price" />
+                                    <field name="margin" widget="percentage" />
                                     <field name="price_per_standard_unit" />
                                     <field name="product_quality_id" />
                                     <field name="verpakkingce" />
