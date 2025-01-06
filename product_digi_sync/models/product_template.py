@@ -1,7 +1,7 @@
 import logging
 import re
 
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 from odoo.tools import get_barcode_check_digit
 
 from odoo.addons.queue_job.exception import RetryableJobError
@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(DigiSyncBaseModel, models.Model):
     _inherit = "product.template"
 
-    shop_plucode = fields.Integer(string="Shop plucode", required=False)
+    shop_plucode = fields.Integer(string="Shop plucode", required=False, default=None)
     send_to_scale = fields.Boolean(string="Send to scale", required=False)
     is_weighted_article = fields.Boolean(
         string="Weighted article", required=False, default=True
@@ -23,14 +23,6 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
     show_packed_date_on_label = fields.Boolean(
         string="Show packed date on label", required=False
     )
-
-    _sql_constraints = [
-        (
-            "shop_plucode_uniq",
-            "unique(shop_plucode)",
-            "Plu code must be unique.",
-        ),
-    ]
 
     def get_current_barcode_rule(self):
         weighted_barcode_rule = self._get_barcode_rule("weighted_barcode_rule_id")
@@ -143,3 +135,22 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
                 client.send_product_quality_image_to_digi(self)
             except Exception as e:
                 raise RetryableJobError(str(e), 5) from e
+
+    @api.constrains("shop_plucode")
+    def _check_unique_shop_plucode(self):
+        for record in self:
+            if record.shop_plucode:
+                existing_record = self.search(
+                    [
+                        ("shop_plucode", "=", record.shop_plucode),
+                        ("id", "!=", record.id),
+                    ],
+                    limit=1,
+                )
+                if existing_record:
+                    raise models.ValidationError(
+                        _(
+                            "The Shop PLU code must be "
+                            "unique! Code '{code}' is already used."
+                        ).format(code=record.shop_plucode)
+                    )
