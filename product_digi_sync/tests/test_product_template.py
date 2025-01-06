@@ -234,6 +234,18 @@ class ProductTemplateTestCase(DigiSyncBaseTestCase):
         self.assertEqual(mock_send_product_image_to_digi.call_count, 1)
         patched_get_param.stop()
 
+    def test_that_a_plucode_can_always_be_zero(self):
+        product1 = self.env["product.template"].create({
+            "name": "Test Product 1",
+            "shop_plucode": 0
+        })
+        product2 = self.env["product.template"].create({
+            "name": "Test Product 2",
+            "shop_plucode": 0
+        })
+        self.assertEqual(product1.shop_plucode, 0)
+        self.assertEqual(product2.shop_plucode, 0)
+
     def _create_product_with_image(self, name, shop_plucode):
         product_with_image = self.env["product.template"].create(
             {

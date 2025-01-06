@@ -14,7 +14,7 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(DigiSyncBaseModel, models.Model):
     _inherit = "product.template"
 
-    shop_plucode = fields.Integer(string="Shop plucode", required=False)
+    shop_plucode = fields.Integer(string="Shop plucode", required=False, default=None)
     send_to_scale = fields.Boolean(string="Send to scale", required=False)
     is_weighted_article = fields.Boolean(
         string="Weighted article", required=False, default=True
@@ -23,14 +23,6 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
     show_packed_date_on_label = fields.Boolean(
         string="Show packed date on label", required=False
     )
-
-    _sql_constraints = [
-        (
-            "shop_plucode_uniq",
-            "unique(shop_plucode)",
-            "Plu code must be unique.",
-        ),
-    ]
 
     def get_current_barcode_rule(self):
         weighted_barcode_rule = self._get_barcode_rule("weighted_barcode_rule_id")
