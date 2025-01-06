@@ -179,11 +179,6 @@ msgid "Piece barcode rule"
 msgstr ""
 
 #. module: product_digi_sync
-#: model:ir.model.constraint,message:product_digi_sync.constraint_product_template_shop_plucode_uniq
-msgid "Plu code must be unique."
-msgstr ""
-
-#. module: product_digi_sync
 #: model:ir.model,name:product_digi_sync.model_product_template
 msgid "Product"
 msgstr ""
@@ -266,6 +261,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_product__show_packed_date_on_label
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_template__show_packed_date_on_label
 msgid "Show packed date on label"
+msgstr ""
+
+#. module: product_digi_sync
+#. odoo-python
+#: code:addons/product_digi_sync/models/product_template.py:0
+#, python-format
+msgid "The Shop PLU code must be unique! Code '{code}' is already used."
 msgstr ""
 
 #. module: product_digi_sync
