@@ -1719,6 +1719,12 @@ msgid "Make Available in POS"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__margin
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__margin
+msgid "Margin"
+msgstr ""
+
+#. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_product_form_import_to_product
 msgid "Mass Import"
 msgstr ""
