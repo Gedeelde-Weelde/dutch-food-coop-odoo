@@ -73,13 +73,19 @@ class ProductTemplate(models.Model):
     @api.depends("list_price", "standard_price")
     def _compute_margin(self):
         for template in self:
+            res = self.taxes_id.compute_all(
+                template.list_price, product=template, partner=self.env["res.partner"]
+            )
+            price_without_taxes = (
+                res["total_excluded"] if res["total_excluded"] else template.list_price
+            )
             margin = (
-                template.list_price - template.standard_price
-                if template.list_price and template.standard_price
+                price_without_taxes - template.standard_price
+                if price_without_taxes and template.standard_price
                 else 0.0
             )
             template.margin = (
-                margin / template.list_price if template.list_price else 0.0
+                margin / price_without_taxes if price_without_taxes else 0.0
             )
 
     def make_available_in_pos(self):
