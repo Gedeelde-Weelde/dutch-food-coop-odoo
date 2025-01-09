@@ -506,6 +506,10 @@ class TestProductImportCwa(TransactionCase):
 
         changes = {
             "consumentenprijs": {"new": 3.9, "old": 3.7},
+            "ingangsdatum": {
+                "new": "2017-02-11",
+                "old": "2016-02-11",
+            },
             "ingredients": {
                 "new": "INGREDIENTENN: BOEKWEIT, EEKHOORNS",
                 "old": "INGREDIENTEN: BOEKWEIT",
@@ -533,7 +537,7 @@ class TestProductImportCwa(TransactionCase):
             [("affected_product_id", "=", imported_product.id)]
         )
 
-        changed_fields = "inkoopprijs, consumentenprijs, ingredients"
+        changed_fields = "inkoopprijs, consumentenprijs, ingangsdatum, ingredients"
 
         self.assertEqual(changed_fields, import_result.changed_fields)
 
