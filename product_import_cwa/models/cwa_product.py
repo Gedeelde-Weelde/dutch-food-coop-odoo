@@ -1,6 +1,7 @@
 import ftplib
 import logging
 import os
+from datetime import date
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError
@@ -284,8 +285,16 @@ class CwaProduct(models.Model):
                 old_value = getattr(supplier_info, field, None)
                 new_value = new_vals[field]
                 if old_value != new_value:
-                    changes[field] = {"old": old_value, "new": new_value}
+                    changes[field] = {
+                        "old": self._check_date_and_fix_if_date(old_value),
+                        "new": self._check_date_and_fix_if_date(new_value),
+                    }
         return changes
+
+    def _check_date_and_fix_if_date(self, value):
+        if isinstance(value, date):
+            return value.strftime("%Y-%m-%d")  # Convert date to 'YYYY-MM-DD'
+        return value
 
     @api.model
     def load_records(self, keys, data, model):
