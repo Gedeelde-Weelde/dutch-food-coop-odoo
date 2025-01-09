@@ -17,7 +17,7 @@ class DigiSyncBaseModel(models.AbstractModel):
 
     def _get_digi_client(self):
         digi_client_id = int(
-            self.env["ir.config_parameter"].get_param("digi_client_id")
+            self.env["ir.config_parameter"].sudo().get_param("digi_client_id")
         )
         client = self.env["product_digi_sync.digi_client"].browse(digi_client_id)
         if not client.exists():
