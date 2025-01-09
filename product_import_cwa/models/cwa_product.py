@@ -654,14 +654,24 @@ class CwaProduct(models.Model):
 
     def _translate_uoms(self, extra_prod_dict):
         uom = self.eenheid
+        unit_uom_id = self.env["uom.uom"].search(
+            [("id", "=", self.env.ref("uom.product_uom_unit").id)]
+        )
+        override_uom_id_translation = None
+        if self.eancode and unit_uom_id:
+            override_uom_id_translation = unit_uom_id
         translated_eenheid = self.env["cwa.product.uom"].get_translated(uom)
-        if not translated_eenheid and not self.env.context.get(
-            "force"
-        ):  # skip this if via force
+        if (
+            not translated_eenheid and not override_uom_id_translation
+        ) and not self.env.context.get("force"):  # skip this if via force
             raise ValidationError(_("Could not translate UoM %s") % (uom,))
         else:
-            extra_prod_dict["uom_id"] = translated_eenheid.uom_id.id
-            extra_prod_dict["uom_po_id"] = translated_eenheid.uom_po_id.id
+            if override_uom_id_translation:
+                extra_prod_dict["uom_id"] = unit_uom_id.id
+                extra_prod_dict["uom_po_id"] = unit_uom_id.id
+            else:
+                extra_prod_dict["uom_id"] = translated_eenheid.uom_id.id
+                extra_prod_dict["uom_po_id"] = translated_eenheid.uom_po_id.id
 
     def _translate_cbl_codes(self, extra_prod_dict):
         cblcode = self.cblcode
