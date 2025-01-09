@@ -184,6 +184,22 @@ class TestProductImportCwa(TransactionCase):
         cwa_prod.to_product()
         self.assertEqual(cwa_prod.state, "imported")
 
+    def test_product_import_translates_uom_with_ean_always_to_piece_product(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search(
+            [("omschrijving", "=", "PRINSESSEN DROOM")], limit=1
+        )
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+        product_template_object = self.env["product.template"]
+        imported_product = product_template_object.search(
+            [("name", "=", "PRINSESSEN DROOM")]
+        )
+
+        self.assertEqual(imported_product.uom_id.name, "Units")
+
     def test_product_import_cwa_product_import_into_product_template(self):
         cwa_product_obj = self.env["cwa.product"]
         self.import_first_file(cwa_product_obj)
