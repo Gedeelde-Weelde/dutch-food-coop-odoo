@@ -210,8 +210,6 @@
         <field name="code">
             for record in records.filtered(lambda p: p.state == "new"):
                 action = record.to_product()
-                if action:
-                    action
         </field>
     </record>
 

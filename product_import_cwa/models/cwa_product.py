@@ -493,7 +493,7 @@ class CwaProduct(models.Model):
                 pass
             else:
                 raise
-        return True
+        return
 
     def _create_new_product(self, extra_prod_dict, prod_obj, supplier_dict):
         all_fields = self.env["product.template"].fields_get().keys()
