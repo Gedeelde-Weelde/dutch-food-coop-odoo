@@ -624,9 +624,7 @@ class TestProductImportCwa(TransactionCase):
         self.assertEqual(cwa_prod1_changed.state, "new")
         self.assertEqual(cwa_prod2_changed.state, "new")
 
-    def test_when_a_cwa_product_is_imported_twice_it_is_still_possible_to_update_all_cwa_records(
-        self
-    ):
+    def test_when_a_cwa_product_is_imported_twice_it_an_message_is_created(self):
         cwa_product_obj = self.env["cwa.product"]
         self.import_first_file(cwa_product_obj)
         cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
@@ -636,10 +634,9 @@ class TestProductImportCwa(TransactionCase):
         cwa_prod.to_product()
         cwa_prod.to_product()
 
-        imported_product = self.env["product.template"].search(
-            [("name", "=", "BOEKWEIT")]
-        )
-        imported_supplier_info = self.env["product.supplierinfo"].search([("unique_id", "=", imported_product.unique_id)])
         self.import_second_file(cwa_product_obj)
+        message = self.env["mail.message"].search(
+            [("subject", "=", "Duplicate supplier info for product: BOEKWEIT")]
+        )
 
-        self.assertEqual(len(imported_supplier_info), 1)
+        self.assertEqual(len(message), 1)
