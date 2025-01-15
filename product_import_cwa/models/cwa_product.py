@@ -547,7 +547,7 @@ class CwaProduct(models.Model):
                 "list_price": self.consumentenprijs,
                 "seller_ids": [(0, 0, supplier_dict)],
                 "kwaliteit": self.kwaliteit,
-                "available_in_pos": False,
+                "available_in_pos": True,
                 "eenheid": self.eenheid,
                 "herkomst": self.herkomst,
                 "inhoud": self.inhoud,
