@@ -217,6 +217,10 @@ class CwaProduct(models.Model):
             supplier_info = self.env["product.supplierinfo"].search(
                 [("unique_id", "=", cwa_product.unique_id)]
             )
+            if len(supplier_info) > 1:
+                supplier_info = supplier_info[0]
+                self._send_supplierinfo_duplicate_message(supplier_info)
+
             if supplier_info:
                 supplier_info_vals = {
                     map_key(key): getattr(self, key) for key in FIELDS_TO_SUPPLIER_INFO
@@ -226,6 +230,41 @@ class CwaProduct(models.Model):
                 )
                 supplier_info.write(supplier_info_vals)
         return result
+
+    def _send_supplierinfo_duplicate_message(self, supplier_info):
+        channel = self._get_or_create_mail_channel()
+        body = (
+            f"Please check product with name: "
+            f"{supplier_info.product_name} and product template id: "
+            f"{supplier_info.product_tmpl_id}"
+        )
+        subject = f"Duplicate supplier info for product: {supplier_info.product_name}"
+
+        _logger.warning(body)
+
+        channel.message_post(
+            subject=subject,
+            body=body,
+        )
+
+    def _get_or_create_mail_channel(self):
+        channel = (
+            self.env["mail.channel"]
+            .sudo()
+            .search([("name", "=", "Announcements")], limit=1)
+        )
+        if not channel:
+            channel = (
+                self.env["mail.channel"]
+                .sudo()
+                .create(
+                    {
+                        "name": "Announcements",
+                        "channel_type": "channel",
+                    }
+                )
+            )
+        return channel
 
     @api.model
     def parse_from_xml(self, prod_file):
