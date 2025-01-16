@@ -14,6 +14,11 @@
         "uom",
         "product_food_fields",
     ],
+    "assets": {
+        "point_of_sale.assets": [
+            "product_import_cwa/static/src/xml/extend_customer_facing_display_order.xml",
+        ],
+    },
     "data": [
         "data/res_partner.xml",
         "data/ir_cron.xml",
