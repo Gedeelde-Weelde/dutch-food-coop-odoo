@@ -1011,6 +1011,7 @@ msgid "EAN Codes"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_import_product_change__eancode
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__eancode
 msgid "EAN code"
 msgstr ""
@@ -1021,6 +1022,7 @@ msgid "EAN code."
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__eancode
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__eancode
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_product__eancode
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__eancode
