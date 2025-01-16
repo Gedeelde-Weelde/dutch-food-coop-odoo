@@ -16,6 +16,7 @@ class CwaImportProductChange(models.Model):
         default="new",
         required=True,
     )
+    eancode = fields.Char(store=False, related="source_cwa_product_id.eancode")
     value_changes = fields.Json()
     changed_fields = fields.Char(store=False, compute="_compute_changed_fields")
 
