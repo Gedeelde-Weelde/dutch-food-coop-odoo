@@ -145,7 +145,7 @@ class TestProductImportCwa(TransactionCase):
         cwa_product_obj = self.env["cwa.product"]
         self.import_first_file(cwa_product_obj)
         count = self.import_second_file(cwa_product_obj)
-        self.assertEqual(count, 1)
+        self.assertEqual(count, 2)
         cwa_prod2 = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
         self.assertTrue("EEKHOORNS" in cwa_prod2.ingredienten)
 
@@ -640,3 +640,37 @@ class TestProductImportCwa(TransactionCase):
         )
 
         self.assertEqual(len(message), 1)
+
+    # ruff: noqa: E501
+    def test_first_imported_supplier_stays_preferred_supplier_when_a_new_one_is_imported(
+        self
+    ):
+        # ruff: enable
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1001"),
+            ]
+        )
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin(country_code="NL")
+        cwa_prod.to_product()
+
+        other_cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1002"),
+            ]
+        )
+        other_cwa_prod.to_product()
+        reloaded_product = self.env["product.template"].search(
+            [("name", "=", "SPROOKJES ROOD")]
+        )
+
+        self.import_second_file(cwa_product_obj)
+
+        self.assertEqual(
+            reloaded_product.preferred_supplier_id.leveranciernummer, "1001"
+        )
