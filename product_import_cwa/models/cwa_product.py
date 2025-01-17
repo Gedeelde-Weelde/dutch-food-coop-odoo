@@ -515,10 +515,10 @@ class CwaProduct(models.Model):
             elif products_by_same_unique_code and supplier_product_info_dict[
                 "omschrijving"
             ] not in products_by_same_unique_code.mapped("seller_ids.partner_id.id"):
-                supplier_product_info_dict["sequence"] = 5  # give it least preference
-                products_by_same_unique_code[0].write(
-                    {"seller_ids": [(0, 0, supplier_product_info_dict)]}
-                )
+                product = products_by_same_unique_code[0]
+                new_sequence = product.preferred_supplier_id.sequence + 10
+                supplier_product_info_dict["sequence"] = new_sequence
+                product.write({"seller_ids": [(0, 0, supplier_product_info_dict)]})
             # Otherwise throw an error, supplier/eancode already exists
             else:
                 raise ValidationError(
