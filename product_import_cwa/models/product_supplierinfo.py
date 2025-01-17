@@ -9,7 +9,6 @@ _logger = logging.getLogger(__name__)
 
 class ProductSupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
-    _order = "sequence"
 
     sequence = fields.Integer(default=1)
     cwa = fields.Boolean(string="Is Cwa")
