@@ -509,14 +509,15 @@ class CwaProduct(models.Model):
                 and supplier_product_info_dict["partner_id"]
                 not in products_by_same_ean_code.mapped("seller_ids.partner_id.id")
             ):
-                products_by_same_ean_code[0].write(
-                    {"seller_ids": [(0, 0, supplier_product_info_dict)]}
-                )
+                product = products_by_same_ean_code[0]
+                new_sequence = product.preferred_supplier_id.sequence + 1
+                supplier_product_info_dict["sequence"] = new_sequence
+                product.write({"seller_ids": [(0, 0, supplier_product_info_dict)]})
             elif products_by_same_unique_code and supplier_product_info_dict[
                 "omschrijving"
             ] not in products_by_same_unique_code.mapped("seller_ids.partner_id.id"):
                 product = products_by_same_unique_code[0]
-                new_sequence = product.preferred_supplier_id.sequence + 10
+                new_sequence = product.preferred_supplier_id.sequence + 1
                 supplier_product_info_dict["sequence"] = new_sequence
                 product.write({"seller_ids": [(0, 0, supplier_product_info_dict)]})
             # Otherwise throw an error, supplier/eancode already exists

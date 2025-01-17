@@ -111,7 +111,8 @@ class ProductTemplate(models.Model):
     def _compute_preferred_supplier(self):
         for this in self:
             if this.seller_ids:
-                this.preferred_supplier_id = this.seller_ids[0].id
+                preferred_seller = min(this.seller_ids, key=lambda s: s.sequence)
+                this.preferred_supplier_id = preferred_seller.id
             else:
                 this.preferred_supplier_id = None
 
@@ -119,7 +120,8 @@ class ProductTemplate(models.Model):
     def _search_preferred_supplier(self, operator, value):
         for this in self:
             if this.seller_ids:
-                this.preferred_supplier_id = this.seller_ids[0].id
+                preferred_seller = min(this.seller_ids, key=lambda s: s.sequence)
+                this.preferred_supplier_id = preferred_seller.id
 
     def unlink(self):
         for prod in self:
