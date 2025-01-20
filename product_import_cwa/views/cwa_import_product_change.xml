@@ -1,5 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+
+
+    <record id="view_cwa_import_product_change_search" model="ir.ui.view">
+        <field name="name">cwa.import.product.change.search</field>
+        <field name="model">cwa.import.product.change</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="eancode" string="EAN Code" />
+                <field
+                    name="affected_product_id"
+                    string="Affected Product"
+                    operator="ilike"
+                />
+                <field
+                    name="product_supplierinfo_supplier"
+                    string="Vendor"
+                    operator="ilike"
+                />
+                <field name="state" string="Status" />
+                <filter
+                    name="state_new"
+                    string="New"
+                    domain="[('state', '=', 'new')]"
+                />
+                <filter
+                    name="state_non_preferred_new"
+                    string="Non preferred new"
+                    domain="[('state', '=', 'no-preferred-new')]"
+                />
+                <filter
+                    name="state_processed"
+                    string="Processed"
+                    domain="[('state', '=', 'processed')]"
+                />
+            </search>
+        </field>
+    </record>
+
     <record id="view_cwa_import_product_change_tree" model="ir.ui.view">
         <field name="name">cwa.import.product.change.tree</field>
         <field name="model">cwa.import.product.change</field>

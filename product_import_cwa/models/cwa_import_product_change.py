@@ -58,7 +58,9 @@ class CwaImportProductChange(models.Model):
         related="product_supplierinfo_id.inkoopprijs"
     )
     product_supplierinfo_supplier = fields.Many2one(
-        related="product_supplierinfo_id.partner_id"
+        related="product_supplierinfo_id.partner_id",
+        store=True,
+        readonly=True,
     )
 
     @api.depends("value_changes")
