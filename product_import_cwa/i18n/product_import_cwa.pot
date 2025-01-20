@@ -167,6 +167,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__affected_product_id
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Affected Product"
 msgstr ""
 
@@ -1003,6 +1004,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_product_form_import_to_product
 msgid "Do you really want to import the selected items?"
+msgstr ""
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
+msgid "EAN Code"
 msgstr ""
 
 #. module: product_import_cwa
@@ -1916,12 +1922,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__new
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__state__new
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_product_filter
 msgid "New"
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__no-preferred-new
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Non preferred new"
 msgstr ""
 
@@ -2188,6 +2196,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__processed
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Processed"
 msgstr ""
 
@@ -2537,6 +2546,7 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__status
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__status
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_product_filter
 msgid "Status"
 msgstr ""
@@ -2797,6 +2807,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__product_supplierinfo_supplier
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Vendor"
 msgstr ""
 
