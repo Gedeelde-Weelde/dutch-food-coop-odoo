@@ -23,6 +23,7 @@ class ProductTemplate(models.Model):
         compute="_compute_preferred_supplier",
         search="_search_preferred_supplier",
         string="Preferred Supplier",
+        store=True,
     )
     inhoud = fields.Char(help="Inhoud van de verpakking.")
     eenheid = fields.Char(help="Eenheid van de inhoud.")
@@ -116,12 +117,23 @@ class ProductTemplate(models.Model):
             else:
                 this.preferred_supplier_id = None
 
-    @api.depends("seller_ids")
     def _search_preferred_supplier(self, operator, value):
-        for this in self:
-            if this.seller_ids:
-                preferred_seller = min(this.seller_ids, key=lambda s: s.sequence)
-                this.preferred_supplier_id = preferred_seller.id
+        # Search for supplier partners in res.partner
+        supplier_domain = [
+            ("name", operator, value)
+        ]  # Adjust the domain for the search criteria
+        matching_partners = self.env["res.partner"].search(supplier_domain)
+
+        if matching_partners:
+            supplierinfo_domain = [("partner_id", "in", matching_partners.ids)]
+            matching_supplierinfo = self.env["product.supplierinfo"].search(
+                supplierinfo_domain
+            )
+            if matching_supplierinfo:
+                return [("preferred_supplier_id", "in", matching_supplierinfo.ids)]
+
+        # If no match is found, return a domain that resolves to no records
+        return [("preferred_supplier_id", "=", False)]
 
     def unlink(self):
         for prod in self:
