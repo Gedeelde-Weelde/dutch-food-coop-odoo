@@ -1261,6 +1261,11 @@ msgid "Import Product and Supplier Info"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tree_view
+msgid "Import Product and Supplierinfo, if not already imported"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.actions.act_window,name:product_import_cwa.action_import_to_product
 msgid "Import to products"
 msgstr ""
