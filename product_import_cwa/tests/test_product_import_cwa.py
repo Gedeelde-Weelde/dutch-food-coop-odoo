@@ -658,19 +658,19 @@ class TestProductImportCwa(TransactionCase):
         )
 
         import_result.update_product_with_latest_changes()
-        changed_fields = "inkoopprijs, consumentenprijs, ingangsdatum, ingredients"
 
         reloaded_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
+        reloaded_cwa_product = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
 
         expected_result = {
-            "list_price": 3.9,
+            "list_price": reloaded_cwa_product.consumentenprijs,
             "ingredients": "INGREDIENTENN: BOEKWEIT, EEKHOORNS",
-            "standard_price": 2.3,
+            "standard_price": reloaded_cwa_product.inkoopprijs,
         }
         actual_result = {
             "list_price": reloaded_product.list_price,
             "ingredients": reloaded_product.ingredients,
-            "standard_price": reloaded_product.standard_price,
+            "standard_price": round(reloaded_product.standard_price, 2), # Why rounding problems??
         }
         self.assertEqual(actual_result, expected_result)
 

@@ -535,66 +535,77 @@ class CwaProduct(models.Model):
                 raise
         return
 
+    def update_from_recent_changes(self, imported_product):
+        new_values = self._create_product_dict_from_self()
+        imported_product.write(new_values)
+
+
     def _create_new_product(self, extra_prod_dict, prod_obj, supplier_dict):
         all_fields = self.env["product.template"].fields_get().keys()
         prod_dict = self.env["product.template"].default_get(list(all_fields))
         prod_dict.update(
-            {
-                "unique_id": self.unique_id,
-                "eancode": self.eancode,
-                "barcode": self.eancode,
-                "name": self.omschrijving,
-                "standard_price": self.inkoopprijs,
-                "list_price": self.consumentenprijs,
-                "seller_ids": [(0, 0, supplier_dict)],
-                "kwaliteit": self.kwaliteit,
-                "available_in_pos": True,
-                "eenheid": self.eenheid,
-                "herkomst": self.herkomst,
-                "inhoud": self.inhoud,
-                "verpakkingce": self.verpakkingce,
-                "ingredients": self.ingredienten,
-                "usage_tips": self.gebruikstips,
-                "storage_temperature": self.bewaartemperatuur,
-                "use_by_days": self.aantaldagenhoudbaar,
-                "d204": self.d204,
-                "d209": self.d209,
-                "d210": self.d210,
-                "d212": self.d212,
-                "d213": self.d213,
-                "d214": self.d214,
-                "d234": self.d234,
-                "d215": self.d215,
-                "d239": self.d239,
-                "d216": self.d216,
-                "d217": self.d217,
-                "d217b": self.d217b,
-                "d220": self.d220,
-                "d221": self.d221,
-                "d221b": self.d221b,
-                "d222": self.d222,
-                "d223": self.d223,
-                "d236": self.d236,
-                "d235": self.d235,
-                "d238": self.d238,
-                "d238b": self.d238b,
-                "d225": self.d225,
-                "d226": self.d226,
-                "d228": self.d228,
-                "d230": self.d230,
-                "d232": self.d232,
-                "d237": self.d237,
-                "d240": self.d240,
-                "d241": self.d241,
-                "d242": self.d242,
-                "proefdiervrij": self.proefdiervrij,
-                "vegetarisch": self.vegetarisch,
-                "veganistisch": self.veganistisch,
-                "rauwemelk": self.rauwemelk,
-            }
+            self._create_product_dict_from_self()
         )
+        prod_dict.update({
+            "seller_ids": [(0, 0, supplier_dict)],
+        })
         prod_dict.update(extra_prod_dict)
         prod_obj.create(prod_dict)
+
+
+    def _create_product_dict_from_self(self):
+        return {
+            "unique_id": self.unique_id,
+            "eancode": self.eancode,
+            "barcode": self.eancode,
+            "name": self.omschrijving,
+            "standard_price": self.inkoopprijs,
+            "list_price": self.consumentenprijs,
+            "kwaliteit": self.kwaliteit,
+            "available_in_pos": True,
+            "eenheid": self.eenheid,
+            "herkomst": self.herkomst,
+            "inhoud": self.inhoud,
+            "verpakkingce": self.verpakkingce,
+            "ingredients": self.ingredienten,
+            "usage_tips": self.gebruikstips,
+            "storage_temperature": self.bewaartemperatuur,
+            "use_by_days": self.aantaldagenhoudbaar,
+            "d204": self.d204,
+            "d209": self.d209,
+            "d210": self.d210,
+            "d212": self.d212,
+            "d213": self.d213,
+            "d214": self.d214,
+            "d234": self.d234,
+            "d215": self.d215,
+            "d239": self.d239,
+            "d216": self.d216,
+            "d217": self.d217,
+            "d217b": self.d217b,
+            "d220": self.d220,
+            "d221": self.d221,
+            "d221b": self.d221b,
+            "d222": self.d222,
+            "d223": self.d223,
+            "d236": self.d236,
+            "d235": self.d235,
+            "d238": self.d238,
+            "d238b": self.d238b,
+            "d225": self.d225,
+            "d226": self.d226,
+            "d228": self.d228,
+            "d230": self.d230,
+            "d232": self.d232,
+            "d237": self.d237,
+            "d240": self.d240,
+            "d241": self.d241,
+            "d242": self.d242,
+            "proefdiervrij": self.proefdiervrij,
+            "vegetarisch": self.vegetarisch,
+            "veganistisch": self.veganistisch,
+            "rauwemelk": self.rauwemelk,
+        }
 
     def _translate_standard_unit_of_packiging(self, supplier_dict):
         if self.sve:
