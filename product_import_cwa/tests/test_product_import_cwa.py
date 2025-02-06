@@ -641,6 +641,40 @@ class TestProductImportCwa(TransactionCase):
 
         self.assertEqual(len(message), 1)
 
+    def test_cwa_import_changes_allow_for_automatic_update_of_product(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
+
+        self.import_second_file(cwa_product_obj)
+
+        import_result = self.env["cwa.import.product.change"].search(
+            [("affected_product_id", "=", imported_product.id)]
+        )
+
+        import_result.update_product_with_latest_changes()
+        changed_fields = "inkoopprijs, consumentenprijs, ingangsdatum, ingredients"
+
+        reloaded_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
+
+        expected_result = {
+            "list_price": 3.9,
+            "ingredients": "INGREDIENTENN: BOEKWEIT, EEKHOORNS",
+            "standard_price": 2.3,
+        }
+        actual_result = {
+            "list_price": reloaded_product.list_price,
+            "ingredients": reloaded_product.ingredients,
+            "standard_price": reloaded_product.standard_price,
+        }
+        self.assertEqual(actual_result, expected_result)
+
+
     # ruff: noqa: E501
     def test_first_imported_supplier_stays_preferred_supplier_when_a_new_one_is_imported(
         self

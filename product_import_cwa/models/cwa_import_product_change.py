@@ -63,6 +63,10 @@ class CwaImportProductChange(models.Model):
         readonly=True,
     )
 
+    def update_product_with_latest_changes(self):
+        self.ensure_one()
+        pass
+
     @api.depends("value_changes")
     def _compute_changed_fields(self):
         for record in self:
