@@ -742,6 +742,50 @@ class TestProductImportCwa(TransactionCase):
 
         self.assertEqual(import_result.state, "no-preferred-new")
 
+    def test_cwa_import_changes_are_bulk_action_returns_result_info(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1001"),
+            ]
+        )
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin(country_code="NL")
+        cwa_prod.to_product()
+
+        other_cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1002"),
+            ]
+        )
+        other_cwa_prod.to_product()
+
+        cwa_prod3 = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod3)
+        self.create_origin()
+        cwa_prod3.to_product()
+
+
+        self.import_second_file(cwa_product_obj)
+
+        import_result = self.env["cwa.import.product.change"].search([
+            ("source_cwa_product_id.name", "in", ["BOEKWEIT", "SPROOKJES ROOD"])
+        ])
+
+        result = import_result.update_all_product_with_latest_changes()
+
+        expected_result = {
+            "processed": 1,
+            "skipped": 1,
+        }
+
+        self.assertEqual(result, expected_result)
+
+
+
     # ruff: noqa: E501
     def test_first_imported_supplier_stays_preferred_supplier_when_a_new_one_is_imported(
         self

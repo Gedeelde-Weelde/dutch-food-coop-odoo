@@ -72,6 +72,19 @@ class CwaImportProductChange(models.Model):
             )
             self.state = "processed-automatically"
 
+    def update_all_product_with_latest_changes(self):
+        result = {
+            "processed": 0,
+            "skipped": 0,
+        }
+        for record in self:
+            record.update_product_with_latest_changes()
+            if record.state == "processed-automatically":
+                result["processed"] += 1
+            else:
+                result["skipped"] += 1
+        return result
+
     @api.depends("value_changes")
     def _compute_changed_fields(self):
         for record in self:
