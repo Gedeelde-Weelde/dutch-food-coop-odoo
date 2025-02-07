@@ -768,12 +768,11 @@ class TestProductImportCwa(TransactionCase):
         self.create_origin()
         cwa_prod3.to_product()
 
-
         self.import_second_file(cwa_product_obj)
 
-        import_result = self.env["cwa.import.product.change"].search([
-            ("source_cwa_product_id.name", "in", ["BOEKWEIT", "SPROOKJES ROOD"])
-        ])
+        import_result = self.env["cwa.import.product.change"].search(
+            [("source_cwa_product_id.name", "in", ["BOEKWEIT", "SPROOKJES ROOD"])]
+        )
 
         result = import_result.update_all_product_with_latest_changes()
 
@@ -783,8 +782,6 @@ class TestProductImportCwa(TransactionCase):
         }
 
         self.assertEqual(result, expected_result)
-
-
 
     # ruff: noqa: E501
     def test_first_imported_supplier_stays_preferred_supplier_when_a_new_one_is_imported(

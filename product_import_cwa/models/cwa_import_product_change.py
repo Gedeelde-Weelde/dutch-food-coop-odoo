@@ -78,8 +78,12 @@ class CwaImportProductChange(models.Model):
             "skipped": 0,
         }
         for record in self:
+            previous_state = record.state
             record.update_product_with_latest_changes()
-            if record.state == "processed-automatically":
+            if (
+                record.state == "processed-automatically"
+                and previous_state != record.state
+            ):
                 result["processed"] += 1
             else:
                 result["skipped"] += 1
