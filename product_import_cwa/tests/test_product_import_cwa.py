@@ -145,7 +145,7 @@ class TestProductImportCwa(TransactionCase):
         cwa_product_obj = self.env["cwa.product"]
         self.import_first_file(cwa_product_obj)
         count = self.import_second_file(cwa_product_obj)
-        self.assertEqual(count, 2)
+        self.assertEqual(count, 3)
         cwa_prod2 = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
         self.assertTrue("EEKHOORNS" in cwa_prod2.ingredienten)
 
@@ -649,7 +649,9 @@ class TestProductImportCwa(TransactionCase):
         self.create_origin()
         cwa_prod.to_product()
 
-        imported_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
 
         self.import_second_file(cwa_product_obj)
 
@@ -659,8 +661,12 @@ class TestProductImportCwa(TransactionCase):
 
         import_result.update_product_with_latest_changes()
 
-        reloaded_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
-        reloaded_cwa_product = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        reloaded_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
+        reloaded_cwa_product = cwa_product_obj.search(
+            [("omschrijving", "=", "BOEKWEIT")]
+        )
 
         expected_result = {
             "list_price": reloaded_cwa_product.consumentenprijs,
@@ -670,11 +676,15 @@ class TestProductImportCwa(TransactionCase):
         actual_result = {
             "list_price": reloaded_product.list_price,
             "ingredients": reloaded_product.ingredients,
-            "standard_price": round(reloaded_product.standard_price, 2), # Why rounding problems??
+            "standard_price": round(
+                reloaded_product.standard_price, 2
+            ),  # Why rounding problems??
         }
         self.assertEqual(actual_result, expected_result)
 
-    def test_cwa_import_changes_get_bulk_imported_state_when_processed_using_bulk_action(self):
+    def test_cwa_import_changes_get_bulk_imported_state_when_processed_using_bulk_action(
+        self
+    ):
         cwa_product_obj = self.env["cwa.product"]
         self.import_first_file(cwa_product_obj)
         cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
@@ -682,7 +692,9 @@ class TestProductImportCwa(TransactionCase):
         self.create_origin()
         cwa_prod.to_product()
 
-        imported_product = self.env["product.template"].search([("name", "=", "BOEKWEIT")])
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
 
         self.import_second_file(cwa_product_obj)
 
@@ -694,6 +706,41 @@ class TestProductImportCwa(TransactionCase):
 
         self.assertEqual(import_result.state, "processed-automatically")
 
+    def test_cwa_import_changes_are_not_processed_for_non_preferred_when_processed_using_bulk_action(
+        self
+    ):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1001"),
+            ]
+        )
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin(country_code="NL")
+        cwa_prod.to_product()
+
+        other_cwa_prod = cwa_product_obj.search(
+            [
+                ("omschrijving", "=", "SPROOKJES ROOD"),
+                ("leveranciernummer", "=", "1002"),
+            ]
+        )
+        other_cwa_prod.to_product()
+
+        self.import_second_file(cwa_product_obj)
+
+        import_result = self.env["cwa.import.product.change"].search(
+            [
+                ("source_cwa_product_id", "=", other_cwa_prod.id),
+                ("state", "=", "no-preferred-new"),
+            ]
+        )
+
+        import_result.update_product_with_latest_changes()
+
+        self.assertEqual(import_result.state, "no-preferred-new")
 
     # ruff: noqa: E501
     def test_first_imported_supplier_stays_preferred_supplier_when_a_new_one_is_imported(

@@ -539,19 +539,17 @@ class CwaProduct(models.Model):
         new_values = self._create_product_dict_from_self()
         imported_product.write(new_values)
 
-
     def _create_new_product(self, extra_prod_dict, prod_obj, supplier_dict):
         all_fields = self.env["product.template"].fields_get().keys()
         prod_dict = self.env["product.template"].default_get(list(all_fields))
+        prod_dict.update(self._create_product_dict_from_self())
         prod_dict.update(
-            self._create_product_dict_from_self()
+            {
+                "seller_ids": [(0, 0, supplier_dict)],
+            }
         )
-        prod_dict.update({
-            "seller_ids": [(0, 0, supplier_dict)],
-        })
         prod_dict.update(extra_prod_dict)
         prod_obj.create(prod_dict)
-
 
     def _create_product_dict_from_self(self):
         return {
