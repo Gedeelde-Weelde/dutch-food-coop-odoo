@@ -9,6 +9,8 @@ access_cwa_product_uom,access_cwa_product_uom,model_cwa_product_uom,base.group_u
 access_cwa_vat_tax,access_cwa_vat_tax,model_cwa_vat_tax,base.group_user,1,1,1,1
 access_cwa_import_product_change_admin,cwa.import.product.change admin,model_cwa_import_product_change,base.group_no_one,1,1,1,1
 access_cwa_import_product_change_user,cwa.import.product.change user,model_cwa_import_product_change,base.group_user,1,1,1,1
+access_cwa_product_deposit_admin,cwa.product.deposit admin,model_cwa_product_deposit,base.group_no_one,1,1,1,1
+access_cwa_product_deposit_user,cwa.product.deposit user,model_cwa_product_deposit,base.group_user,1,1,1,1
 access_cwa_brand_translation_wizard_admin,cwa.brand.translation.wizard admin,model_cwa_brand_translation_wizard,base.group_no_one,1,1,1,1
 access_cwa_brand_translation_wizard_user,cwa.brand.translation.wizard user,model_cwa_brand_translation_wizard,base.group_user,1,1,1,1
 access_cwa_uom_translation_wizard_admin,cwa.uom.translation.wizard admin,model_cwa_uom_translation_wizard,base.group_no_one,1,1,1,1

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <!-- Tree View -->
+    <record id="cwa_product_deposit_tree_view" model="ir.ui.view">
+        <field name="name">product.deposit.tree</field>
+        <field name="model">cwa.product.deposit</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="source_deposit_price" />
+                <field name="deposit_product_id" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form View -->
+    <record id="cwa_product_deposit_form_view" model="ir.ui.view">
+        <field name="name">product.deposit.form</field>
+        <field name="model">cwa.product.deposit</field>
+        <field name="arch" type="xml">
+            <form string="Product Deposit">
+                <sheet>
+                    <group>
+                        <field name="source_deposit_price" />
+                        <field name="deposit_product_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_cwa_product_deposit" model="ir.actions.act_window">
+        <field name="name">CWA Product Deposit</field>
+        <field name="res_model">cwa.product.deposit</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+    </record>
+
+    <!-- Menu Item -->
+    <menuitem
+        name="Product Deposit"
+        parent="sale.prod_config_main"
+        id="cwa_product_deposit_menuitem"
+        sequence="70"
+        action="action_cwa_product_deposit"
+    />
+</odoo>

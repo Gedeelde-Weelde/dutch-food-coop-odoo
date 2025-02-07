@@ -488,6 +488,8 @@ class CwaProduct(models.Model):
                     },
                 }
 
+            self._translate_deposit(extra_prod_dict)
+
             # Search if a product with this EAN code already exists
             prod_obj = self.env["product.template"]
             products_by_same_unique_code = prod_obj.search(
@@ -787,6 +789,15 @@ class CwaProduct(models.Model):
                 extra_prod_dict["supplier_taxes_id"] = [
                     (6, 0, translated_btw.purchase_tax.ids)
                 ]
+
+    def _translate_deposit(self, extra_prod_dict):
+        deposit = self.statiegeld
+        if deposit > 0:
+            translated_deposit = self.env["cwa.product.deposit"].get_translated(deposit)
+            if translated_deposit.deposit_product_id.id:
+                extra_prod_dict[
+                    "deposit_product_id"
+                ] = translated_deposit.deposit_product_id.product_variant_id
 
     def _translate_product_origin(self, extra_prod_dict):
         country_code = self.herkomst

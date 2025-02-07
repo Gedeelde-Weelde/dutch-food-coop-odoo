@@ -10,6 +10,7 @@
         <inhoud>1</inhoud>
         <eenheid>Liter</eenheid>
         <verpakkingce />
+        <statiegeld>0.7</statiegeld>
         <merk>Zuiver Zuivel</merk>
         <kwaliteit>BD</kwaliteit>
         <herkomst>NL</herkomst>
@@ -67,6 +68,7 @@
         <inhoud>1</inhoud>
         <eenheid>Liter</eenheid>
         <verpakkingce />
+        <statiegeld>0.7</statiegeld>
         <merk>Zuiver Zuivel</merk>
         <kwaliteit>BD</kwaliteit>
         <herkomst>NL</herkomst>

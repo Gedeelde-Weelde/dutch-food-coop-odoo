@@ -2,6 +2,7 @@ from . import utils
 from . import cwa_product
 from . import cwa_product_brands
 from . import cwa_product_cblcode
+from . import cwa_product_deposit
 from . import cwa_product_quality
 from . import cwa_product_suppliers
 from . import cwa_product_uom
