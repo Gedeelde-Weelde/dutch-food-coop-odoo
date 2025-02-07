@@ -113,6 +113,28 @@
         <field name="target">new</field>
     </record>
 
+    <record id="server_action_bulk_process_product_changes" model="ir.actions.server">
+        <field name="name">Bulk process changes</field>
+        <field name="model_id" ref="model_cwa_import_product_change" />
+        <field name="binding_model_id" ref="model_cwa_import_product_change" />
+        <field name="state">code</field>
+        <field name="code">
+            result = records.update_all_product_with_latest_changes()
+action = {
+    'type': 'ir.actions.client',
+    'tag': 'display_notification',
+    'params': {
+        'title': 'Product Updates Complete',
+        'message': f"Processed: {result['processed']} products, Skipped: {result['skipped']} products because they where non preferred or processed",
+        'type': 'info',
+        'sticky': True,
+    }
+}
+action
+
+        </field>
+    </record>
+
     <menuitem
         id="menu_imported_changes"
         action="action_cwa_import_product_change"

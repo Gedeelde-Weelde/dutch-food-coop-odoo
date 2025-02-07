@@ -12,6 +12,7 @@ class CwaImportProductChange(models.Model):
             ("new", "New"),
             ("no-preferred-new", "Non preferred new"),
             ("processed", "Processed"),
+            ("processed-automatically", "Processed automatically"),
         ],
         default="new",
         required=True,
@@ -62,6 +63,31 @@ class CwaImportProductChange(models.Model):
         store=True,
         readonly=True,
     )
+
+    def update_product_with_latest_changes(self):
+        self.ensure_one()
+        if self.state == "new":
+            self.source_cwa_product_id.update_from_recent_changes(
+                self.affected_product_id
+            )
+            self.state = "processed-automatically"
+
+    def update_all_product_with_latest_changes(self):
+        result = {
+            "processed": 0,
+            "skipped": 0,
+        }
+        for record in self:
+            previous_state = record.state
+            record.update_product_with_latest_changes()
+            if (
+                record.state == "processed-automatically"
+                and previous_state != record.state
+            ):
+                result["processed"] += 1
+            else:
+                result["skipped"] += 1
+        return result
 
     @api.depends("value_changes")
     def _compute_changed_fields(self):

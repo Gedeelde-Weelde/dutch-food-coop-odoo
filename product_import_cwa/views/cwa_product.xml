@@ -46,7 +46,7 @@
                     name="to_product"
                     type="object"
                     icon="fa-mail-forward"
-                    string="Import Product and Supplierinfo, if not already imported"
+                    string="Import Product and Supplierinfo"
                 />
                 <field name="leveranciernummer" />
                 <field name="bestelnummer" />
