@@ -310,6 +310,11 @@ msgid "Btw"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.actions.server,name:product_import_cwa.server_action_bulk_process_product_changes
+msgid "Bulk process changes"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__source_value
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__source_value
@@ -1262,7 +1267,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tree_view
-msgid "Import Product and Supplierinfo, if not already imported"
+msgid "Import Product and Supplierinfo"
 msgstr ""
 
 #. module: product_import_cwa
@@ -2203,6 +2208,11 @@ msgstr ""
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__processed
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Processed"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__processed-automatically
+msgid "Processed automatically"
 msgstr ""
 
 #. module: product_import_cwa
