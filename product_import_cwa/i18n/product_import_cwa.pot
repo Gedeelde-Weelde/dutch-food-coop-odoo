@@ -184,6 +184,7 @@ msgstr ""
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.brand_translation_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_cblcode_view
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_deposit_wizard_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tax_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_uom_translation_wizard_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_uom_wizard_view
@@ -356,6 +357,13 @@ msgid "CWA CBL Code Translation Wizard"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_deposit_wizard
+#: model:ir.model,name:product_import_cwa.model_cwa_deposit_wizard
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_deposit_wizard_form_view
+msgid "CWA Deposit Wizard"
+msgstr ""
+
+#. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.res_config_settings_view_form_cwa
 msgid "CWA FTP"
 msgstr ""
@@ -398,6 +406,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model,name:product_import_cwa.model_cwa_product_import_cblcode_wizard
 msgid "CWA Product CBL Codes Configuration"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_deposit
+msgid "CWA Product Deposit"
 msgstr ""
 
 #. module: product_import_cwa
@@ -466,6 +479,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.brand_translation_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cblcode_translation_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_cblcode_view
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_deposit_wizard_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_product_form_import_to_product
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tax_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_uom_translation_wizard_form_view
@@ -604,12 +618,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__create_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__create_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__create_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__create_uid
@@ -630,12 +646,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__create_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__create_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__create_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__create_date
@@ -952,6 +970,11 @@ msgid "Default Unit of Measure"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__deposit_price
+msgid "Deposit Price"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_vat_tax_trans_wizard__description
 msgid "Description"
 msgstr ""
@@ -964,12 +987,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__display_name
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__display_name
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__display_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__display_name
@@ -1221,12 +1246,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__id
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__id
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__id
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__id
@@ -1505,12 +1532,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard____last_update
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode____last_update
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands____last_update
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode____last_update
@@ -1531,12 +1560,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__write_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__write_uid
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__write_uid
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__write_uid
@@ -1557,12 +1588,14 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_cblcode_translation_wizard__write_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_products__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cblcode__write_date
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_eancode_filter_wizard__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_brands__write_date
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_import_cblcode__write_date
@@ -1601,6 +1634,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_suppliers__leveranciernummer
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__leveranciernummer
 msgid "Leveranciernummer"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__deposit_product_id
+msgid "Linked Product"
 msgstr ""
 
 #. module: product_import_cwa
@@ -2199,6 +2237,11 @@ msgid "Price information"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_product_deposit__source_deposit_price
+msgid "Price of the product deposit."
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_product__price_per_standard_unit
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_template__price_per_standard_unit
 msgid "Price per Standard Unit"
@@ -2248,6 +2291,13 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.actions.act_window,name:product_import_cwa.action_cwa_import_product_change_form
 msgid "Product Change Form"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_product_deposit
+#: model:ir.ui.menu,name:product_import_cwa.cwa_product_deposit_menuitem
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_product_deposit_form_view
+msgid "Product Deposit"
 msgstr ""
 
 #. module: product_import_cwa
@@ -2445,6 +2495,11 @@ msgid "Select Existing Brands"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_product_deposit__deposit_product_id
+msgid "Select a product where the deposit is true."
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__sequence
 msgid "Sequence"
 msgstr ""
@@ -2510,6 +2565,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__source_brand
 msgid "Source Brand"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__source_deposit_price
+msgid "Source Deposit Price"
 msgstr ""
 
 #. module: product_import_cwa
@@ -2618,6 +2678,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__target_brand
 msgid "Target Brand"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_deposit_wizard__target_deposit_product_id
+msgid "Target Deposit Product"
 msgstr ""
 
 #. module: product_import_cwa
