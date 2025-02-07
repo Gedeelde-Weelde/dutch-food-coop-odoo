@@ -12,6 +12,7 @@ class CwaImportProductChange(models.Model):
             ("new", "New"),
             ("no-preferred-new", "Non preferred new"),
             ("processed", "Processed"),
+            ("processed-automatically", "Processed automatically"),
         ],
         default="new",
         required=True,
@@ -66,6 +67,7 @@ class CwaImportProductChange(models.Model):
     def update_product_with_latest_changes(self):
         self.ensure_one()
         self.source_cwa_product_id.update_from_recent_changes(self.affected_product_id)
+        self.state = "processed-automatically"
 
     @api.depends("value_changes")
     def _compute_changed_fields(self):
