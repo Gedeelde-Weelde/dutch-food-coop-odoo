@@ -35,7 +35,8 @@ jobs:
       ADDONS_PATH: >-
         /opt/odoo/addons,
         /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-queue,
-        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-brand
+        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-brand,
+        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-pos
     strategy:
       fail-fast: false
       matrix:
@@ -68,6 +69,11 @@ jobs:
         with:
           repository: OCA/brand
           path: "${{ github.workspace }}/extra-addons-brand"
+      - name: Checkout extra Odoo pos module
+        uses: actions/checkout@v4
+        with:
+          repository: OCA/pos
+          path: "${{ github.workspace }}/extra-addons-pos"
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses
