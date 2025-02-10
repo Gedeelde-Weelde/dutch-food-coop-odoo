@@ -222,6 +222,42 @@
                                     <field name="consumentenprijs" />
                                 </tree>
                             </field>
+                            <separator string="Import changes" />
+                            <field name="cwa_import_product_changes">
+                                <tree>
+                                    <field name="create_date" readonly="1" />
+                                    <button
+                                        class="oe_edit_only"
+                                        name="update_product_with_latest_changes"
+                                        type="object"
+                                        icon="fa-refresh"
+                                        string="Update the Product Changes"
+                                        attrs="{'invisible': [('state', 'not in', ('new', 'no-preferred-new'))]}"
+                                    />
+
+                                    <field name="product_supplierinfo_supplier" readonly="1" />
+                                    <field name="changed_fields" readonly="1" />
+                                    <field
+                                        name="product_supplierinfo_cost_price"
+                                        string="Supplier cost price"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="product_supplierinfo_list_price"
+                                        string="Supplier sell price"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="affected_product_id_cost_price"
+                                        string="Current cost price"
+                                    />
+                                    <field
+                                        name="affected_product_id_list_price"
+                                        string="Current sell price"
+                                    />
+                                    <field name="state" />
+                                </tree>
+                            </field>
 
                             <!-- From Preferred Supplier -->
                             <separator string="Ingrediënten" />
