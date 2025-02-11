@@ -14,6 +14,12 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_food_fields
+#: model:ir.model,name:product_food_fields.model_product_food_fields_product_origin
+#: model:ir.model,name:product_food_fields.model_product_template
+msgid "Base class for Digi Sync models"
+msgstr ""
+
+#. module: product_food_fields
 #: model:ir.model.fields,help:product_food_fields.field_product_supplierinfo__ingredients
 msgid "Beschrijving van de ingredienten."
 msgstr ""
@@ -138,12 +144,6 @@ msgid "Origin"
 msgstr ""
 
 #. module: product_food_fields
-#: model:ir.model,name:product_food_fields.model_product_template
-msgid "Product"
-msgstr ""
-
-#. module: product_food_fields
-#: model:ir.model,name:product_food_fields.model_product_food_fields_product_origin
 #: model:ir.ui.menu,name:product_food_fields.menu_product_origin
 #: model_terms:ir.ui.view,arch_db:product_food_fields.product_origin_form
 msgid "Product Origin"
