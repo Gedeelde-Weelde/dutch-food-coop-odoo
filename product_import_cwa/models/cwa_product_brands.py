@@ -9,7 +9,7 @@ class CwaProductBrands(models.Model):
 
     source_value = fields.Char(size=64, required=True)
     destination_value = fields.Many2one(
-        "product.brand", "Brand Name", size=64, ondelete="cascade"
+        "product.brand", "Brand Name", ondelete="cascade"
     )
 
     _sql_constraints = [
