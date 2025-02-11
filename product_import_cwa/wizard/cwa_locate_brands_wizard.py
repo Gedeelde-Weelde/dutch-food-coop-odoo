@@ -50,9 +50,7 @@ class CwaProductBrandsWizard(models.TransientModel):
     cwa_product_id = fields.Many2one("cwa.product", required=True, ondelete="cascade")
     source_brand = fields.Char()
     target_brand = fields.Char(required=True)
-    existing_brands = fields.Many2one(
-        "product.brand", "Select Existing Brands", size=64
-    )
+    existing_brands = fields.Many2one("product.brand", "Select Existing Brands")
 
     def action_apply(self):
         for this in self:

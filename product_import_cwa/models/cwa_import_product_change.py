@@ -31,7 +31,7 @@ class CwaImportProductChange(models.Model):
         "product.supplierinfo",
         compute="_compute_product_supplierinfo",
         search="_search_product_supplierinfo",
-        stored=False,
+        store=False,
     )
 
     product_supplierinfo_ingredients = fields.Text(

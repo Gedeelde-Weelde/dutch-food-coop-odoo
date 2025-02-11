@@ -6,7 +6,6 @@ class CwaUomTranslationWizard(models.TransientModel):
     _description = "UoM Translation Wizard"
 
     inhoud = fields.Float(
-        size=64,
         required=True,
         default=lambda self: self.env.context.get("default_inhoud"),
     )

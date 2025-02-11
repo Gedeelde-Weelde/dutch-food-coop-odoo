@@ -10,10 +10,10 @@ class CwaProductTax(models.Model):
     btw = fields.Integer("BTW", required=True)
     description = fields.Char("Short Name", required=True)
     sale_tax = fields.Many2many(
-        "account.tax", "cwa_sale_taxes_rel", "btw", string="Sales Tax", size=64
+        "account.tax", "cwa_sale_taxes_rel", "btw", string="Sales Tax"
     )
     purchase_tax = fields.Many2many(
-        "account.tax", "cwa_purchase_taxes_rel", "btw", string="Purchases Tax", size=64
+        "account.tax", "cwa_purchase_taxes_rel", "btw", string="Purchases Tax"
     )
 
     @api.model

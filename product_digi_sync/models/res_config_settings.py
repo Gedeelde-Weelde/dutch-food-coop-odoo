@@ -5,10 +5,10 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     digi_client_id = fields.Many2one(
-        "product_digi_sync.digi_client", String="DigiClient to use"
+        "product_digi_sync.digi_client", string="DigiClient to use"
     )
     digi_sync_products_enabled = fields.Boolean(
-        String="Enable sending products to @Fresh"
+        string="Enable sending products to @Fresh"
     )
     weighted_barcode_rule_id = fields.Many2one(
         "barcode.rule", string="Barcode Rule for Weighted products"
