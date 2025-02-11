@@ -379,6 +379,12 @@ msgid "CWA Import Product Change"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__cwa_import_product_changes
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__cwa_import_product_changes
+msgid "CWA Import Product Changes"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model,name:product_import_cwa.model_cwa_import_products
 msgid "CWA Import Products Wizard"
 msgstr ""
@@ -544,11 +550,6 @@ msgid "Code."
 msgstr ""
 
 #. module: product_import_cwa
-#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_supplierinfo_form
-msgid "Compare Prices"
-msgstr ""
-
-#. module: product_import_cwa
 #: model:ir.model,name:product_import_cwa.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -687,11 +688,13 @@ msgid "Current Price"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_tree
 msgid "Current cost price"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_tree
 msgid "Current sell price"
 msgstr ""
@@ -1198,22 +1201,6 @@ msgid "Group by..."
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__has_new_price
-#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__has_new_price
-msgid "Has New Price"
-msgstr ""
-
-#. module: product_import_cwa
-#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_view_search
-msgid "Has new Price"
-msgstr ""
-
-#. module: product_import_cwa
-#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__has_new_price
-msgid "Has new price"
-msgstr ""
-
-#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__hash
 msgid "Hash"
 msgstr ""
@@ -1272,11 +1259,6 @@ msgid "ID"
 msgstr ""
 
 #. module: product_import_cwa
-#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
-msgid "Ignore the Price Changes"
-msgstr ""
-
-#. module: product_import_cwa
 #: model:ir.actions.server,name:product_import_cwa.demo_import_cwa_products_ir_actions_server
 #: model:ir.cron,cron_name:product_import_cwa.demo_import_cwa_products
 msgid "Import DEMO CWA Products"
@@ -1295,6 +1277,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tree_view
 msgid "Import Product and Supplierinfo"
+msgstr ""
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
+msgid "Import changes"
 msgstr ""
 
 #. module: product_import_cwa
@@ -2650,11 +2637,13 @@ msgid "Supplier Pricelist"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_tree
 msgid "Supplier cost price"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_tree
 msgid "Supplier sell price"
 msgstr ""
@@ -2808,11 +2797,6 @@ msgid "Update CBL translations"
 msgstr ""
 
 #. module: product_import_cwa
-#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_supplierinfo_form
-msgid "Update Prices"
-msgstr ""
-
-#. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_tax_wizard_view
 msgid "Update Sales/Purchase BTW"
 msgstr ""
@@ -2829,7 +2813,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
-msgid "Update the Product Price"
+msgid "Update the Product Changes"
 msgstr ""
 
 #. module: product_import_cwa
