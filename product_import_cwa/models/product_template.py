@@ -68,7 +68,6 @@ class ProductTemplate(models.Model):
     price_per_standard_unit = fields.Float(
         "Price per Standard Unit", compute="_compute_price_per_su"
     )
-    has_new_price = fields.Boolean()
     margin = fields.Float(compute="_compute_margin", store=False)
 
     cwa_import_product_changes = fields.One2many(
