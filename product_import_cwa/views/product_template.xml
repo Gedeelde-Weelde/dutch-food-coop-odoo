@@ -42,11 +42,6 @@
                     domain="[('type','=','consu')]"
                     help="Consumable products"
                 />
-                <filter
-                    string="Has new Price"
-                    name="has_new_price"
-                    domain="[('has_new_price', '=', 1)]"
-                />
                 <separator />
                 <filter
                     string="Can be Sold"
@@ -100,7 +95,6 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <tree>
-                <field name="has_new_price" invisible="1" />
                 <field name="name" />
                 <field name="product_brand_id" />
                 <field name="kwaliteit" />
@@ -196,23 +190,7 @@
                             <field name="seller_ids">
                                 <tree>
                                     <field name="sequence" widget="handle" />
-                                    <field name="has_new_price" invisible="1" />
-                                    <button
-                                        class="oe_edit_only"
-                                        name="update_price"
-                                        type="object"
-                                        icon="fa-refresh"
-                                        string="Update the Product Price"
-                                        attrs="{'invisible': [('has_new_price', '=', False)]}"
-                                    />
-                                    <button
-                                        class="oe_edit_only"
-                                        name="ignore_price_change"
-                                        type="object"
-                                        icon="fa-times"
-                                        string="Ignore the Price Changes"
-                                        attrs="{'invisible': [('has_new_price', '=', False)]}"
-                                    />
+                                    <field name="partner_id" />
                                     <field name="leveranciernummer" />
                                     <field name="product_name" />
                                     <field name="min_qty" />
@@ -220,6 +198,50 @@
                                     <field name="inkoopprijs" />
                                     <field name="old_consumentenprijs" />
                                     <field name="consumentenprijs" />
+                                </tree>
+                            </field>
+                            <separator string="Import changes" />
+                            <field name="cwa_import_product_changes">
+                                <tree
+                                    default_order="create_date desc"
+                                    limit="10"
+                                    editable="bottom"
+                                    create="false"
+                                >
+                                    <field name="create_date" readonly="1" />
+                                    <button
+                                        class="oe_edit_only"
+                                        name="update_product_with_latest_changes"
+                                        type="object"
+                                        icon="fa-refresh"
+                                        string="Update the Product Changes"
+                                        attrs="{'invisible': [('state', '!=', 'new')]}"
+                                    />
+
+                                    <field
+                                        name="product_supplierinfo_supplier"
+                                        readonly="1"
+                                    />
+                                    <field name="changed_fields" readonly="1" />
+                                    <field
+                                        name="product_supplierinfo_cost_price"
+                                        string="Supplier cost price"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="product_supplierinfo_list_price"
+                                        string="Supplier sell price"
+                                        readonly="1"
+                                    />
+                                    <field
+                                        name="affected_product_id_cost_price"
+                                        string="Current cost price"
+                                    />
+                                    <field
+                                        name="affected_product_id_list_price"
+                                        string="Current sell price"
+                                    />
+                                    <field name="state" />
                                 </tree>
                             </field>
 

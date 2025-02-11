@@ -84,12 +84,11 @@ class ProductSupplierInfo(models.Model):
     pos_categ_id = fields.Char(
         "NOT A REFERENCE", help="Not a reference field, just a char field."
     )
-    has_new_price = fields.Boolean(string="Has new price")
     product_price = fields.Float(
         related="product_tmpl_id.standard_price", string="Current Price"
     )
 
-    def compare_prices(self):
+    def compare_supplierinfo_and_update_state(self):
         recs = self.search([("cwa", "=", True)])
         cwa_obj = self.env["cwa.product"]
         for this in recs:
@@ -97,13 +96,10 @@ class ProductSupplierInfo(models.Model):
             if cwa and this.price != cwa[0].inkoopprijs:
                 this.write(
                     {
-                        "has_new_price": True,
                         "price": cwa[0].inkoopprijs,
-                        "inkoopprijs": cwa[0].inkoopprijs,
-                        "consumentenprijs": cwa[0].consumentenprijs,
+                        "old_consumentenprijs": this.consumentenprijs,
                     }
                 )
-                this.product_tmpl_id.has_new_price = True
             if cwa:
                 cwa[0].write({"state": "imported"})
         cwa_all = cwa_obj.search([("state", "=", "imported")])
@@ -114,36 +110,6 @@ class ProductSupplierInfo(models.Model):
         not_imported = cwa_all - already_imported
         for item in not_imported:
             item.write({"state": "new"})
-
-    def update_price(self):
-        """Updates the price with new value"""
-        for this in self:
-            this.product_tmpl_id.write(
-                {
-                    "standard_price": this.inkoopprijs,
-                    "list_price": this.consumentenprijs,
-                    "has_new_price": False,
-                }
-            )
-            this.write(
-                {
-                    "has_new_price": False,
-                    "old_consumentenprijs": this.consumentenprijs,
-                }
-            )
-        return True
-
-    def ignore_price_change(self):
-        for this in self:
-            this.write(
-                {
-                    "has_new_price": False,
-                    "price": this.product_price,
-                    "inkoopprijs": this.product_price,
-                    "consumentenprijs": this.old_consumentenprijs,
-                }
-            )
-            this.product_tmpl_id.has_new_price = False
 
     def unlink(self):
         for prod in self:

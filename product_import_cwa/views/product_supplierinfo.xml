@@ -24,24 +24,7 @@
                     <attribute name="attrs">{'required': True}</attribute>
                 </field>
             </data>
-            <xpath expr="//form/sheet/group" position="before">
-                <header>
-                    <button
-                        name="compare_prices"
-                        type="object"
-                        string="Compare Prices"
-                        class="oe_highlight"
-                        groups="base.group_no_one"
-                    />
-                    <button
-                        name="update_price"
-                        type="object"
-                        string="Update Prices"
-                        class="oe_highlight"
-                        attrs="{'invisible':[('has_new_price','=',False)]}"
-                    />
-                </header>
-            </xpath>
+
             <xpath expr="//label[@for='min_qty']" position='attributes'>
                 <attribute name="string">Minimal Order Quantity</attribute>
             </xpath>
@@ -57,7 +40,6 @@
                         attrs="{'readonly': [('cwa', '=', True)]}"
                     />
                     <field name="cwa" invisible="1" />
-                    <field name="has_new_price" invisible="1" />
                 </group>
                 <separator string="CWA Information" colspan="4" />
                 <group name="group_top">

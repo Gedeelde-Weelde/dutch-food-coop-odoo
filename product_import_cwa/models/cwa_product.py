@@ -394,7 +394,7 @@ class CwaProduct(models.Model):
 
         supplierinfo = self.env["product.supplierinfo"].search([], limit=500)
         if supplierinfo:  # Only compare prices if we have records
-            supplierinfo.compare_prices()
+            supplierinfo.compare_supplierinfo_and_update_state()
         return count
 
     @api.model
