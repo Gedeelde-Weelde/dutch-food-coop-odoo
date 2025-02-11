@@ -196,23 +196,7 @@
                             <field name="seller_ids">
                                 <tree>
                                     <field name="sequence" widget="handle" />
-                                    <field name="has_new_price" invisible="1" />
-                                    <button
-                                        class="oe_edit_only"
-                                        name="update_price"
-                                        type="object"
-                                        icon="fa-refresh"
-                                        string="Update the Product Price"
-                                        attrs="{'invisible': [('has_new_price', '=', False)]}"
-                                    />
-                                    <button
-                                        class="oe_edit_only"
-                                        name="ignore_price_change"
-                                        type="object"
-                                        icon="fa-times"
-                                        string="Ignore the Price Changes"
-                                        attrs="{'invisible': [('has_new_price', '=', False)]}"
-                                    />
+                                    <field name="partner_id" />
                                     <field name="leveranciernummer" />
                                     <field name="product_name" />
                                     <field name="min_qty" />
@@ -224,7 +208,12 @@
                             </field>
                             <separator string="Import changes" />
                             <field name="cwa_import_product_changes">
-                                <tree>
+                                <tree
+                                    default_order="create_date desc"
+                                    limit="10"
+                                    editable="bottom"
+                                    create="false"
+                                >
                                     <field name="create_date" readonly="1" />
                                     <button
                                         class="oe_edit_only"
@@ -232,10 +221,13 @@
                                         type="object"
                                         icon="fa-refresh"
                                         string="Update the Product Changes"
-                                        attrs="{'invisible': [('state', 'not in', ('new', 'no-preferred-new'))]}"
+                                        attrs="{'invisible': [('state', '!=', 'new')]}"
                                     />
 
-                                    <field name="product_supplierinfo_supplier" readonly="1" />
+                                    <field
+                                        name="product_supplierinfo_supplier"
+                                        readonly="1"
+                                    />
                                     <field name="changed_fields" readonly="1" />
                                     <field
                                         name="product_supplierinfo_cost_price"

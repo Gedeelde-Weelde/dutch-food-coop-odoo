@@ -72,9 +72,9 @@ class ProductTemplate(models.Model):
     margin = fields.Float(compute="_compute_margin", store=False)
 
     cwa_import_product_changes = fields.One2many(
-        'cwa.import.product.change',
+        "cwa.import.product.change",
         string="CWA Import Product Changes",
-        compute='_compute_cwa_import_product_changes',
+        compute="_compute_cwa_import_product_changes",
         copy=False,
         store=False,
     )
@@ -82,8 +82,8 @@ class ProductTemplate(models.Model):
     @api.depends("unique_id")
     def _compute_cwa_import_product_changes(self):
         for product in self:
-            product_changes = self.env['cwa.import.product.change'].search(
-                [('affected_product_id', '=', product.id)]
+            product_changes = self.env["cwa.import.product.change"].search(
+                [("affected_product_id", "=", product.id)]
             )
             product.cwa_import_product_changes = product_changes
 
