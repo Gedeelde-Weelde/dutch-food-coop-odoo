@@ -892,3 +892,18 @@ class TestProductImportCwa(TransactionCase):
         )
 
         self.assertEqual(len(message), 1)
+
+    def test_the_unique_id_is_not_copied_at_duplication_of_a_product(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")], limit=1
+        )
+        copied_product = imported_product.copy()
+
+        self.assertFalse(copied_product.unique_id)

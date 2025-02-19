@@ -15,7 +15,7 @@ class ProductTemplate(models.Model):
 
     eancode = fields.Char(help="Eancode.")
     kwaliteit = fields.Many2one("cwa.product.quality", help="Kwaliteitsaanduiding.")
-    unique_id = fields.Char("Unique ID.")
+    unique_id = fields.Char("Unique ID.", copy=False)
 
     # From suppliers
     preferred_supplier_id = fields.Many2one(
