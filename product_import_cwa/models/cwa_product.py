@@ -247,6 +247,23 @@ class CwaProduct(models.Model):
             body=body,
         )
 
+    def _send_product_template_duplicate_unique_id_message(self, product_tmpl):
+        channel = self._get_or_create_mail_channel()
+        body = (
+            f"Please check product with name: "
+            f"{product_tmpl.name} and product template id: "
+            f"{product_tmpl.id}"
+            f". Unique id is duplicated and needs fixing: {product_tmpl.unique_id}"
+        )
+        subject = f"Duplicate unique id for product: {product_tmpl.name}"
+
+        _logger.warning(body)
+
+        channel.message_post(
+            subject=subject,
+            body=body,
+        )
+
     def _get_or_create_mail_channel(self):
         channel = (
             self.env["mail.channel"]
@@ -291,8 +308,13 @@ class CwaProduct(models.Model):
             )
         else:
             product_tmpl = self.env["product.template"].search(
-                [("unique_id", "=", cwa_product.unique_id)]
+                [("unique_id", "=", cwa_product.unique_id)],
+                order="id asc",
             )
+        if len(product_tmpl) > 1:
+            for product in product_tmpl[1:]:
+                self._send_product_template_duplicate_unique_id_message(product)
+            product_tmpl = product_tmpl[0]
 
         if product_tmpl:
             changes = self._get_value_changes(supplier_info_vals, supplier_info)
