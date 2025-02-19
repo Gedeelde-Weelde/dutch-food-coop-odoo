@@ -865,9 +865,30 @@ class TestProductImportCwa(TransactionCase):
         imported_product = self.env["product.template"].search(
             [("name", "=", "BOEKWEIT")], limit=1
         )
-        duplicated_product = imported_product.copy()
+        imported_product.copy()
 
         try:
             self.import_second_file(cwa_product_obj)
         except Exception as e:
             self.fail(f"An exception was raised during the second import: {str(e)}")
+
+    def test_when_a_cwa_product_is_imported_and_duplicate_a_message_is_written_detecting_changes(
+        self
+    ):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")], limit=1
+        )
+        imported_product.copy()
+        self.import_second_file(cwa_product_obj)
+        message = self.env["mail.message"].search(
+            [("subject", "=", "Duplicate unique id for product: BOEKWEIT (copy)")]
+        )
+
+        self.assertEqual(len(message), 1)
