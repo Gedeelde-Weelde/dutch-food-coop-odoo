@@ -36,8 +36,8 @@ class ProductTransformer:
             data["UnitPrice"] = int(product.list_price * 100)
         if product.standard_price:
             data["CostPrice"] = int(product.standard_price * 100)
-        if product.categ_id.id:
-            data["MainGroupDataId"] = product.categ_id.external_digi_id
+        if product.pos_categ_id.id:
+            data["MainGroupDataId"] = product.pos_categ_id.external_digi_id
         if product.product_origin_id:
             data["LabelText6DataId"] = product.product_origin_id.external_digi_id
         data["StatusFields"] = {

@@ -1,12 +1,16 @@
+import logging
+
 from odoo import api, fields, models
 
 from odoo.addons.queue_job.exception import RetryableJobError
 
 from .digi_sync_base_model import DigiSyncBaseModel
 
+_logger = logging.getLogger(__name__)
 
-class ProductCategory(DigiSyncBaseModel, models.Model):
-    _inherit = "product.category"
+
+class PosCategory(DigiSyncBaseModel, models.Model):
+    _inherit = "pos.category"
 
     external_digi_id = fields.Integer(
         string="External Digi identifier",

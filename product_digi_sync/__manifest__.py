@@ -13,7 +13,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
-        "views/product_category_views.xml",
+        "views/pos_category_views.xml",
         "views/product_origin_views.xml",
         "views/product_quality_views.xml",
         "views/digi_client_views.xml",
