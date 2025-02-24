@@ -1,7 +1,7 @@
 from . import (
     product_template,
     product_product,
-    product_category,
+    pos_category,
     product_origin,
     product_quality,
     digi_client,

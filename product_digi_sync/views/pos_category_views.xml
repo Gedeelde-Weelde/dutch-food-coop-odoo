@@ -2,10 +2,10 @@
 <odoo>
     <record id="digi_sync_product_category_view_form" model="ir.ui.view">
         <field name="name">product_digi_sync.category.form</field>
-        <field name="model">product.category</field>
-        <field name="inherit_id" ref="product.product_category_form_view" />
+        <field name="model">pos.category</field>
+        <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view" />
         <field name="arch" type="xml">
-            <xpath expr="//group[@name='first']" position="after">
+            <xpath expr="//field[@name='parent_id']" position="after">
                 <div class="external_digi_id">
                     <label for="external_digi_id" string="External digi identifier" />
                     <field name="external_digi_id" />
@@ -17,8 +17,8 @@
     <record id="action_send_product_category_to_digi" model="ir.actions.server">
         <field name="name">Send to digi</field>
         <field name="type">ir.actions.server</field>
-        <field name="model_id" ref="product.model_product_category" />
-        <field name="binding_model_id" ref="product.model_product_category" />
+        <field name="model_id" ref="point_of_sale.model_pos_category" />
+        <field name="binding_model_id" ref="point_of_sale.model_pos_category" />
         <field name="state">code</field>
         <field name="code">
             for record in records:

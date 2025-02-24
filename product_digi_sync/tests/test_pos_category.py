@@ -7,7 +7,7 @@ from odoo.addons.queue_job.models.base import Base as QueueJobBase
 from .digi_sync_base_test_case import DigiSyncBaseTestCase
 
 
-class ProductCategoryTestCase(DigiSyncBaseTestCase):
+class PosCategoryTestCase(DigiSyncBaseTestCase):
     def setUp(self):
         super().setUp()
 
@@ -37,7 +37,7 @@ class ProductCategoryTestCase(DigiSyncBaseTestCase):
         with patch.object(
             DigiClient, "send_category_to_digi"
         ) as mock_send_category_to_digi:
-            category = self.env["product.category"].create(
+            category = self.env["pos.category"].create(
                 {
                     "name": "Test Category",
                 }
@@ -68,7 +68,7 @@ class ProductCategoryTestCase(DigiSyncBaseTestCase):
         mock_send_category_to_digi = patch.object(
             DigiClient, "send_category_to_digi", send_category_to_digi
         ).start()
-        category = self.env["product.category"].create(
+        category = self.env["pos.category"].create(
             {
                 "name": "Test Category",
                 "external_digi_id": 1145,
