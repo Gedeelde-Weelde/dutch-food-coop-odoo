@@ -56,7 +56,7 @@ msgid "Barcode Type ID in @Fresh"
 msgstr ""
 
 #. module: product_digi_sync
-#: model:ir.model,name:product_digi_sync.model_product_category
+#: model:ir.model,name:product_digi_sync.model_pos_category
 #: model:ir.model,name:product_digi_sync.model_product_digi_sync_digi_sync_base
 #: model:ir.model,name:product_digi_sync.model_product_food_fields_product_origin
 #: model:ir.model,name:product_digi_sync.model_product_template
@@ -130,13 +130,13 @@ msgid "Enable sending products to @Fresh"
 msgstr ""
 
 #. module: product_digi_sync
-#: model:ir.model.fields,field_description:product_digi_sync.field_product_category__external_digi_id
+#: model:ir.model.fields,field_description:product_digi_sync.field_pos_category__external_digi_id
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_food_fields_product_origin__external_digi_id
 msgid "External Digi identifier"
 msgstr ""
 
 #. module: product_digi_sync
-#: model:ir.model.constraint,message:product_digi_sync.constraint_product_category_external_digi_id
+#: model:ir.model.constraint,message:product_digi_sync.constraint_pos_category_external_digi_id
 msgid "External Digi identifier must be unique."
 msgstr ""
 
