@@ -64,7 +64,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_storage_temp = 6
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 42,
@@ -87,7 +87,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": "Test product",
                 "ingredients": ingredients,
                 "shop_plucode": shop_plucode,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
                 "list_price": 2.5,
                 "standard_price": 1.5,
                 "show_packed_date_on_label": True,
@@ -112,7 +112,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_cost_price = 150
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 42,
@@ -135,7 +135,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": "Test product",
                 "ingredients": ingredients,
                 "shop_plucode": shop_plucode,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
                 "list_price": 2.5,
                 "standard_price": 1.5,
                 "show_packed_date_on_label": True,
@@ -160,7 +160,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_storage_temp = 6
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 42,
@@ -188,7 +188,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": "Test product",
                 "ingredients": ingredients,
                 "shop_plucode": shop_plucode,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
                 "list_price": 2.5,
                 "standard_price": 1.5,
                 "show_packed_date_on_label": True,
@@ -210,7 +210,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         shop_plucode = 200
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 120,
@@ -223,7 +223,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "ingredients": ingredients,
                 "shop_plucode": shop_plucode,
                 "list_price": 1.0,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
             }
         )
 
@@ -246,7 +246,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         shop_plucode = 200
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 120,
@@ -258,7 +258,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": "Test product",
                 "shop_plucode": shop_plucode,
                 "list_price": 1.0,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
             }
         )
 
@@ -285,7 +285,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         )
         self.patched_get_param.start()
 
-        test_category = self.env["product.category"].create(
+        test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
                 "external_digi_id": 120,
@@ -297,7 +297,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": "Test product",
                 "shop_plucode": shop_plucode,
                 "list_price": 1.0,
-                "categ_id": test_category.id,
+                "pos_categ_id": test_category.id,
                 "send_to_scale": True,
                 "is_weighted_article": False,
             }
@@ -587,7 +587,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
     def test_it_sends_a_product_category_to_digi_with_the_right_url(self):
         category_name = "Test category"
         digi_id = 2
-        category = self.env["product.category"].create(
+        category = self.env["pos.category"].create(
             {
                 "name": category_name,
                 "external_digi_id": digi_id,
@@ -604,7 +604,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
     def test_it_sends_a_category_digi(self):
         category_name = "Test category"
         digi_id = 2
-        category = self.env["product.category"].create(
+        category = self.env["pos.category"].create(
             {
                 "name": category_name,
                 "external_digi_id": digi_id,

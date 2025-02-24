@@ -1,8 +1,6 @@
 import logging
-import re
 
-from odoo import _, api, fields, models
-from odoo.tools import get_barcode_check_digit
+from odoo import api, fields, models
 
 from odoo.addons.queue_job.exception import RetryableJobError
 
