@@ -45,6 +45,7 @@
             <tree editable="top" create="false">
                 <field name="create_date" readonly="1" />
                 <field name="eancode" readonly="1" />
+                <field name="product_supplierinfo_start_date" readonly="1" />
                 <field
                     name="affected_product_id"
                     widget="many2one"
