@@ -6,10 +6,7 @@
         <field name="inherit_id" ref="point_of_sale.product_pos_category_form_view" />
         <field name="arch" type="xml">
             <xpath expr="//field[@name='parent_id']" position="after">
-                <div class="external_digi_id">
-                    <label for="external_digi_id" string="External digi identifier" />
-                    <field name="external_digi_id" />
-                </div>
+                <field name="external_digi_id" />
             </xpath>
         </field>
     </record>
