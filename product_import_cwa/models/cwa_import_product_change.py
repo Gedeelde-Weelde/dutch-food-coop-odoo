@@ -13,7 +13,6 @@ class CwaImportProductChange(models.Model):
             ("no-preferred-new", "Non preferred new"),
             ("processed", "Processed"),
             ("processed-automatically", "Processed automatically"),
-            ("ignored", "Ignored"),
         ],
         default="new",
         required=True,
