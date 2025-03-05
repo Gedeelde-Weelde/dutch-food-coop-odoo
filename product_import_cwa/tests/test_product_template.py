@@ -7,9 +7,16 @@ class TestProductTemplate(TransactionCase):
         self.product_template = self.env["product.template"]
         self.tax_model = self.env["account.tax"]
 
-        self.test_tax = self.tax_model.create({
+        self.test_tax_21 = self.tax_model.create({
             "name": "Test Tax 21%",
             "amount": 21,
+            "amount_type": "percent",
+            "price_include": True,
+        })
+
+        self.test_tax_9 = self.tax_model.create({
+            "name": "Test Tax 9%",
+            "amount": 9,
             "amount_type": "percent",
             "price_include": True,
         })
@@ -32,7 +39,7 @@ class TestProductTemplate(TransactionCase):
             "name": "Test Product with Tax",
             "list_price": 121.0,  # Sales price including 21% tax
             "standard_price": 80.0,  # Cost price
-            "taxes_id": [(4, self.test_tax.id)]  # Add tax
+            "taxes_id": [(4, self.test_tax_21.id)]  # Add tax
         })
 
         # Price without tax: 121 / 1.21 = 100
@@ -59,3 +66,41 @@ class TestProductTemplate(TransactionCase):
         })
 
         self.assertEqual(product.margin, 0.0)
+
+    def test_margin_calculation_multiple_products_different_taxes(self):
+        """Test margin calculation for multiple products with different taxes using recordset"""
+        # Create multiple products at once as a recordset
+        products = self.product_template.create([
+            {
+                "name": "Test Product 1",
+                "list_price": 121.0,  # Sales price including 21% tax
+                "standard_price": 80.0,  # Cost price
+                "taxes_id": [(4, self.test_tax_21.id)]  # Add 21% tax
+            },
+            {
+                "name": "Test Product 2",
+                "list_price": 109.0,  # Sales price including 9% tax
+                "standard_price": 70.0,  # Cost price
+                "taxes_id": [(4, self.test_tax_9.id)]  # Add 9% tax
+            }
+        ])
+
+        # Force computation of margins for the entire recordset
+        products._compute_margin()
+
+        # Get products from recordset
+        product1 = products[0]
+        product2 = products[1]
+
+        # Product 1: Price without tax: 121 / 1.21 = 100
+        # Expected margin: (100 - 80) / 100 = 0.2 (20%)
+        self.assertAlmostEqual(product1.margin, 0.2, places=2)
+
+        # Product 2: Price without tax: 109 / 1.09 = 100
+        # Expected margin: (100 - 70) / 100 = 0.3 (30%)
+        self.assertAlmostEqual(product2.margin, 0.3, places=2)
+
+        # Test that computing margins as a recordset gives same results
+        margins = products.mapped('margin')
+        self.assertAlmostEqual(margins[0], 0.2, places=2)
+        self.assertAlmostEqual(margins[1], 0.3, places=2)
