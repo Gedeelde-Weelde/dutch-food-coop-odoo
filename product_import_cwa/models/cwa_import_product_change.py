@@ -55,6 +55,9 @@ class CwaImportProductChange(models.Model):
     product_supplierinfo_list_price = fields.Float(
         related="product_supplierinfo_id.consumentenprijs"
     )
+    product_supplierinfo_start_date = fields.Date(
+        related="product_supplierinfo_id.ingangsdatum"
+    )
     product_supplierinfo_cost_price = fields.Float(
         related="product_supplierinfo_id.inkoopprijs"
     )
