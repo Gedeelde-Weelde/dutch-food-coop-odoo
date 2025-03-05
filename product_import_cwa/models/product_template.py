@@ -89,7 +89,7 @@ class ProductTemplate(models.Model):
     @api.depends("list_price", "standard_price")
     def _compute_margin(self):
         for template in self:
-            res = self.taxes_id.compute_all(
+            res = template.taxes_id.compute_all(
                 template.list_price, product=template, partner=self.env["res.partner"]
             )
             price_without_taxes = (
