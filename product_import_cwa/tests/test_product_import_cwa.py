@@ -407,7 +407,49 @@ class TestProductImportCwa(TransactionCase):
 
         self.assertDictEqual(expected_result, actual_result)
 
-    def test_a_changed_record_is_changed_when_an_imported_product_is_updated_again(
+
+    def test_a_new_record_is_changed_to_ignored_when_an_imported_product_is_updated_again(self):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
+
+        self.import_second_file(cwa_product_obj)
+        self.import_third_file(cwa_product_obj)
+
+        expected_result = {
+            "state": "ignored",
+            "affected_product_id": imported_product.id,
+            "affected_product_id_list_price": 3.7,
+            "affected_product_id_cost_price": 2.1,
+            "product_supplierinfo_list_price": 3.9,
+            "product_supplierinfo_cost_price": 2.3,
+        }
+
+        import_result_ignored = self.env["cwa.import.product.change"].search(
+            [
+                ("affected_product_id", "=", imported_product.id),
+                ("state", "=", "ignored"),
+            ]
+        )
+
+        actual_result = {
+            key: getattr(import_result_ignored, key, None)
+            for key in expected_result.keys()
+            if key != "affected_product_id"
+        }
+        actual_result["affected_product_id"] = import_result_ignored.affected_product_id.id
+
+        self.assertDictEqual(expected_result, actual_result)
+
+
+    def test_a_new_changed_record_is_created_when_an_imported_product_is_updated_again(
         self
     ):
         cwa_product_obj = self.env["cwa.product"]
@@ -424,8 +466,11 @@ class TestProductImportCwa(TransactionCase):
         self.import_second_file(cwa_product_obj)
         self.import_third_file(cwa_product_obj)
 
-        import_result = self.env["cwa.import.product.change"].search(
-            [("affected_product_id", "=", imported_product.id)]
+        import_result_new = self.env["cwa.import.product.change"].search(
+            [
+                ("affected_product_id", "=", imported_product.id),
+                ("state", "=", "new"),
+            ]
         )
 
         expected_result = {
@@ -438,11 +483,11 @@ class TestProductImportCwa(TransactionCase):
         }
 
         actual_result = {
-            key: getattr(import_result, key, None)
+            key: getattr(import_result_new, key, None)
             for key in expected_result.keys()
             if key != "affected_product_id"
         }
-        actual_result["affected_product_id"] = import_result.affected_product_id.id
+        actual_result["affected_product_id"] = import_result_new.affected_product_id.id
 
         self.assertDictEqual(expected_result, actual_result)
 

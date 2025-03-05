@@ -319,25 +319,28 @@ class CwaProduct(models.Model):
         if product_tmpl:
             changes = self._get_value_changes(supplier_info_vals, supplier_info)
             cwa_import_product_change_model = self.env["cwa.import.product.change"]
-            state = "new"
+            state_new = "new"
             if product_tmpl.preferred_supplier_id and (
                 supplier_info.id != product_tmpl.preferred_supplier_id.id
             ):
-                state = "no-preferred-new"
+                state_new = "no-preferred-new"
             new_vals = {
-                "state": state,
+                "state": state_new,
                 "affected_product_id": product_tmpl.id,
                 "source_cwa_product_id": cwa_product.id,
                 "value_changes": changes,
             }
-            # Try to find an existing change model
-            existing = cwa_import_product_change_model.search(
-                [("source_cwa_product_id", "=", cwa_product.id)]
+            existing_state_new = cwa_import_product_change_model.search(
+                [
+                    ("source_cwa_product_id", "=", cwa_product.id),
+                    ("state", "=", state_new),
+                ]
             )
-            if existing:
-                existing.write(new_vals)
-            else:
-                cwa_import_product_change_model.create(new_vals)
+            if existing_state_new:
+                existing_state_new.write({
+                    "state": "ignored"
+                })
+            cwa_import_product_change_model.create(new_vals)
 
     def _get_value_changes(self, new_vals, supplier_info):
         changes = {}
