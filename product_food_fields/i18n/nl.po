@@ -1,0 +1,229 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_food_fields
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: nl\n"
+
+#. module: product_food_fields
+#: model:ir.model,name:product_food_fields.model_product_food_fields_product_origin
+#: model:ir.model,name:product_food_fields.model_product_template
+msgid "Base class for Digi Sync models"
+msgstr "Basisklasse voor Digi Sync modellen"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_supplierinfo__ingredients
+msgid "Beschrijving van de ingredienten."
+msgstr "Beschrijving van de ingrediënten."
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__best_before_days
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__best_before_days
+msgid "Best Before Days"
+msgstr "Tenminste Houdbaar Tot in Dagen"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__code
+msgid "Code"
+msgstr "Code"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__create_uid
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__create_uid
+msgid "Created by"
+msgstr "Aangemaakt door"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__create_date
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__create_date
+msgid "Created on"
+msgstr "Aangemaakt op"
+
+#. module: product_food_fields
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Days until bad taste"
+msgstr "Dagen tot slechte smaak"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__best_before_days
+#: model:ir.model.fields,help:product_food_fields.field_product_template__best_before_days
+msgid "Days until best before date is reached"
+msgstr "Dagen tot de THT-datum is bereikt"
+
+#. module: product_food_fields
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Days until expiration"
+msgstr "Dagen tot vervaldatum"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__use_by_days
+#: model:ir.model.fields,help:product_food_fields.field_product_supplierinfo__use_by_days
+#: model:ir.model.fields,help:product_food_fields.field_product_template__use_by_days
+msgid "Days until use by date is reached"
+msgstr "Dagen tot de te gebruiken tot-datum is bereikt"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__display_name
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__display_name
+msgid "Display Name"
+msgstr "Weergavenaam"
+
+#. module: product_food_fields
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Food related information"
+msgstr "Voedsel gerelateerde informatie"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__id
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__image
+msgid "Image"
+msgstr "Afbeelding"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__ingredients
+#: model:ir.model.fields,field_description:product_food_fields.field_product_supplierinfo__ingredients
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__ingredients
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Ingredients"
+msgstr "Ingrediënten"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__ingredients
+#: model:ir.model.fields,help:product_food_fields.field_product_template__ingredients
+msgid "Ingredients in the product"
+msgstr "Ingrediënten in het product"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__origin
+#: model:ir.model.fields,help:product_food_fields.field_product_template__origin
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Land where the product is produced, an ISO 3166 code"
+msgstr "Land waar het product is geproduceerd, een ISO 3166-code"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin____last_update
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality____last_update
+msgid "Last Modified on"
+msgstr "Laatst gewijzigd op"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__write_uid
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__write_uid
+msgid "Last Updated by"
+msgstr "Laatst bijgewerkt door"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__write_date
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__write_date
+msgid "Last Updated on"
+msgstr "Laatst bijgewerkt op"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__name
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_quality__name
+msgid "Name"
+msgstr "Naam"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__origin
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__origin
+msgid "Origin"
+msgstr "Herkomst"
+
+#. module: product_food_fields
+#: model:ir.ui.menu,name:product_food_fields.menu_product_origin
+#: model_terms:ir.ui.view,arch_db:product_food_fields.product_origin_form
+msgid "Product Origin"
+msgstr "Product Herkomst"
+
+#. module: product_food_fields
+#: model:ir.actions.act_window,name:product_food_fields.action_product_origin
+msgid "Product Origins"
+msgstr "Product Herkomst vertalingen"
+
+#. module: product_food_fields
+#: model:ir.actions.act_window,name:product_food_fields.action_product_quality
+#: model:ir.model,name:product_food_fields.model_product_food_fields_product_quality
+#: model:ir.ui.menu,name:product_food_fields.menu_product_quality
+#: model_terms:ir.ui.view,arch_db:product_food_fields.view_product_quality_form
+msgid "Product Quality"
+msgstr "Product Kwaliteit"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__product_origin_id
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__product_origin_id
+msgid "Product origin"
+msgstr "Product herkomst"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__product_quality_id
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__product_quality_id
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Product quality"
+msgstr "Product kwaliteit"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__storage_temperature
+#: model:ir.model.fields,field_description:product_food_fields.field_product_supplierinfo__storage_temperature
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__storage_temperature
+msgid "Storage Temperature"
+msgstr "Bewaartemperatuur"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__storage_temperature
+#: model:ir.model.fields,help:product_food_fields.field_product_supplierinfo__storage_temperature
+#: model:ir.model.fields,help:product_food_fields.field_product_template__storage_temperature
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Storage temperature in Celcius"
+msgstr "Bewaartemperatuur in Celsius"
+
+#. module: product_food_fields
+#: model:ir.model,name:product_food_fields.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Leverancier prijslijst"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_food_fields_product_origin__country_code
+msgid "The ISO 3166 country code"
+msgstr "De ISO 3166 landcode"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_food_fields_product_origin__name
+msgid "The origin name. Can be a country, region or producer."
+msgstr "De herkomstnaam. Kan een land, regio of producent zijn."
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__usage_tips
+#: model:ir.model.fields,field_description:product_food_fields.field_product_supplierinfo__usage_tips
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__usage_tips
+msgid "Usage Tips"
+msgstr "Gebruikstips"
+
+#. module: product_food_fields
+#: model:ir.model.fields,help:product_food_fields.field_product_product__usage_tips
+#: model:ir.model.fields,help:product_food_fields.field_product_supplierinfo__usage_tips
+#: model:ir.model.fields,help:product_food_fields.field_product_template__usage_tips
+#: model_terms:ir.ui.view,arch_db:product_food_fields.food_product_view_form
+msgid "Usage tips"
+msgstr "Gebruikstips"
+
+#. module: product_food_fields
+#: model:ir.model.fields,field_description:product_food_fields.field_product_product__use_by_days
+#: model:ir.model.fields,field_description:product_food_fields.field_product_supplierinfo__use_by_days
+#: model:ir.model.fields,field_description:product_food_fields.field_product_template__use_by_days
+msgid "Use By Days"
+msgstr "Te gebruiken tot dagen"
