@@ -1,0 +1,491 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_import_cwa
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+"Language: nl\n"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_product__plucode
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__plucode
+#: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__plucode
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__plucode
+msgid "4-cijferige plucode."
+msgstr "4-cijferige plucode."
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.res_config_settings_view_form_cwa
+msgid "<span class=\"fa fa-lg\" title=\"Values set here are company-specific.\"/>"
+msgstr "<span class=\"fa fa-lg\" title=\"Waarden die hier worden ingesteld zijn bedrijfsspecifiek.\"/>"
+
+#. module: product_import_cwa
+#. odoo-python
+#: code:addons/product_import_cwa/models/cwa_product.py:0
+#, python-format
+msgid "A Product with same Leveranciernummer& Bestelnummer already imported"
+msgstr "Een product met hetzelfde leveranciersnummer en bestelnummer is al geïmporteerd"
+
+#. module: product_import_cwa
+#: model:ir.model.constraint,message:product_import_cwa.constraint_cwa_product_brands_cwa_product_brand_unique
+msgid "A brand can only have one translation."
+msgstr "Een merk kan slechts één vertaling hebben."
+
+#. module: product_import_cwa
+#: model:ir.model.constraint,message:product_import_cwa.constraint_cwa_product_quality_cwa_product_quality_unique
+msgid "A quality can only have one translation."
+msgstr "Een kwaliteit kan slechts één vertaling hebben."
+
+#. module: product_import_cwa
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d204__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d209__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d210__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d212__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d213__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d214__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d215__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d216__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d217__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d217b__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d220__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d221__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d221b__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d222__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d223__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d225__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d226__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d228__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d230__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d232__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d234__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d235__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d236__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d237__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d238__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d238b__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d239__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d240__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d241__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d242__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d204__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d209__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d210__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d212__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d213__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d214__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d215__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d216__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d217__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d217b__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d220__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d221__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d221b__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d222__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d223__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d225__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d226__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d228__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d230__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d232__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d234__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d235__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d236__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d237__1
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d238__1
+msgid "Aanwezig"
+msgstr "Aanwezig"
+
+#. module: product_import_cwa
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d204__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d209__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d210__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d212__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d213__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d214__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d215__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d216__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d217__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d217b__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d220__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d221__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d221b__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d222__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d223__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d225__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d226__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d228__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d230__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d232__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d234__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d235__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d236__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d237__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d238__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d238b__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d239__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d240__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d241__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_product__d242__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d204__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d209__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d210__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d212__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d213__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d214__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d215__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d216__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d217__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d217b__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d220__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d221__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d221b__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d222__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d223__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d225__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d226__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d228__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d230__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d232__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d234__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d235__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d236__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d237__0
+#: model:ir.model.fields.selection,name:product_import_cwa.selection__product_supplierinfo__d238__0
+msgid "Afwezig"
+msgstr "Afwezig"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__allergens
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__allergens
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__allergens
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__allergens
+msgid "Allergens"
+msgstr "Allergenen"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__bestelnummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__bestelnummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__bestelnummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__bestelnummer
+msgid "Bestelnummer"
+msgstr "Bestelnummer"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__brand
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__brand
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__brand
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__brand
+msgid "Brand"
+msgstr "Merk"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__brand
+msgid "Brand (CWA)"
+msgstr "Merk (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__name
+msgid "Brand (Odoo)"
+msgstr "Merk (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__cbl_code
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__cbl_code
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__cbl_code
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__cbl_code
+msgid "CBL Code"
+msgstr "CBL Code"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cbl_codes__cbl_code
+msgid "CBL Code (CWA)"
+msgstr "CBL Code (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_cbl_codes__name
+msgid "CBL Code (Odoo)"
+msgstr "CBL Code (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__cwa_quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__cwa_quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__cwa_quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__cwa_quality
+msgid "CWA Quality"
+msgstr "CWA Kwaliteit"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_quality__cwa_quality
+msgid "CWA Quality (CWA)"
+msgstr "CWA Kwaliteit (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_quality__name
+msgid "CWA Quality (Odoo)"
+msgstr "CWA Kwaliteit (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_catalogue
+msgid "CWA - Catalogue"
+msgstr "CWA - Catalogus"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_import_changes
+msgid "CWA - Import changes"
+msgstr "CWA - Importeer wijzigingen"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_brand_translation_wizard
+msgid "CWA Brand Translation Wizard"
+msgstr "CWA Merk Vertaling Wizard"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_cbl_code_translation_wizard
+msgid "CWA CBL Code Translation Wizard"
+msgstr "CWA CBL Code Vertaling Wizard"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_deposit_wizard
+msgid "CWA Deposit Wizard"
+msgstr "CWA Statiegeld Wizard"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_ftp
+msgid "CWA FTP"
+msgstr "CWA FTP"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_ftp_import
+msgid "CWA FTP Import"
+msgstr "CWA FTP Import"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_import_product_change
+msgid "CWA Import Product Change"
+msgstr "CWA Import Product Wijziging"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_import_product_changes
+msgid "CWA Import Product Changes"
+msgstr "CWA Import Product Wijzigingen"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_import_products_wizard
+msgid "CWA Import Products Wizard"
+msgstr "CWA Import Producten Wizard"
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_form
+msgid "CWA Information"
+msgstr "CWA Informatie"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_brands
+msgid "CWA Product Brands"
+msgstr "CWA Product Merken"
+
+#. module: product_import_cwa
+#: model:ir.ui.menu,name:product_import_cwa.menu_cwa_product_brands
+msgid "CWA Product Brands Configuration"
+msgstr "CWA Product Merken Configuratie"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_cbl_codes
+msgid "CWA Product CBL Code"
+msgstr "CWA Product CBL Code"
+
+#. module: product_import_cwa
+#: model:ir.ui.menu,name:product_import_cwa.menu_cwa_product_cbl_codes
+msgid "CWA Product CBL Codes Configuration"
+msgstr "CWA Product CBL Codes Configuratie"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_deposit
+msgid "CWA Product Deposit"
+msgstr "CWA Product Statiegeld"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_quality
+msgid "CWA Product Quality"
+msgstr "CWA Product Kwaliteit"
+
+#. module: product_import_cwa
+#: model:ir.ui.menu,name:product_import_cwa.menu_cwa_product_suppliers
+msgid "CWA Product Suppliers"
+msgstr "CWA Product Leveranciers"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_product_uom
+msgid "CWA Product UoM"
+msgstr "CWA Product Maateenheid"
+
+#. module: product_import_cwa
+#: model:ir.ui.menu,name:product_import_cwa.menu_cwa_product_uom
+msgid "CWA Product UoM Configuration"
+msgstr "CWA Product Maateenheid Configuratie"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_not_imported
+msgid "CWA Products that have not been imported"
+msgstr "CWA Producten die niet zijn geïmporteerd"
+
+#. module: product_import_cwa
+#: model:ir.actions.act_window,name:product_import_cwa.action_cwa_vat_taxes
+msgid "CWA VAT Taxes"
+msgstr "CWA BTW Tarieven"
+
+#. module: product_import_cwa
+#: model:ir.ui.menu,name:product_import_cwa.menu_cwa_vat_taxes
+msgid "CWA Vat Tax Configuration"
+msgstr "CWA BTW Tarief Configuratie"
+
+#. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_form
+msgid "CWA form view"
+msgstr "CWA formulier weergave"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_product
+msgid "CWA product"
+msgstr "CWA product"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_cwa_product_origin_translation_wizard
+msgid "Cwa Product Origin Translation Wizard"
+msgstr "CWA Product Herkomst Vertaling Wizard"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__deposit
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__deposit
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__deposit
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__deposit
+msgid "Deposit"
+msgstr "Statiegeld"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__deposit
+msgid "Deposit (CWA)"
+msgstr "Statiegeld (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_deposit__name
+msgid "Deposit (Odoo)"
+msgstr "Statiegeld (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__ean
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__ean
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__ean
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__ean
+msgid "EAN"
+msgstr "EAN"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__leveranciernummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__leveranciernummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__leveranciernummer
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__leveranciernummer
+msgid "Leveranciernummer"
+msgstr "Leveranciernummer"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__origin
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__origin
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__origin
+msgid "Origin"
+msgstr "Herkomst"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_origin__origin
+msgid "Origin (CWA)"
+msgstr "Herkomst (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_origin__name
+msgid "Origin (Odoo)"
+msgstr "Herkomst (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__plucode
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__plucode
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__plucode
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__plucode
+msgid "PLU Code"
+msgstr "PLU Code"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_product_product
+msgid "Product"
+msgstr "Product"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_product_template
+msgid "Product Template"
+msgstr "Productsjabloon"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__quality
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__quality
+msgid "Quality"
+msgstr "Kwaliteit"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_quality__quality
+msgid "Quality (CWA)"
+msgstr "Kwaliteit (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_quality__name
+msgid "Quality (Odoo)"
+msgstr "Kwaliteit (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model,name:product_import_cwa.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Leverancier prijslijst"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__uom
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__uom
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__uom
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__uom
+msgid "UoM"
+msgstr "Maateenheid"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_uom__uom
+msgid "UoM (CWA)"
+msgstr "Maateenheid (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_uom__name
+msgid "UoM (Odoo)"
+msgstr "Maateenheid (Odoo)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product__vat
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_product__vat
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_supplierinfo__vat
+#: model:ir.model.fields,field_description:product_import_cwa.field_product_template__vat
+msgid "VAT"
+msgstr "BTW"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_vat__vat
+msgid "VAT (CWA)"
+msgstr "BTW (CWA)"
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_vat__name
+msgid "VAT (Odoo)"
+msgstr "BTW (Odoo)"
