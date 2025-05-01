@@ -75,9 +75,11 @@ class DigiClient(models.Model):
             message = (
                 f"Error {response_json['Result']}: "
                 + f"{response_json['ResultDescription']}, "
-                + f"reason: {response_json['Validation'][0]['Description']},"
-                + f" payload: {body}"
             )
+            if "Validation" in response_json and len(response_json["Validation"]) > 0:
+                message += f"reason: {response_json['Validation'][0]['Description']},"
+
+            message += f" payload: {body}"
 
             raise DigiApiException(message)
 

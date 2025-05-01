@@ -435,6 +435,28 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             str(context.exception),
         )
 
+    def test_it_sets_the_exception_message_when_validation_not_present(self):
+        product = self.env["product.product"].create({"name": "Test product"})
+        response_content = """
+                    {
+                      "Result": -96,
+                      "ResultDescription": "De data is ongeldig",
+                      "DataId":0,
+                      "Post":[],
+                      "Validation":[]
+                    }
+                    """
+
+        with self.patch_request_post(
+            status_code=200, response_content=response_content
+        ):
+            with self.assertRaises(DigiApiException) as context:
+                self.digi_client.send_product_to_digi(product)
+        self.assertIn(
+            "Error -96: De data is ongeldig",
+            str(context.exception),
+        )
+
     def test_it_doesnt_catch_other_exceptions(self):
         product = self.env["product.product"].create({"name": "Test product"})
 
