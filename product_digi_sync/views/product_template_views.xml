@@ -70,6 +70,23 @@
         </field>
     </record>
 
+
+    <record id="digi_sync_product_template_search" model="ir.ui.view">
+        <field name="name">product_digi_sync.product.template.search</field>
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="product_import_cwa.product_template_retailer_view_search"
+        />
+        <field name="arch" type="xml">
+            <field name="eancode" position="after">
+                <field name="shop_plucode" />
+            </field>
+        </field>
+    </record>
+
+
+
     <record id="action_send_product_image_to_digi" model="ir.actions.server">
         <field name="name">Send image to digi</field>
         <field name="type">ir.actions.server</field>
@@ -93,4 +110,5 @@
                 record.send_to_digi()
         </field>
     </record>
+
 </odoo>
