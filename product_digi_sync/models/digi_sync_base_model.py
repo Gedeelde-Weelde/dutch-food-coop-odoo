@@ -11,10 +11,14 @@ class DigiSyncBaseModel(models.AbstractModel):
 
     def send_to_digi(self):
         self.ensure_one()
-        self.with_delay().send_to_digi_directly()
+        if self.should_send_to_digi():
+            self.with_delay().send_to_digi_directly()
 
     def send_to_digi_directly(self):
         pass
+
+    def should_send_to_digi(self):
+        return True
 
     def _get_digi_client(self):
         digi_client_id = int(
