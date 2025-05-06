@@ -812,15 +812,14 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "DdFormatCommodity": f"08010000{kwargs.get('name')}~01000000",
             }
         ]
-        # TODO: GED-94: reenable if digi fixed its issues.
-        # if kwargs.get("ingredients"):
-        #     data["Names"][0][
-        #         "DdFormatIngredient"
-        #     ] = f"04000000Ingrediënten: {kwargs.get('ingredients')}~01000000~01000000"
-        # if kwargs.get("usage_tips"):
-        #     data["Names"][0][
-        #         "DdFormatSpecialMessage"
-        #     ] = f"04000000<br>{kwargs.get('usage_tips')}~01000000"
+        if kwargs.get("ingredients"):
+            data["Names"][0][
+                "DdFormatIngredient"
+            ] = f"04000000Ingrediënten: {kwargs.get('ingredients')}~01000000~01000000"
+        if kwargs.get("usage_tips"):
+            data["Names"][0][
+                "DdFormatSpecialMessage"
+            ] = f"04000000<br>{kwargs.get('usage_tips')}~01000000"
         if kwargs.get("unit_price"):
             data["UnitPrice"] = kwargs.get("unit_price")
         if kwargs.get("cost_price"):
