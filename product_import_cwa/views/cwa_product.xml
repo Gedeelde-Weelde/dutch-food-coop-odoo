@@ -67,7 +67,7 @@
         <field name="name">cwa.form</field>
         <field name="model">cwa.product</field>
         <field name="arch" type="xml">
-            <form string="CWA form view" delete="false" duplicate="false">
+            <form string="CWA form view" delete="false" duplicate="false" edit="false">
             <header>
                 <button
                         name="to_product"
