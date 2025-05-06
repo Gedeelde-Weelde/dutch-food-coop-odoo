@@ -24,14 +24,15 @@ class ProductTransformer:
                 "DdFormatCommodity": commodity,
             }
         ]
-        if product.ingredients:
-            data["Names"][0][
-                "DdFormatIngredient"
-            ] = f"04000000Ingrediënten: {product.ingredients}~01000000~01000000"
-        if product.usage_tips:
-            data["Names"][0][
-                "DdFormatSpecialMessage"
-            ] = f"04000000<br>{product.usage_tips}~01000000"
+        # TODO: GED-94: reenable if digi fixed its issues.
+        # if product.ingredients:
+        #     data["Names"][0][
+        #         "DdFormatIngredient"
+        #     ] = f"04000000Ingrediënten: {product.ingredients}~01000000~01000000"
+        # if product.usage_tips:
+        #     data["Names"][0][
+        #         "DdFormatSpecialMessage"
+        #     ] = f"04000000<br>{product.usage_tips}~01000000"
         if product.list_price:
             data["UnitPrice"] = int(product.list_price * 100)
         if product.standard_price:
