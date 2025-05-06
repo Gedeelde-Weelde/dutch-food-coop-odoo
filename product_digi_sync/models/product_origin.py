@@ -40,6 +40,9 @@ class ProductOrigin(DigiSyncBaseModel, models.Model):
             record.send_to_digi()
         return result
 
+    def should_send_to_digi(self):
+        return self.external_digi_id is not None
+
     def send_to_digi_directly(self):
         client = self._get_digi_client()
         if client:

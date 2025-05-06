@@ -120,6 +120,39 @@ class ProductTemplateTestCase(DigiSyncBaseTestCase):
         self.assertEqual(mock_send_product_to_digi.called, False)
         patched_get_param.stop()
 
+    def test_it_does_not_send_the_product_to_digi_when_scale_is_false_using_func(self):
+        digi_client = self._create_digi_client()
+
+        patched_get_param = self._patch_ir_config_parameter_for_get_param(
+            "digi_client_id", digi_client.id
+        )
+        patched_get_param.start()
+        mock_send_product_to_digi = Mock()
+        patch.object(
+            DigiClient, "send_product_to_digi", mock_send_product_to_digi
+        ).start()
+        patch.object(DigiClient, "send_product_image_to_digi", Mock()).start()
+
+        product1 = self.env["product.template"].create(
+            {
+                "name": "Test Product Template",
+                "shop_plucode": 405,
+                "send_to_scale": False,
+            }
+        )
+
+        products = self.env["product.template"].browse([product1.id])
+
+        products.write(
+            {
+                "name": "Test Product Template",
+            }
+        )
+        products.send_to_digi()
+
+        self.assertEqual(mock_send_product_to_digi.called, False)
+        patched_get_param.stop()
+
     def test_it_sends_the_product_image_to_digi_when_the_image_is_set(self):
         digi_client = self._create_digi_client()
 
