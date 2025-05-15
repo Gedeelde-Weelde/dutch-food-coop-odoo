@@ -425,6 +425,17 @@ class CwaProduct(models.Model):
         prod_file = os.path.join(path, "../tests/data/products_test.xml")
         self.import_xml_products(prod_file)
 
+    def to_product_multiple(self):
+        for product in self:
+            try:
+                result = product.to_product()
+                if result:  # If the method returns a UI action
+                    return result  # Return the first wizard request
+            except Exception as e:
+                _logger.error(f"Error converting product {product.id}: {e}")
+        # If all products processed without needing wizards
+        return True
+
     def to_product(self):
         """
         This is the main CWA import function.
