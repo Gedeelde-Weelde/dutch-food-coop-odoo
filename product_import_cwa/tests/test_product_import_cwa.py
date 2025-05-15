@@ -156,7 +156,7 @@ class TestProductImportCwa(TransactionCase):
         count = self.import_second_file(cwa_product_obj)
         self.assertEqual(count, 3)
         cwa_prod2 = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
-        self.assertTrue("EEKHOORNS" in cwa_prod2.ingredienten)
+        self.assertTrue("Eekhoorns" in cwa_prod2.ingredienten)
 
     def test_product_import_cwa_translations(self):
         cwa_product_obj = self.env["cwa.product"]
@@ -347,7 +347,7 @@ class TestProductImportCwa(TransactionCase):
 
         supplierinfo_obj = self.env["product.supplierinfo"]
         supp_info1 = supplierinfo_obj.search([("product_name", "=", "BOEKWEIT")])
-        self.assertEqual("INGREDIENTENN: BOEKWEIT, EEKHOORNS", supp_info1.ingredients)
+        self.assertEqual("Ingredienten: Boekweit, Eekhoorns", supp_info1.ingredients)
 
     def test_only_one_changed_record_is_created_when_an_imported_product_is_updated(
         self
@@ -536,7 +536,7 @@ class TestProductImportCwa(TransactionCase):
                 "old": "2016-02-11",
             },
             "ingredients": {
-                "new": "Ingredientenn: Boekweit, Eekhoorns",
+                "new": "Ingredienten: Boekweit, Eekhoorns",
                 "old": "Ingredienten: Boekweit",
             },
             "inkoopprijs": {"new": 2.3, "old": 2.1},
@@ -707,7 +707,7 @@ class TestProductImportCwa(TransactionCase):
 
         expected_result = {
             "list_price": reloaded_cwa_product.consumentenprijs,
-            "ingredients": "INGREDIENTENN: BOEKWEIT, EEKHOORNS",
+            "ingredients": "Ingredienten: Boekweit, Eekhoorns",
             "standard_price": reloaded_cwa_product.inkoopprijs,
         }
         actual_result = {
