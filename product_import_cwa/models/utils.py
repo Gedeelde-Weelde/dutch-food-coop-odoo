@@ -295,6 +295,9 @@ class XMLProductLoader:
             elif tag == "omschrijving":
                 load_dict[tag] = value.upper()
 
+            elif tag == "ingredienten":
+                load_dict[tag] = value
+
             else:
                 load_dict[tag] = value.upper() if value else None
         return load_dict
