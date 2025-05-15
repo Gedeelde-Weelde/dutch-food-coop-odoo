@@ -296,7 +296,11 @@ class XMLProductLoader:
                 load_dict[tag] = value.upper()
 
             elif tag == "ingredienten":
-                load_dict[tag] = value
+                load_dict[tag] = (
+                    value.replace("Ingredienten: ", "")
+                    if isinstance(value, str)
+                    else value
+                )
 
             else:
                 load_dict[tag] = value.upper() if value else None
