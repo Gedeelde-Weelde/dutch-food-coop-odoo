@@ -226,7 +226,7 @@ class TestProductImportCwa(TransactionCase):
             "eenheid": "KG",
             "verpakkingce": False,
             "herkomst": "CN",
-            "ingredients": "Ingredienten: Boekweit",
+            "ingredients": "Boekweit",
             "d204": "0",
             "d209": "0",
             "d210": "0",
@@ -347,7 +347,7 @@ class TestProductImportCwa(TransactionCase):
 
         supplierinfo_obj = self.env["product.supplierinfo"]
         supp_info1 = supplierinfo_obj.search([("product_name", "=", "BOEKWEIT")])
-        self.assertEqual("Ingredienten: Boekweit, Eekhoorns", supp_info1.ingredients)
+        self.assertEqual("Boekweit, Eekhoorns", supp_info1.ingredients)
 
     def test_only_one_changed_record_is_created_when_an_imported_product_is_updated(
         self
@@ -536,8 +536,8 @@ class TestProductImportCwa(TransactionCase):
                 "old": "2016-02-11",
             },
             "ingredients": {
-                "new": "Ingredienten: Boekweit, Eekhoorns",
-                "old": "Ingredienten: Boekweit",
+                "new": "Boekweit, Eekhoorns",
+                "old": "Boekweit",
             },
             "inkoopprijs": {"new": 2.3, "old": 2.1},
         }
@@ -707,7 +707,7 @@ class TestProductImportCwa(TransactionCase):
 
         expected_result = {
             "list_price": reloaded_cwa_product.consumentenprijs,
-            "ingredients": "Ingredienten: Boekweit, Eekhoorns",
+            "ingredients": "Boekweit, Eekhoorns",
             "standard_price": reloaded_cwa_product.inkoopprijs,
         }
         actual_result = {
