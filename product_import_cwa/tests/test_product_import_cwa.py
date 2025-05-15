@@ -226,7 +226,7 @@ class TestProductImportCwa(TransactionCase):
             "eenheid": "KG",
             "verpakkingce": False,
             "herkomst": "CN",
-            "ingredients": "INGREDIENTEN: BOEKWEIT",
+            "ingredients": "Ingredienten: Boekweit",
             "d204": "0",
             "d209": "0",
             "d210": "0",
@@ -536,8 +536,8 @@ class TestProductImportCwa(TransactionCase):
                 "old": "2016-02-11",
             },
             "ingredients": {
-                "new": "INGREDIENTENN: BOEKWEIT, EEKHOORNS",
-                "old": "INGREDIENTEN: BOEKWEIT",
+                "new": "Ingredientenn: Boekweit, Eekhoorns",
+                "old": "Ingredienten: Boekweit",
             },
             "inkoopprijs": {"new": 2.3, "old": 2.1},
         }
