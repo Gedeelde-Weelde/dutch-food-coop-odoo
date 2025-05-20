@@ -1,15 +1,8 @@
-# -*- coding: utf-8 -*-
 {
-    'name': "gedeelde_weelde_custom",
-
-    'summary': """
+    "name": "gedeelde_weelde_custom",
+    "summary": """
         Short (1 phrase/line) summary of the module's purpose, used as
         subtitle on modules listing or apps.openerp.com""",
-
-    'description': """
-        Long description of module's purpose
-    """,
-
     "author": "Gedeelde Weelde",
     "license": "AGPL-3",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
@@ -31,5 +24,4 @@
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
     ],
-
 }

@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
+from odoo import fields, models
 
-from odoo import models, fields
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
-    is_bio_basic = fields.Boolean(string='Is Bio Basic', default=False)
+    is_bio_basic = fields.Boolean(default=False)
