@@ -602,6 +602,7 @@ class CwaProduct(models.Model):
             "verpakkingce": self.verpakkingce,
             "ingredients": self.ingredienten,
             "usage_tips": self.gebruikstips,
+            "plucode": self.plucode,
             "storage_temperature": self.bewaartemperatuur,
             "use_by_days": self.aantaldagenhoudbaar,
             "d204": self.d204,
