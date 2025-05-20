@@ -123,7 +123,7 @@
             result = records.update_all_product_with_latest_changes()
 action = {
     'type': 'ir.actions.client',
-    'tag': 'display_notification',
+    'tag': 'reload',
     'params': {
         'title': 'Product Updates Complete',
         'message': f"Processed: {result['processed']} products, Skipped: {result['skipped']} products because they where non preferred or processed",
