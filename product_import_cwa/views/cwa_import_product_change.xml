@@ -54,6 +54,14 @@
                 <field name="product_supplierinfo_supplier" readonly="1" />
                 <field name="changed_fields" readonly="1" />
                 <field
+                    name="affected_product_id_cost_price"
+                    string="Current cost price"
+                />
+                <field
+                    name="affected_product_id_list_price"
+                    string="Current sell price"
+                />
+                <field
                     name="product_supplierinfo_cost_price"
                     string="Supplier cost price"
                     readonly="1"
@@ -62,14 +70,6 @@
                     name="product_supplierinfo_list_price"
                     string="Supplier sell price"
                     readonly="1"
-                />
-                <field
-                    name="affected_product_id_cost_price"
-                    string="Current cost price"
-                />
-                <field
-                    name="affected_product_id_list_price"
-                    string="Current sell price"
                 />
                 <field name="state" />
             </tree>
@@ -123,11 +123,11 @@
             result = records.update_all_product_with_latest_changes()
 action = {
     'type': 'ir.actions.client',
-    'tag': 'display_notification',
+    'tag': 'reload',
     'params': {
         'title': 'Product Updates Complete',
         'message': f"Processed: {result['processed']} products, Skipped: {result['skipped']} products because they where non preferred or processed",
-        'type': 'info',
+        'type': 'success',
         'sticky': True,
     }
 }
