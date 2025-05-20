@@ -127,7 +127,7 @@ action = {
     'params': {
         'title': 'Product Updates Complete',
         'message': f"Processed: {result['processed']} products, Skipped: {result['skipped']} products because they where non preferred or processed",
-        'type': 'info',
+        'type': 'success',
         'sticky': True,
     }
 }
