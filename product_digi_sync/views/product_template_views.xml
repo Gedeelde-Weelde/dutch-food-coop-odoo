@@ -85,7 +85,17 @@
         </field>
     </record>
 
-
+    <record id="action_send_product_quality_image_to_digi" model="ir.actions.server">
+        <field name="name">Send quality image to digi</field>
+        <field name="type">ir.actions.server</field>
+        <field name="model_id" ref="product.model_product_template" />
+        <field name="binding_model_id" ref="product.model_product_template" />
+        <field name="state">code</field>
+        <field name="code">
+            for record in records:
+                record.send_quality_image_to_digi()
+        </field>
+    </record>
 
     <record id="action_send_product_image_to_digi" model="ir.actions.server">
         <field name="name">Send image to digi</field>
