@@ -233,6 +233,11 @@ msgid "Send products to @fresh by Digi"
 msgstr ""
 
 #. module: product_digi_sync
+#: model:ir.actions.server,name:product_digi_sync.action_send_product_quality_image_to_digi
+msgid "Send quality image to digi"
+msgstr ""
+
+#. module: product_digi_sync
 #: model:ir.actions.server,name:product_digi_sync.action_send_product_category_to_digi
 msgid "Send to digi"
 msgstr ""
