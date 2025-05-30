@@ -117,7 +117,7 @@
                 <sheet>
                     <div class="oe_left" style="width: 500px;">
                         <field
-                            name="image_512"
+                            name="image_1920"
                             widget="image"
                             class="oe_avatar oe_left"
                             readonly="0"
