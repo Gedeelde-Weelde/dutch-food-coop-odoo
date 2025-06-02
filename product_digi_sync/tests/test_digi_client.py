@@ -22,8 +22,10 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         self.digi_client = self.env["product_digi_sync.digi_client"].create(
             {"username": "test_username", "password": "123", "name": "Default"}
         )
-        self.patched_get_param = self._patch_ir_config_parameter_for_get_param(
-            "weighted_barcode_rule_id", None
+        self.patched_get_param = (
+            self._patch_ir_config_parameter_for_get_param_with_dict(
+                {"weighted_barcode_rule_id": None, "digi_sync_products_enabled": True}
+            )
         )
 
     def tearDown(self):
@@ -38,6 +40,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     @tagged("post_install", "-at_install")
     def test_it_sends_a_product_to_digi_using_the_right_headers_and_url(self):
+        self.patched_get_param.start()
         product = self.env["product.product"].create({"name": "Test Product"})
 
         with self.patch_request_post() as post_spy:
@@ -53,6 +56,19 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
             self.assertEqual(post_spy.call_args.kwargs["url"], expected_url)
             self.assertEqual(post_spy.call_args.kwargs["headers"], expected_headers)
+
+    def test_it_does_not_send_a_product_to_digi_when_send_to_digi_is_off(self):
+        product = self.env["product.product"].create({"name": "Test Product"})
+
+        self.patched_get_param = self._patch_ir_config_parameter_for_get_param(
+            "digi_sync_products_enabled", False
+        )
+        self.patched_get_param.start()
+
+        with self.patch_request_post() as post_spy:
+            self.digi_client.send_product_to_digi(product)
+
+            self.assertEqual(post_spy.call_count, 0)
 
     @tagged("post_install", "-at_install")
     def test_it_sends_a_product_to_digi_with_the_right_payload(self):
@@ -278,6 +294,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
     def test_it_sends_status_pieces_article_true_when_article_is_not_weighted_article(
         self
     ):
+        self.patched_get_param.start()
         name = "Test product"
         shop_plucode = 200
         self.patched_get_param = self._patch_ir_config_parameter_for_get_param(
@@ -318,6 +335,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     @tagged("post_install", "-at_install")
     def test_it_sends_no_barcode_to_digi_id_if_wrong_format(self):
+        self.patched_get_param.start()
         barcode_rule = self.env["barcode.rule"].create(
             {
                 "name": "Test barcode",
@@ -348,6 +366,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     @tagged("post_install", "-at_install")
     def test_it_sends_the_barcode_digi_id_if_present(self):
+        self.patched_get_param.start()
         barcode_rule = self.env["barcode.rule"].create(
             {
                 "name": "Test barcode",
@@ -395,6 +414,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     @tagged("post_install", "-at_install")
     def test_it_throws_an_exception_when_request_failed(self):
+        self.patched_get_param.start()
         product = self.env["product.product"].create({"name": "Test product"})
         response_content = """
                     {
@@ -414,6 +434,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     @tagged("post_install", "-at_install")
     def test_it_sets_the_result_description_and_code_as_exception_message(self):
+        self.patched_get_param.start()
         product = self.env["product.product"].create({"name": "Test product"})
         response_content = """
                     {
@@ -436,6 +457,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         )
 
     def test_it_sets_the_exception_message_when_validation_not_present(self):
+        self.patched_get_param.start()
         product = self.env["product.product"].create({"name": "Test product"})
         response_content = """
                     {
@@ -459,12 +481,14 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     def test_it_doesnt_catch_other_exceptions(self):
         product = self.env["product.product"].create({"name": "Test product"})
+        self.patched_get_param.start()
 
         with self.patch_request_post(response_content="Invalid json {"):
             with self.assertRaises(JSONDecodeError):
                 self.digi_client.send_product_to_digi(product)
 
     def test_it_sends_a_product_image_to_digi_with_the_right_url(self):
+        self.patched_get_param.start()
         name = "product Name"
         shop_plucode = 200
         with self.patch_request_post() as post_spy:
@@ -477,6 +501,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["url"], expected_url)
 
     def test_it_sends_a_product_image_to_digi_with_the_right_payload(self):
+        self.patched_get_param.start()
         name = "product Name"
         shop_plucode = 200
 
@@ -515,6 +540,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["data"], expected_payload)
 
     def test_it_sends_a_product_image_to_digi_with_the_right_payload_for_jpeg(self):
+        self.patched_get_param.start()
         name = "product Name"
         shop_plucode = 200
 
@@ -555,6 +581,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["data"], expected_payload)
 
     def test_it_sends_a_product_quality_image_to_digi_with_the_right_payload(self):
+        self.patched_get_param.start()
         with self.patch_request_post() as post_spy:
             image_id = 1000010
             quality = self.env["product_food_fields.product_quality"].create(
@@ -607,6 +634,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["data"], expected_payload)
 
     def test_it_sends_a_product_category_to_digi_with_the_right_url(self):
+        self.patched_get_param.start()
         category_name = "Test category"
         digi_id = 2
         category = self.env["pos.category"].create(
@@ -624,6 +652,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["url"], expected_url)
 
     def test_it_sends_a_category_digi(self):
+        self.patched_get_param.start()
         category_name = "Test category"
         digi_id = 2
         category = self.env["pos.category"].create(
@@ -652,6 +681,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["data"], expected_payload)
 
     def test_it_sends_a_product_origin_to_digi_with_the_right_payload(self):
+        self.patched_get_param.start()
         origin = self.env["product_food_fields.product_origin"].create(
             {"name": "Spanje"}
         )
@@ -680,6 +710,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertEqual(post_spy.call_args.kwargs["data"], expected_payload)
 
     def test_it_sends_the_product_origin_to_digi_using_labeltext_with_digi_id(self):
+        self.patched_get_param.start()
         origin = self.env["product_food_fields.product_origin"].create(
             {"name": "Spanje"}
         )
@@ -700,6 +731,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
     def test_it_sends_the_product_branch_as_extra_info_in_the_commodity_field_to_digi(
         self
     ):
+        self.patched_get_param.start()
         brand = self.env["product.brand"].create({"name": "ACME"})
         product = self.env["product.product"].create(
             {
@@ -720,6 +752,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             )
 
     def test_it_sends_active_in_scale_as_true_when_product_is_active(self):
+        self.patched_get_param.start()
         shop_plucode = 42
         name = "Test Active"
         product = self.env["product.product"].create(
@@ -737,6 +770,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             self.assertTrue(send_data["StatusFields"]["ActiveInScale"])
 
     def test_it_sends_active_in_scale_as_false_when_product_is_inactive(self):
+        self.patched_get_param.start()
         shop_plucode = 42
         name = "Test Active"
         product = self.env["product.product"].create(

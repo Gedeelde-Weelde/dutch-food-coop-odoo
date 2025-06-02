@@ -21,6 +21,17 @@ class DigiSyncBaseTestCase(TransactionCase):
 
         return patch.object(IrConfigParameter, "get_param", patched_get_param)
 
+    def _patch_ir_config_parameter_for_get_param_with_dict(self, key_values: dict):
+        original_get_param = IrConfigParameter.get_param
+
+        def patched_get_param(self, key, default=False):
+            if key in key_values.keys():
+                return key_values[key]  # return a specific value for a particular key
+            else:
+                return original_get_param(self, key, default)
+
+        return patch.object(IrConfigParameter, "get_param", patched_get_param)
+
     def _create_digi_client(self):
         digi_client = self.env["product_digi_sync.digi_client"].create(
             {
