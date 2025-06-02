@@ -18,6 +18,7 @@
     "assets": {
         "point_of_sale.assets": [
             "product_import_cwa/static/src/xml/extend_customer_facing_display_order.xml",
+            'product_import_cwa/static/src/js/orderline_override.js',
         ],
     },
     "data": [
