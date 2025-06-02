@@ -22,11 +22,10 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         self.digi_client = self.env["product_digi_sync.digi_client"].create(
             {"username": "test_username", "password": "123", "name": "Default"}
         )
-        self.patched_get_param = self._patch_ir_config_parameter_for_get_param_with_dict(
-            {
-                "weighted_barcode_rule_id": None,
-                "digi_sync_products_enabled": True
-            }
+        self.patched_get_param = (
+            self._patch_ir_config_parameter_for_get_param_with_dict(
+                {"weighted_barcode_rule_id": None, "digi_sync_products_enabled": True}
+            )
         )
 
     def tearDown(self):
@@ -61,14 +60,12 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
     def test_it_does_not_send_a_product_to_digi_when_send_to_digi_is_off(self):
         product = self.env["product.product"].create({"name": "Test Product"})
 
-
         self.patched_get_param = self._patch_ir_config_parameter_for_get_param(
             "digi_sync_products_enabled", False
         )
         self.patched_get_param.start()
 
         with self.patch_request_post() as post_spy:
-
             self.digi_client.send_product_to_digi(product)
 
             self.assertEqual(post_spy.call_count, 0)

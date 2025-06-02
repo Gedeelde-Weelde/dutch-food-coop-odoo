@@ -1,15 +1,13 @@
 import json
+import logging
 
 import requests
 
-from odoo import fields, models
+from odoo import fields, models, tools
 
 from ..tools.product_transformer import ProductTransformer
 
-import logging
-
 _logger = logging.getLogger(__name__)
-
 
 
 class DigiApiException(Exception):
@@ -123,5 +121,10 @@ class DigiClient(models.Model):
         return headers
 
     def _sending_enabled(self):
-        sending_enabled = bool(self.env["ir.config_parameter"].sudo().get_param("digi_sync_products_enabled"))
-        return sending_enabled
+        sending_enabled_in_config = tools.config.get("digi_sync_enabled", True)
+        sending_enabled = bool(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("digi_sync_products_enabled")
+        )
+        return sending_enabled and sending_enabled_in_config
