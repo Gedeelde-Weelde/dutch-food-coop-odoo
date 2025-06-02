@@ -6,6 +6,11 @@ from odoo import fields, models
 
 from ..tools.product_transformer import ProductTransformer
 
+import logging
+
+_logger = logging.getLogger(__name__)
+
+
 
 class DigiApiException(Exception):
     pass
@@ -65,6 +70,10 @@ class DigiClient(models.Model):
         self._post_to_digi(url, body)
 
     def _post_to_digi(self, url, body):
+        if not self._sending_enabled():
+            _logger.info("Digi sync is disabled. Skipping API call to %s", url)
+            return
+
         headers = self.create_header()
         response = requests.post(
             url=url, headers=headers, data=body, timeout=30, allow_redirects=False
@@ -112,3 +121,7 @@ class DigiClient(models.Model):
             "Content-Type": "application/json",
         }
         return headers
+
+    def _sending_enabled(self):
+        sending_enabled = bool(self.env["ir.config_parameter"].sudo().get_param("digi_sync_products_enabled"))
+        return sending_enabled
