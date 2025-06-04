@@ -14,6 +14,7 @@
     # any module necessary for this one to work correctly
     "depends": [
         "base",
+        "barcodes",
         "product",
         "product_import_cwa",
         "point_of_sale",
@@ -23,5 +24,6 @@
     "data": [
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
+        "views/barcode_rule_views.xml",
     ],
 }
