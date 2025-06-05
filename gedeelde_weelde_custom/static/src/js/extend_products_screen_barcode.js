@@ -11,7 +11,6 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
 
                 // Check if this is a price type barcode and if the rule has price_check_digit set
                 if (code.type === "price" && code.rule && code.rule.price_check_digit) {
-                    // Modify the price: set the highest digit to zero
                     const originalPrice = code.value;
                     const modifiedPrice = this._modifyPriceCheckDigit(originalPrice);
 
@@ -29,7 +28,11 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
             }
 
             _modifyPriceCheckDigit(price) {
-                // Convert price to string to work with digits
+                // If the price is less than 100, this means that the price check digit was 0.
+                // In that case we don't have to do anything.
+                if (price < 100) {
+                    return price;
+                }
                 const priceStr = price.toString();
                 const modifiedPriceStr = "0" + priceStr.substring(1);
                 return parseFloat(modifiedPriceStr);
