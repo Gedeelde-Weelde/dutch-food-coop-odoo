@@ -1,89 +1,60 @@
-odoo.define('gedeelde_weelde_custom.BarcodeParser', function (require) {
+odoo.define('gedeelde_weelde_custom.BarcodeParserExtension', function (require) {
     "use strict";
 
     const BarcodeParser = require('barcodes.BarcodeParser');
-    const Chrome = require('point_of_sale.Chrome');
 
-// Extend the BarcodeParser to include price_check_digit field and rule information
-    const CustomBarcodeParser = BarcodeParser.extend({
-        _barcodeRuleFields: function () {
-            console.debug('Custom barcode parser called: barcode rule fields');
-            const fields = this._super();
-            fields.push('price_check_digit');
-            return fields;
-        },
+// Store the original methods
+    const originalBarcodeRuleFields = BarcodeParser.prototype._barcodeRuleFields;
+    const originalParseBarcode = BarcodeParser.prototype.parse_barcode;
 
-        addRuleInformationToParsedResult(parsed_result, barcode) {
-            if (parsed_result.type !== 'error' && this.nomenclature) {
-                const rules = this.nomenclature.rules;
-                for (let i = 0; i < rules.length; i++) {
-                    const rule = rules[i];
-                    let cur_barcode = barcode;
+// Extend _barcodeRuleFields to include our custom field
+    BarcodeParser.prototype._barcodeRuleFields = function() {
+        const fields = originalBarcodeRuleFields.call(this);
+        fields.push('price_check_digit');
+        return fields;
+    };
 
-                    if (rule.encoding === 'ean13' &&
-                        this.check_encoding(barcode, 'upca') &&
-                        this.nomenclature.upc_ean_conv in {'upc2ean': '', 'always': ''}) {
-                        cur_barcode = '0' + cur_barcode;
-                    } else if (rule.encoding === 'upca' &&
-                        this.check_encoding(barcode, 'ean13') &&
-                        barcode[0] === '0' &&
-                        this.nomenclature.upc_ean_conv in {'ean2upc': '', 'always': ''}) {
-                        cur_barcode = cur_barcode.substr(1, 12);
-                    }
+    BarcodeParser.prototype._addRuleInformationToParsedResult = function(parsed_result, barcode) {
+        if (parsed_result.type !== 'error' && this.nomenclature) {
+            const rules = this.nomenclature.rules;
+            for (let i = 0; i < rules.length; i++) {
+                const rule = rules[i];
+                let cur_barcode = barcode;
 
-                    if (!this.check_encoding(cur_barcode, rule.encoding)) {
-                        continue;
-                    }
+                if (rule.encoding === 'ean13' &&
+                    this.check_encoding(barcode, 'upca') &&
+                    this.nomenclature.upc_ean_conv in {'upc2ean': '', 'always': ''}) {
+                    cur_barcode = '0' + cur_barcode;
+                } else if (rule.encoding === 'upca' &&
+                    this.check_encoding(barcode, 'ean13') &&
+                    barcode[0] === '0' &&
+                    this.nomenclature.upc_ean_conv in {'ean2upc': '', 'always': ''}) {
+                    cur_barcode = cur_barcode.substr(1, 12);
+                }
 
-                    const match = this.match_pattern(cur_barcode, rule.pattern, rule.encoding);
-                    if (match.match) {
-                        parsed_result.rule = rule;
-                        console.debug('Rule matched:', rule);
-                        break;
-                    }
+                if (!this.check_encoding(cur_barcode, rule.encoding)) {
+                    continue;
+                }
+
+                const match = this.match_pattern(cur_barcode, rule.pattern, rule.encoding);
+                if (match.match) {
+                    parsed_result.rule = rule;
+                    break;
                 }
             }
-        },
-
-        parse_barcode: function(barcode) {
-            console.debug('Custom barcode parser called with barcode:', barcode);
-            const parsed_result = this._super(barcode);
-            console.debug('Parsed result:', parsed_result);
-
-            // Add rule information to the parsed result
-            this.addRuleInformationToParsedResult(parsed_result, barcode);
-
-            return parsed_result;
         }
-    });
+    }
 
-// Override Chrome's setupBarcodeParser to use our custom parser
-    const Registries = require('point_of_sale.Registries');
+// Extend parse_barcode to add rule information
+    BarcodeParser.prototype.parse_barcode = function(barcode) {
+        const parsed_result = originalParseBarcode.call(this, barcode);
 
-    const CustomChrome = Chrome =>
-        class extends Chrome {
-            setupBarcodeParser() {
-                if (!this.env.pos.company.nomenclature_id) {
-                    const errorMessage = this.env._t("The barcode nomenclature setting is not configured. " +
-                        "Make sure to configure it on your Point of Sale configuration settings");
-                    throw new Error(this.env._t("Missing barcode nomenclature"), { cause: { message: errorMessage } });
-                }
+        // Add rule information to the parsed result
+        this._addRuleInformationToParsedResult(parsed_result, barcode);
 
-                console.debug('Setting up custom barcode parser');
-                const barcode_parser = new CustomBarcodeParser({ nomenclature_id: this.env.pos.company.nomenclature_id });
-                this.env.barcode_reader.set_barcode_parser(barcode_parser);
+        return parsed_result;
+    };
 
-                const fallbackNomenclature = this.env.pos.company.fallback_nomenclature_id;
-                if (fallbackNomenclature) {
-                    const fallbackBarcodeParser = new CustomBarcodeParser({ nomenclature_id: fallbackNomenclature });
-                    this.env.barcode_reader.setFallbackBarcodeParser(fallbackBarcodeParser);
-                }
-
-                return barcode_parser.is_loaded();
-            }
-        };
-
-    Registries.Component.extend(Chrome, CustomChrome);
-
-    return CustomBarcodeParser;
+// Return something to satisfy the module system
+    return BarcodeParser;
 });

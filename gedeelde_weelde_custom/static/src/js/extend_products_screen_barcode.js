@@ -11,13 +11,11 @@ odoo.define('gedeelde_weelde_custom.ProductScreen', function (require) {
 
                 // Check if this is a price type barcode and if the rule has price_check_digit set
                 if (code.type === 'price' && code.rule && code.rule.price_check_digit) {
-                    console.debug('Price check digit rule matched, original price:', code.value);
 
                     // Modify the price: set the highest digit to zero
                     const originalPrice = code.value;
                     const modifiedPrice = this._modifyPriceCheckDigit(originalPrice);
 
-                    console.debug('Modified price:', modifiedPrice);
 
                     // Create a modified code object with the new price
                     const modifiedCode = Object.assign({}, code, { value: modifiedPrice });
