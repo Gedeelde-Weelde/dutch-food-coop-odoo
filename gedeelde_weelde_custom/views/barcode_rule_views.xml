@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_barcode_rule_form_price_checkdigit" model="ir.ui.view">
+        <field name="name">barcode.rule.form.price.checkdigit</field>
+        <field name="model">barcode.rule</field>
+        <field name="inherit_id" ref="barcodes.view_barcode_rule_form" />
+        <field name="arch" type="xml">
+            <field name="type" position="after">
+                <field
+                    name="price_check_digit"
+                    attrs="{'invisible': [('type', '!=', 'price')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>

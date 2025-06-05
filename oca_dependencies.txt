@@ -1,3 +1,4 @@
 # oca_dependencies.txt
 queue_job
 product_brand
+pos_container_deposit

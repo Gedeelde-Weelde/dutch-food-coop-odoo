@@ -14,14 +14,22 @@
     # any module necessary for this one to work correctly
     "depends": [
         "base",
+        "barcodes",
         "product",
         "product_import_cwa",
         "point_of_sale",
         "sale",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
+            "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
+        ],
+    },
     # always loaded
     "data": [
         "security/ir.model.access.csv",
         "views/product_template_views.xml",
+        "views/barcode_rule_views.xml",
     ],
 }
