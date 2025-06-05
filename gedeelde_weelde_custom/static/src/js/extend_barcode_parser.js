@@ -13,11 +13,7 @@ odoo.define('gedeelde_weelde_custom.BarcodeParser', function (require) {
             return fields;
         },
 
-        parse_barcode: function(barcode) {
-            console.debug('Custom barcode parser called with barcode:', barcode);
-            const parsed_result = this._super(barcode);
-
-            // Add rule information to the parsed result
+        addRuleInformationToParsedResult(parsed_result, barcode) {
             if (parsed_result.type !== 'error' && this.nomenclature) {
                 const rules = this.nomenclature.rules;
                 for (let i = 0; i < rules.length; i++) {
@@ -25,14 +21,14 @@ odoo.define('gedeelde_weelde_custom.BarcodeParser', function (require) {
                     let cur_barcode = barcode;
 
                     if (rule.encoding === 'ean13' &&
-                        this.check_encoding(barcode,'upca') &&
-                        this.nomenclature.upc_ean_conv in {'upc2ean':'','always':''}) {
+                        this.check_encoding(barcode, 'upca') &&
+                        this.nomenclature.upc_ean_conv in {'upc2ean': '', 'always': ''}) {
                         cur_barcode = '0' + cur_barcode;
                     } else if (rule.encoding === 'upca' &&
-                        this.check_encoding(barcode,'ean13') &&
+                        this.check_encoding(barcode, 'ean13') &&
                         barcode[0] === '0' &&
-                        this.nomenclature.upc_ean_conv in {'ean2upc':'','always':''}) {
-                        cur_barcode = cur_barcode.substr(1,12);
+                        this.nomenclature.upc_ean_conv in {'ean2upc': '', 'always': ''}) {
+                        cur_barcode = cur_barcode.substr(1, 12);
                     }
 
                     if (!this.check_encoding(cur_barcode, rule.encoding)) {
@@ -47,6 +43,15 @@ odoo.define('gedeelde_weelde_custom.BarcodeParser', function (require) {
                     }
                 }
             }
+        },
+
+        parse_barcode: function(barcode) {
+            console.debug('Custom barcode parser called with barcode:', barcode);
+            const parsed_result = this._super(barcode);
+            console.debug('Parsed result:', parsed_result);
+
+            // Add rule information to the parsed result
+            this.addRuleInformationToParsedResult(parsed_result, barcode);
 
             return parsed_result;
         }
