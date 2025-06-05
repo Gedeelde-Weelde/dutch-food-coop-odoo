@@ -63,15 +63,18 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: OCA/queue
+          ref: '16.0'
           path: "${{ github.workspace }}/extra-addons-queue"
       - name: Checkout extra Odoo brand module
         uses: actions/checkout@v4
         with:
+          ref: '16.0'
           repository: OCA/brand
           path: "${{ github.workspace }}/extra-addons-brand"
       - name: Checkout extra Odoo pos module
         uses: actions/checkout@v4
         with:
+          ref: '16.0'
           repository: OCA/pos
           path: "${{ github.workspace }}/extra-addons-pos"
       - name: Install addons and dependencies
