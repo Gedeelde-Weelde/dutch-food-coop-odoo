@@ -7,6 +7,7 @@ odoo.define('gedeelde_weelde_custom.BarcodeParser', function (require) {
 // Extend the BarcodeParser to include price_check_digit field and rule information
     const CustomBarcodeParser = BarcodeParser.extend({
         _barcodeRuleFields: function () {
+            console.debug('Custom barcode parser called: barcode rule fields');
             const fields = this._super();
             fields.push('price_check_digit');
             return fields;

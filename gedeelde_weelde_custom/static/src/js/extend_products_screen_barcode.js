@@ -33,29 +33,8 @@ odoo.define('gedeelde_weelde_custom.ProductScreen', function (require) {
             _modifyPriceCheckDigit(price) {
                 // Convert price to string to work with digits
                 const priceStr = price.toString();
-
-                // Find the highest digit
-                let highestDigit = '0';
-                let highestIndex = -1;
-
-                for (let i = 0; i < priceStr.length; i++) {
-                    const char = priceStr[i];
-                    // Only consider numeric digits
-                    if (/\d/.test(char) && char > highestDigit) {
-                        highestDigit = char;
-                        highestIndex = i;
-                    }
-                }
-
-                // If we found a digit to replace
-                if (highestIndex !== -1) {
-                    // Replace the highest digit with '0'
-                    const modifiedPriceStr = priceStr.substring(0, highestIndex) + '0' + priceStr.substring(highestIndex + 1);
-                    return parseFloat(modifiedPriceStr);
-                }
-
-                // If no digit found or any error, return original price
-                return price;
+                const modifiedPriceStr = '0' + priceStr.substring(1);
+                return parseFloat(modifiedPriceStr);
             }
         };
 
