@@ -20,6 +20,12 @@
         "point_of_sale",
         "sale",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
+            "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
+        ],
+    },
     # always loaded
     "data": [
         "security/ir.model.access.csv",

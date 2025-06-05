@@ -7,8 +7,6 @@
         <field name="arch" type="xml">
             <field name="type" position="after">
                 <field name="price_check_digit" attrs="{'invisible': [('type', '!=', 'price')]}"/>
-                <field name="price_check_digit_position"
-                       attrs="{'invisible': ['|', ('type', '!=', 'price'), ('price_check_digit', '=', False)]}"/>
             </field>
         </field>
     </record>
