@@ -22,8 +22,8 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
             "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
+            "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
         ],
     },
     # always loaded
