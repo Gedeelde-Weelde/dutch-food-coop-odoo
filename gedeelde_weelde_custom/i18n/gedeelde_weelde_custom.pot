@@ -14,12 +14,27 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: gedeelde_weelde_custom
+#: model:ir.model,name:gedeelde_weelde_custom.model_barcode_rule
+msgid "Barcode Rule"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
 #: model:ir.model,name:gedeelde_weelde_custom.model_product_template
 msgid "Base class for Digi Sync models"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
+#: model:ir.model.fields,help:gedeelde_weelde_custom.field_barcode_rule__price_check_digit
+msgid "Enable check digit validation for price-encoded barcodes"
 msgstr ""
 
 #. module: gedeelde_weelde_custom
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_product__is_bio_basic
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_template__is_bio_basic
 msgid "Is Bio Basic"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
+#: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_barcode_rule__price_check_digit
+msgid "Price Check Digit"
 msgstr ""
