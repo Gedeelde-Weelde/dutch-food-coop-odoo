@@ -108,6 +108,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "standard_price": 1.5,
                 "show_packed_date_on_label": True,
                 "storage_temperature": expected_storage_temp,
+                "available_in_pos": True,
             }
         )
 
@@ -156,6 +157,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "standard_price": 1.5,
                 "show_packed_date_on_label": True,
                 "usage_tips": expected_usage_tips,
+                "available_in_pos": True,
             }
         )
 
@@ -211,6 +213,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "storage_temperature": expected_storage_temp,
                 "use_by_days": expected_use_by_days,
                 "best_before_days": expected_best_before_days,
+                "available_in_pos": True,
             }
         )
 
@@ -240,6 +243,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "shop_plucode": shop_plucode,
                 "list_price": 1.0,
                 "pos_categ_id": test_category.id,
+                "available_in_pos": True,
             }
         )
 
@@ -275,6 +279,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "shop_plucode": shop_plucode,
                 "list_price": 1.0,
                 "pos_categ_id": test_category.id,
+                "available_in_pos": True,
             }
         )
 
@@ -317,6 +322,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "pos_categ_id": test_category.id,
                 "send_to_scale": True,
                 "is_weighted_article": False,
+                "available_in_pos": True,
             }
         )
 
@@ -751,7 +757,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 send_data["Names"][0]["DdFormatCommodity"], expected_commodity_payload
             )
 
-    def test_it_sends_active_in_scale_as_true_when_product_is_active(self):
+    def test_it_sends_active_in_scale_as_true_when_product_is_available_in_pos(self):
         self.patched_get_param.start()
         shop_plucode = 42
         name = "Test Active"
@@ -759,6 +765,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             {
                 "name": name,
                 "shop_plucode": shop_plucode,
+                "available_in_pos": True,
             }
         )
 
@@ -769,7 +776,9 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
             self.assertTrue(send_data["StatusFields"]["ActiveInScale"])
 
-    def test_it_sends_active_in_scale_as_false_when_product_is_inactive(self):
+    def test_it_sends_active_in_scale_as_false_when_product_is_not_available_in_pos(
+        self
+    ):  # noqa: E501
         self.patched_get_param.start()
         shop_plucode = 42
         name = "Test Active"
@@ -778,6 +787,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
                 "name": name,
                 "active": False,
                 "shop_plucode": shop_plucode,
+                "available_in_pos": False,
             }
         )
 
