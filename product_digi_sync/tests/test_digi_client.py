@@ -797,6 +797,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             send_data = json.loads(post_spy.call_args.kwargs["data"])
 
             self.assertFalse(send_data["StatusFields"]["ActiveInScale"])
+            self.assertFalse(send_data["StatusFields"]["Active"])
 
     @contextlib.contextmanager
     def patch_request_post(self, status_code=200, response_content=None):
@@ -872,6 +873,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
         data["StatusFields"] = {
             "ActiveInScale": True,
+            "Active": True,
             "PiecesArticle": not kwargs.get("is_weighted_article", True),
             "PackedDate": kwargs.get("show_packed_date_on_label") or False,
             "ShowMinStorageTemp": True if kwargs.get("storage_temp") else False,

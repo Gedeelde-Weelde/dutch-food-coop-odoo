@@ -42,6 +42,7 @@ class ProductTransformer:
             data["LabelText6DataId"] = product.product_origin_id.external_digi_id
         data["StatusFields"] = {
             "ActiveInScale": product.available_in_pos,
+            "Active": product.available_in_pos,
             "PiecesArticle": not product.is_weighted_article,
             "PackedDate": product.show_packed_date_on_label,
             "ShowMinStorageTemp": False,
