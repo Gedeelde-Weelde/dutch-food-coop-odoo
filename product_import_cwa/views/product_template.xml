@@ -223,6 +223,7 @@
                                         name="product_supplierinfo_supplier"
                                         readonly="1"
                                     />
+                                    <field name="product_brand_id" readonly="1" />
                                     <field name="changed_fields" readonly="1" />
                                     <field
                                         name="affected_product_id_cost_price"

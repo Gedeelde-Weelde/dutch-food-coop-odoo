@@ -33,7 +33,11 @@ class CwaImportProductChange(models.Model):
         search="_search_product_supplierinfo",
         store=False,
     )
-
+    product_brand_id = fields.Many2one(
+        "product.brand",
+        related="affected_product_id.product_brand_id",
+        store=True,
+    )
     product_supplierinfo_ingredients = fields.Text(
         related="product_supplierinfo_id.ingredients"
     )
