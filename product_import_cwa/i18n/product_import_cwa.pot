@@ -288,6 +288,12 @@ msgid "Bewaartemperatuur"
 msgstr ""
 
 #. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__product_brand_id
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
+msgid "Brand"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_brand_translation_wizard__brand_name
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands__destination_value
 msgid "Brand Name"
@@ -2485,6 +2491,11 @@ msgstr ""
 #. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_product_brands_wizard__existing_brands
 msgid "Select Existing Brands"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,help:product_import_cwa.field_cwa_import_product_change__product_brand_id
+msgid "Select a brand for this product"
 msgstr ""
 
 #. module: product_import_cwa
