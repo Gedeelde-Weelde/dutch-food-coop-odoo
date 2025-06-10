@@ -212,7 +212,7 @@
                                     <field name="create_date" readonly="1" />
                                     <button
                                         class="oe_edit_only"
-                                        name="update_product_with_latest_changes"
+                                        name="update_product_with_latest_price_changes"
                                         type="object"
                                         icon="fa-refresh"
                                         string="Update the Product Changes"

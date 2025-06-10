@@ -71,22 +71,22 @@ class CwaImportProductChange(models.Model):
         readonly=True,
     )
 
-    def update_product_with_latest_changes(self):
+    def update_product_with_latest_price_changes(self):
         self.ensure_one()
         if self.state == "new":
-            self.source_cwa_product_id.update_from_recent_changes(
+            self.source_cwa_product_id.update_from_recent_changes_only_price(
                 self.affected_product_id
             )
             self.state = "processed-automatically"
 
-    def update_all_product_with_latest_changes(self):
+    def update_all_product_with_latest_price_changes(self):
         result = {
             "processed": 0,
             "skipped": 0,
         }
         for record in self:
             previous_state = record.state
-            record.update_product_with_latest_changes()
+            record.update_product_with_latest_price_changes()
             if (
                 record.state == "processed-automatically"
                 and previous_state != record.state
