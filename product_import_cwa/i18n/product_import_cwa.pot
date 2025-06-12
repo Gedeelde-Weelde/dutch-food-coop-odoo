@@ -2255,6 +2255,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__processed-automatically
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Processed automatically"
 msgstr ""
 
