@@ -35,6 +35,11 @@
                     string="Processed"
                     domain="[('state', '=', 'processed')]"
                 />
+                <filter
+                    name="state_processed_automatically"
+                    string="Processed automatically"
+                    domain="[('state', '=', 'processed-automatically')]"
+                />
             </search>
         </field>
     </record>
