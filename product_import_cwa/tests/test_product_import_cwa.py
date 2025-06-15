@@ -729,7 +729,7 @@ class TestProductImportCwa(TransactionCase):
             [("affected_product_id", "=", imported_product.id)]
         )
 
-        import_result.update_product_with_latest_price_changes()
+        import_result.update_product_with_latest_changes()
 
         reloaded_product = self.env["product.template"].search(
             [("name", "=", "BOEKWEIT")]
@@ -740,7 +740,7 @@ class TestProductImportCwa(TransactionCase):
 
         expected_result = {
             "list_price": reloaded_cwa_product.consumentenprijs,
-            "ingredients": "Boekweit",
+            "ingredients": "Boekweit, Eekhoorns",
             "standard_price": reloaded_cwa_product.inkoopprijs,
         }
         actual_result = {
@@ -772,7 +772,7 @@ class TestProductImportCwa(TransactionCase):
             [("affected_product_id", "=", imported_product.id)]
         )
 
-        import_result.update_product_with_latest_price_changes()
+        import_result.update_product_with_latest_changes()
 
         self.assertEqual(import_result.state, "processed-automatically")
 
@@ -808,7 +808,7 @@ class TestProductImportCwa(TransactionCase):
             ]
         )
 
-        import_result.update_product_with_latest_price_changes()
+        import_result.update_product_with_latest_changes()
 
         self.assertEqual(import_result.state, "no-preferred-new")
 
@@ -844,7 +844,7 @@ class TestProductImportCwa(TransactionCase):
             [("source_cwa_product_id.name", "in", ["BOEKWEIT", "SPROOKJES ROOD"])]
         )
 
-        result = import_result.update_all_product_with_latest_price_changes()
+        result = import_result.update_all_product_with_latest_changes()
 
         expected_result = {
             "processed": 1,
