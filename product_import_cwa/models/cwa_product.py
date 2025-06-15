@@ -570,13 +570,9 @@ class CwaProduct(models.Model):
                 raise
         return
 
-    def update_from_recent_changes_only_price(self, imported_product):
+    def update_from_recent_changes(self, imported_product):
         new_values = self._create_product_dict_from_self()
-        only_price_values = {
-            "list_price": new_values["list_price"],
-            "standard_price": new_values["standard_price"],
-        }
-        imported_product.write(only_price_values)
+        imported_product.write(new_values)
 
     def _create_new_product(self, extra_prod_dict, prod_obj, supplier_dict):
         all_fields = self.env["product.template"].fields_get().keys()

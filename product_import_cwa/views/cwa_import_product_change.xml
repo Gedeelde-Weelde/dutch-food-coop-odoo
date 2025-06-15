@@ -127,7 +127,7 @@
         <field name="binding_model_id" ref="model_cwa_import_product_change" />
         <field name="state">code</field>
         <field name="code">
-            result = records.update_all_product_with_latest_price_changes()
+            result = records.update_all_product_with_latest_changes()
 action = {
     'type': 'ir.actions.client',
     'tag': 'reload',
