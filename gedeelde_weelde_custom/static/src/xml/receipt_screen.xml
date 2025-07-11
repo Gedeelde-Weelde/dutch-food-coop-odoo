@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="ReceiptScreen"
+        t-inherit="point_of_sale.ReceiptScreen"
+        t-inherit-mode="extension"
+    >
+        <!-- Add change information after the payment lines -->
+        <xpath expr="//div[hasclass('top-content')]" position="after">
+            <t
+                t-set="changeAmount"
+                t-value="currentOrder.get_total_paid() - currentOrder.get_total_with_tax()"
+            />
+            <div class="top-content">
+                <div t-if="changeAmount > 0" class="top-content-center">
+                    <h2><t t-esc="env._t('Change')" />: <t
+                            t-esc="env.pos.format_currency(changeAmount)"
+                        /></h2>
+                </div>
+            </div>
+        </xpath>
+    </t>
+</templates>
