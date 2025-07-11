@@ -21,9 +21,10 @@
         "sale",
     ],
     "assets": {
-        "web.assets_backend": [
+        "point_of_sale.assets": [
             "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
             "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
+            "gedeelde_weelde_custom/static/src/js/pos_auto_order.js",
         ],
     },
     # always loaded
