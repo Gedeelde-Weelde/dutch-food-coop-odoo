@@ -17,7 +17,7 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
             async _handlePendingBarcode() {
                 if (this.env.pos.pendingBarcodeResult) {
                     const pendingResult = this.env.pos.pendingBarcodeResult;
-                    delete this.env.pos.pendingBarcodeResult; // Clear it
+                    delete this.env.pos.pendingBarcodeResult;
 
                     console.debug(
                         "Processing pending barcode from receipt screen:",
