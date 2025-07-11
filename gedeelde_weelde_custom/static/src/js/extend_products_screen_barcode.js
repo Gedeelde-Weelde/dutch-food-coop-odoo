@@ -3,15 +3,14 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
 
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
-    const { onMounted } = owl;
+    const {onMounted} = owl;
 
     const CustomProductScreen = (ProductScreen) =>
         class extends ProductScreen {
-
             setup() {
                 super.setup();
                 onMounted(async () => {
-                    this._handlePendingBarcode();
+                    await this._handlePendingBarcode();
                 });
             }
 
@@ -20,16 +19,16 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
                     const pendingResult = this.env.pos.pendingBarcodeResult;
                     delete this.env.pos.pendingBarcodeResult; // Clear it
 
-                    console.debug('Processing pending barcode from receipt screen:', pendingResult);
+                    console.debug(
+                        "Processing pending barcode from receipt screen:",
+                        pendingResult
+                    );
 
-                    // Process the barcode using the appropriate action
-                    if (pendingResult.type === 'product') {
-                        await this._barcodeProductAction(pendingResult);
-                    } else if (pendingResult.type === 'price') {
-                        await this._barcodeProductAction(pendingResult);
-                    } else if (pendingResult.type === 'weight') {
-                        await this._barcodeProductAction(pendingResult);
-                    } else if (pendingResult.type === 'quantity') {
+                    if (
+                        ["product", "price", "weight", "quantity"].includes(
+                            pendingResult.type
+                        )
+                    ) {
                         await this._barcodeProductAction(pendingResult);
                     }
                 }
