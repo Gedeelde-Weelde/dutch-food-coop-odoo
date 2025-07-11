@@ -21,6 +21,10 @@ odoo.define('gedeelde_weelde_custom.ReceiptScreen', function (require) {
 
         async _onBarcodeScanned(parsed_result) {
             console.debug('Barcode scanned on receipt screen:', parsed_result);
+
+            // Store the barcode result temporarily
+            this.env.pos.pendingBarcodeResult = parsed_result;
+
             this.orderDone();
             // Create a new order and navigate to ProductScreen
             // this._addNewOrder();
