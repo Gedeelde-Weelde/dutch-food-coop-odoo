@@ -13,7 +13,7 @@
             />
             <div class="top-content">
                 <div t-if="changeAmount > 0" class="top-content-center">
-                    <h2><t t-esc="env._t('Change')" />: <t
+                    <h2 class="change-amount"><t t-esc="env._t('Change')" />: <t
                             t-esc="env.pos.format_currency(changeAmount)"
                         /></h2>
                 </div>
