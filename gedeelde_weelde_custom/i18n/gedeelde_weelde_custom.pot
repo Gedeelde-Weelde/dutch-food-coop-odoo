@@ -35,6 +35,20 @@ msgid "Is Bio Basic"
 msgstr ""
 
 #. module: gedeelde_weelde_custom
+#. odoo-javascript
+#: code:addons/gedeelde_weelde_custom/static/src/xml/customer_facing_display_order_line_template.xml:0
+#, python-format
+msgid "Price"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_barcode_rule__price_check_digit
 msgid "Price Check Digit"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
+#. odoo-javascript
+#: code:addons/gedeelde_weelde_custom/static/src/xml/customer_facing_display_order_line_template.xml:0
+#, python-format
+msgid "Quantity"
 msgstr ""
