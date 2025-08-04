@@ -24,6 +24,7 @@
         "point_of_sale.assets": [
             "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
             "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
+            "gedeelde_weelde_custom/static/src/js/extend_payment_screen.js",
             "gedeelde_weelde_custom/static/src/js/pos_auto_order.js",
             "gedeelde_weelde_custom/static/src/xml/receipt_screen.xml",
             "gedeelde_weelde_custom/static/src/xml/customer_facing_display_order_line_template.xml",
