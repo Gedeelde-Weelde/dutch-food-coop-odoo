@@ -33,7 +33,7 @@ class ProductTemplate(models.Model):
     vegetarisch = fields.Selection(YESNO_SELECTION)
     veganistisch = fields.Selection(YESNO_SELECTION)
     rauwemelk = fields.Selection(YESNO_SELECTION)
-    plucode = fields.Char(help="4-cijferige plucode.")
+    plucode = fields.Char(help="4-cijferige plucode.", name="Plucode")
     d204 = fields.Selection(PRESENCE_SELECTION, help="Cacao.")
     d209 = fields.Selection(PRESENCE_SELECTION, help="Glutamaat.")
     d210 = fields.Selection(PRESENCE_SELECTION, help="Gluten.")

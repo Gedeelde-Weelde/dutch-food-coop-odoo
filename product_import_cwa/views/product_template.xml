@@ -143,12 +143,19 @@
                             <group name="group_top">
                                 <group name="group_left">
                                     <field name="available_in_pos" />
-                                    <field name="eancode" />
+                                    <field name="barcode" />
                                     <field name="product_variant_count" invisible="1" />
-                                    <field name="categ_id" />
-                                    <field name="pos_categ_id" />
+                                    <field
+                                        name="categ_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="pos_categ_id"
+                                        options="{'no_create': True}"
+                                    />
                                     <field name="product_brand_id" />
                                     <field name="inhoud" />
+                                    <field name="eenheid" />
                                     <field
                                         name="uom_id"
                                         groups="uom.group_uom"
@@ -159,18 +166,26 @@
                                         groups="uom.group_uom"
                                         options="{'no_create': True}"
                                     />
-                                    <field name="eenheid" />
-                                    <field name="statiegeld" />
-                                    <field name="plucode" />
+                                    <field
+                                        name="is_deposit"
+                                        attrs="{'invisible': True }"
+                                    />
+                                    <field
+                                        name="deposit_product_id"
+                                        options="{'no_create': True}"
+                                        attrs="{
+                                            'invisible': ['|', '|', '|', ('is_deposit', '!=', False), ('sale_ok', '=', False), ('type', '=', 'service'), '&amp;', ('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)],
+                                        }"
+                                    />
                                     <field name="preferred_supplier_id" />
                                 </group>
                                 <group name="group_right">
                                     <field name="active" />
-                                    <field name="to_weight" />
                                     <field
                                         name="taxes_id"
                                         colspan="2"
                                         widget="many2many_tags"
+                                        options="{'no_create': True}"
                                     />
                                     <field name="list_price" />
                                     <field
@@ -180,11 +195,14 @@
                                     />
                                     <field name="standard_price" />
                                     <field name="margin" widget="percentage" />
-                                    <field name="price_per_standard_unit" />
-                                    <field name="product_quality_id" />
-                                    <field name="verpakkingce" />
-                                    <field name="herkomst" />
-                                    <field name="product_origin_id" />
+                                    <field
+                                        name="product_quality_id"
+                                        options="{'no_create': True}"
+                                    />
+                                    <field
+                                        name="product_origin_id"
+                                        options="{'no_create': True}"
+                                    />
                                 </group>
                             </group>
                             <separator string="Suppliers" />
