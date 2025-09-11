@@ -1,9 +1,9 @@
 <section class="oe_container">
     <div class="oe_row oe_spaced">
-        <h2 class="oe_slogan" style="color:#875A7B;">POS Payment Logging</h2>
-        <h3 class="oe_slogan">Log POS payment operations in browser database</h3>
+        <h2 class="oe_slogan" style="color:#875A7B;">POS Order Logging</h2>
+        <h3 class="oe_slogan">Comprehensive logging for POS operations in browser database</h3>
         <div class="oe_demo oe_picture oe_screenshot">
-            <p>This module adds logging functionality to the Point of Sale (POS) payment screen.</p>
+            <p>This module adds comprehensive logging functionality to the Point of Sale (POS) system, tracking the complete order lifecycle from creation to completion.</p>
         </div>
     </div>
 </section>
@@ -12,11 +12,26 @@
     <div class="oe_row oe_spaced">
         <h2 class="oe_slogan" style="color:#875A7B;">Features</h2>
         <div class="oe_span6">
-            <ul class="oe_mt32">
-                <li>Logs payment operations (add payment, delete payment, validate payment)</li>
-                <li>Stores logs in the browser's IndexedDB database</li>
+            <p class="oe_mt32">
+                <strong>Order Lifecycle Logging:</strong>
+            </p>
+            <ul>
+                <li>Order creation and product operations</li>
+                <li>Payment operations (add, delete, validate)</li>
+                <li>Order completion and receipt events</li>
+                <li>Screen transitions and state changes</li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                <strong>Technical Benefits:</strong>
+            </p>
+            <ul>
+                <li>Stores logs in browser's IndexedDB</li>
                 <li>No server-side storage required</li>
                 <li>Minimal impact on POS performance</li>
+                <li>Error and exception tracking</li>
+                <li>Session and system event monitoring</li>
             </ul>
         </div>
     </div>
@@ -30,23 +45,22 @@
                 <strong>Logged Events:</strong>
             </p>
             <ul>
-                <li>Adding a payment line - When a payment method is selected</li>
-                <li>Deleting a payment line - When a payment is removed</li>
-                <li>Validating payment - When an order is finalized</li>
+                <li><strong>Product Screen:</strong> Order creation, product additions/removals, quantity changes, order cancellation</li>
+                <li><strong>Payment Screen:</strong> Adding/deleting payment lines, payment validation</li>
+                <li><strong>Receipt Screen:</strong> Order completion, receipt printing, next order actions</li>
+                <li><strong>System Events:</strong> Session start/end, errors and exceptions</li>
             </ul>
         </div>
         <div class="oe_span6">
             <p class="oe_mt32">
-                <strong>Log Data Structure:</strong>
+                <strong>Database Structure:</strong>
             </p>
             <ul>
-                <li>action: The type of action</li>
-                <li>payment_method: Name of the payment method</li>
-                <li>payment_method_id: ID of the payment method</li>
-                <li>amount: Payment amount</li>
-                <li>order_uid: Unique identifier of the order</li>
-                <li>order_name: Name/reference of the order</li>
-                <li>timestamp: ISO timestamp of when the action occurred</li>
+                <li><strong>Payment Logs DB:</strong> Stores detailed payment operation logs</li>
+                <li><strong>Order Logs DB:</strong> Stores comprehensive order lifecycle events</li>
+                <li><strong>Key Indexes:</strong> timestamp, order_uid, action, screen</li>
+                <li><strong>Common Fields:</strong> action, timestamp, order information</li>
+                <li><strong>Event-specific Fields:</strong> Product details, payment information, error data</li>
             </ul>
         </div>
     </div>
@@ -60,7 +74,7 @@
                 The module works automatically after installation. No configuration is needed.
             </p>
             <p>
-                To view the logs, you can use the browser's developer tools:
+                <strong>Viewing Payment Logs:</strong>
             </p>
             <ol>
                 <li>Open the browser's developer console (F12)</li>
@@ -69,6 +83,19 @@
                 <li>Select "pos_payment_logs" database</li>
                 <li>View the "payment_logs" object store</li>
             </ol>
+            <p>
+                <strong>Viewing Order Logs:</strong>
+            </p>
+            <ol>
+                <li>Open the browser's developer console (F12)</li>
+                <li>Go to the "Application" tab</li>
+                <li>Under "Storage", expand "IndexedDB"</li>
+                <li>Select "pos_order_logs" database</li>
+                <li>View the "order_logs" object store</li>
+            </ol>
+            <p>
+                You can use the IndexedDB browser interface to filter logs by various indexes such as timestamp, order_uid, action, or screen.
+            </p>
         </div>
     </div>
 </section>
