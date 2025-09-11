@@ -1,0 +1,85 @@
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">POS Payment Logging</h2>
+        <h3 class="oe_slogan">Log POS payment operations in browser database</h3>
+        <div class="oe_demo oe_picture oe_screenshot">
+            <p>This module adds logging functionality to the Point of Sale (POS) payment screen.</p>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Features</h2>
+        <div class="oe_span6">
+            <ul class="oe_mt32">
+                <li>Logs payment operations (add payment, delete payment, validate payment)</li>
+                <li>Stores logs in the browser's IndexedDB database</li>
+                <li>No server-side storage required</li>
+                <li>Minimal impact on POS performance</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Technical Information</h2>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                <strong>Logged Events:</strong>
+            </p>
+            <ul>
+                <li>Adding a payment line - When a payment method is selected</li>
+                <li>Deleting a payment line - When a payment is removed</li>
+                <li>Validating payment - When an order is finalized</li>
+            </ul>
+        </div>
+        <div class="oe_span6">
+            <p class="oe_mt32">
+                <strong>Log Data Structure:</strong>
+            </p>
+            <ul>
+                <li>action: The type of action</li>
+                <li>payment_method: Name of the payment method</li>
+                <li>payment_method_id: ID of the payment method</li>
+                <li>amount: Payment amount</li>
+                <li>order_uid: Unique identifier of the order</li>
+                <li>order_name: Name/reference of the order</li>
+                <li>timestamp: ISO timestamp of when the action occurred</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container oe_dark">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Usage</h2>
+        <div class="oe_span12">
+            <p class="oe_mt32">
+                The module works automatically after installation. No configuration is needed.
+            </p>
+            <p>
+                To view the logs, you can use the browser's developer tools:
+            </p>
+            <ol>
+                <li>Open the browser's developer console (F12)</li>
+                <li>Go to the "Application" tab</li>
+                <li>Under "Storage", expand "IndexedDB"</li>
+                <li>Select "pos_payment_logs" database</li>
+                <li>View the "payment_logs" object store</li>
+            </ol>
+        </div>
+    </div>
+</section>
+
+<section class="oe_container">
+    <div class="oe_row oe_spaced">
+        <h2 class="oe_slogan" style="color:#875A7B;">Support</h2>
+        <div class="oe_span12">
+            <p class="oe_mt32 text-center">
+                For any questions or support, please contact the module author.
+            </p>
+        </div>
+    </div>
+</section>
