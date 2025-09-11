@@ -1,6 +1,7 @@
 # POS Payment Logging
 
-This Odoo module adds logging functionality to the Point of Sale (POS) payment screen. It records payment operations in the browser's IndexedDB database.
+This Odoo module adds logging functionality to the Point of Sale (POS) payment screen.
+It records payment operations in the browser's IndexedDB database.
 
 ## Features
 
@@ -34,6 +35,7 @@ Each log entry contains:
 ### Browser Database
 
 The module uses IndexedDB to store logs with the following configuration:
+
 - Database name: `pos_payment_logs`
 - Object store: `payment_logs`
 - Indexes: `timestamp`, `payment_method`, `amount`
@@ -43,6 +45,7 @@ The module uses IndexedDB to store logs with the following configuration:
 The module works automatically after installation. No configuration is needed.
 
 To view the logs, you can use the browser's developer tools:
+
 1. Open the browser's developer console (F12)
 2. Go to the "Application" tab
 3. Under "Storage", expand "IndexedDB"

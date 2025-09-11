@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 {
@@ -6,7 +5,7 @@
     "version": "16.0.1.0.0",
     "category": "Point of Sale",
     "summary": "Logs POS payment operations to browser database",
-    "author": "Dutch Food Coop",
+    "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",
     "depends": ["point_of_sale"],

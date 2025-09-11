@@ -7,30 +7,35 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
     // Database initialization
     const dbName = "pos_payment_logs";
     const dbVersion = 1;
-    let db;
+    let db = null;
 
     // Initialize IndexedDB
     const request = indexedDB.open(dbName, dbVersion);
 
-    request.onerror = function(event) {
+    request.onerror = function (event) {
         console.error("IndexedDB error:", event.target.errorCode);
     };
 
-    request.onupgradeneeded = function(event) {
+    request.onupgradeneeded = function (event) {
         db = event.target.result;
 
         // Create an object store for payment logs if it doesn't exist
         if (!db.objectStoreNames.contains("payment_logs")) {
-            const objectStore = db.createObjectStore("payment_logs", { keyPath: "id", autoIncrement: true });
+            const objectStore = db.createObjectStore("payment_logs", {
+                keyPath: "id",
+                autoIncrement: true,
+            });
 
             // Create indexes for searching
-            objectStore.createIndex("timestamp", "timestamp", { unique: false });
-            objectStore.createIndex("payment_method", "payment_method", { unique: false });
-            objectStore.createIndex("amount", "amount", { unique: false });
+            objectStore.createIndex("timestamp", "timestamp", {unique: false});
+            objectStore.createIndex("payment_method", "payment_method", {
+                unique: false,
+            });
+            objectStore.createIndex("amount", "amount", {unique: false});
         }
     };
 
-    request.onsuccess = function(event) {
+    request.onsuccess = function (event) {
         db = event.target.result;
         console.log("IndexedDB initialized successfully");
     };
@@ -52,11 +57,11 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
 
         const request = objectStore.add(logData);
 
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             console.log("Payment log added successfully");
         };
 
-        request.onerror = function(event) {
+        request.onerror = function (event) {
             console.error("Error adding payment log:", event.target.error);
         };
     }
@@ -72,7 +77,8 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
 
                 if (result) {
                     const order = this.currentOrder;
-                    const paymentLine = order.get_paymentlines()[order.get_paymentlines().length - 1];
+                    const paymentLine =
+                        order.get_paymentlines()[order.get_paymentlines().length - 1];
 
                     // Log the payment line addition
                     addLogToDb({
@@ -82,7 +88,7 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                         amount: paymentLine.amount,
                         order_uid: order.uid,
                         order_name: order.name,
-                        timestamp: new Date().toISOString()
+                        timestamp: new Date().toISOString(),
                     });
                 }
 
@@ -93,20 +99,20 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
              * Override to add logging when a payment line is deleted
              */
             deletePaymentLine(event) {
-                const line = this.paymentLines.find(
+                const paymentLine = this.paymentLines.find(
                     (line) => line.cid === event.detail.cid
                 );
 
-                if (line) {
+                if (paymentLine) {
                     // Log the payment line deletion
                     addLogToDb({
                         action: "delete_payment",
-                        payment_method: line.payment_method.name,
-                        payment_method_id: line.payment_method.id,
-                        amount: line.amount,
+                        payment_method: paymentLine.payment_method.name,
+                        payment_method_id: paymentLine.payment_method.id,
+                        amount: paymentLine.amount,
                         order_uid: this.currentOrder.uid,
                         order_name: this.currentOrder.name,
-                        timestamp: new Date().toISOString()
+                        timestamp: new Date().toISOString(),
                     });
                 }
 
@@ -129,7 +135,7 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                         amount: line.amount,
                         order_uid: order.uid,
                         order_name: order.name,
-                        timestamp: new Date().toISOString()
+                        timestamp: new Date().toISOString(),
                     });
                 }
 
