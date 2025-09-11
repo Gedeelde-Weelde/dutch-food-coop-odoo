@@ -4,7 +4,7 @@
     "name": "POS Order Logging",
     "version": "16.0.1.0.0",
     "category": "Point of Sale",
-    "summary": "Logs POS order operations and payment events to browser database",
+    "summary": "Logs POS order operations and payment events to browser database with CSV export",
     "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",
@@ -14,6 +14,8 @@
         "point_of_sale.assets": [
             "gw_pos_logging/static/src/js/pos_payment_logging.js",
             "gw_pos_logging/static/src/js/pos_order_logging.js",
+            "gw_pos_logging/static/src/js/pos_logs_export.js",
+            "gw_pos_logging/static/src/xml/pos_logs_export.xml",
         ],
     },
     "installable": True,

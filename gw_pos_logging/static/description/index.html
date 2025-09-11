@@ -28,6 +28,7 @@
             </p>
             <ul>
                 <li>Stores logs in browser's IndexedDB</li>
+                <li>Export logs as CSV files for analysis</li>
                 <li>No server-side storage required</li>
                 <li>Minimal impact on POS performance</li>
                 <li>Error and exception tracking</li>
@@ -96,6 +97,21 @@
             <p>
                 You can use the IndexedDB browser interface to filter logs by various indexes such as timestamp, order_uid, action, or screen.
             </p>
+            <p>
+                <strong>Exporting Logs as CSV:</strong>
+            </p>
+            <ol>
+                <li>Open the POS interface</li>
+                <li>On the Product Screen, click the "Export Logs" button in the control panel</li>
+                <li>Two CSV files will be downloaded automatically:
+                    <ul>
+                        <li><code>payment_logs_YYYY-MM-DD.csv</code> - Contains all payment logs</li>
+                        <li><code>order_logs_YYYY-MM-DD.csv</code> - Contains all order logs</li>
+                    </ul>
+                </li>
+                <li>The CSV files can be opened in any spreadsheet application (Excel, Google Sheets, etc.)</li>
+                <li>Each CSV file includes all fields from the logs, with headers in the first row</li>
+            </ol>
         </div>
     </div>
 </section>

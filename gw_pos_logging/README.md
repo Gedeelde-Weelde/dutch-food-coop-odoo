@@ -10,6 +10,7 @@ It records order operations, payment events, and system events in the browser's 
 - Logs order state transitions and screen navigation
 - Captures errors and system events
 - Stores logs in the browser's IndexedDB database
+- Export logs as CSV files for analysis
 - No server-side storage required
 - Minimal impact on POS performance
 
@@ -101,6 +102,16 @@ To view the logs, you can use the browser's developer tools:
 5. View the "order_logs" object store
 
 You can use the IndexedDB browser interface to filter logs by various indexes such as timestamp, order_uid, action, or screen.
+
+### Exporting Logs as CSV
+To export logs for analysis:
+1. Open the POS interface
+2. On the Product Screen, click the "Export Logs" button in the control panel
+3. Two CSV files will be downloaded automatically:
+   - `payment_logs_YYYY-MM-DD.csv` - Contains all payment logs
+   - `order_logs_YYYY-MM-DD.csv` - Contains all order logs
+4. The CSV files can be opened in any spreadsheet application (Excel, Google Sheets, etc.)
+5. Each CSV file includes all fields from the logs, with headers in the first row
 
 ## License
 

@@ -8,38 +8,78 @@ odoo.define("gw_pos_logging.OrderLogging", function (require) {
 
     // Database initialization
     const dbName = "pos_order_logs";
-    const dbVersion = 1;
+    const dbVersion = 2; // Increased version to trigger onupgradeneeded
     let db = null;
 
     // Initialize IndexedDB
-    const request = indexedDB.open(dbName, dbVersion);
+    function initializeDatabase() {
+        console.log("Initializing order logs database...");
 
-    request.onerror = function (event) {
-        console.error("IndexedDB error:", event.target.errorCode);
-    };
+        // First, check if the database exists
+        const checkRequest = indexedDB.open(dbName);
 
-    request.onupgradeneeded = function (event) {
-        db = event.target.result;
+        checkRequest.onerror = function(event) {
+            console.error("Error checking database existence:", event.target.error);
+        };
 
-        // Create an object store for order logs if it doesn't exist
-        if (!db.objectStoreNames.contains("order_logs")) {
-            const objectStore = db.createObjectStore("order_logs", {
-                keyPath: "id",
-                autoIncrement: true,
-            });
+        checkRequest.onsuccess = function(event) {
+            const existingDb = event.target.result;
+            const currentVersion = existingDb.version;
+            existingDb.close();
 
-            // Create indexes for searching as specified in the requirements
-            objectStore.createIndex("timestamp", "timestamp", { unique: false });
-            objectStore.createIndex("order_uid", "order_uid", { unique: false });
-            objectStore.createIndex("action", "action", { unique: false });
-            objectStore.createIndex("screen", "screen", { unique: false });
-        }
-    };
+            console.log(`Database ${dbName} exists with version ${currentVersion}`);
 
-    request.onsuccess = function (event) {
-        db = event.target.result;
-        console.log("Order Logs IndexedDB initialized successfully");
-    };
+            // Now open with proper version
+            const request = indexedDB.open(dbName, dbVersion);
+
+            request.onerror = function (event) {
+                console.error("IndexedDB error:", event.target.error);
+            };
+
+            request.onupgradeneeded = function (event) {
+                console.log(`Upgrading database from version ${event.oldVersion} to ${event.newVersion}`);
+                db = event.target.result;
+
+                // If the object store already exists, delete it to recreate
+                if (db.objectStoreNames.contains("order_logs")) {
+                    console.log("Deleting existing order_logs store");
+                    db.deleteObjectStore("order_logs");
+                }
+
+                // Create the object store
+                console.log("Creating order_logs store");
+                const objectStore = db.createObjectStore("order_logs", {
+                    keyPath: "id",
+                    autoIncrement: true,
+                });
+
+                // Create indexes for searching as specified in the requirements
+                objectStore.createIndex("timestamp", "timestamp", { unique: false });
+                objectStore.createIndex("order_uid", "order_uid", { unique: false });
+                objectStore.createIndex("action", "action", { unique: false });
+                objectStore.createIndex("screen", "screen", { unique: false });
+
+                console.log("Database schema updated successfully");
+            };
+
+            request.onsuccess = function (event) {
+                db = event.target.result;
+                console.log("Order Logs IndexedDB initialized successfully");
+                console.log("Available object stores:", Array.from(db.objectStoreNames));
+
+                // Add a test log entry to verify database is working
+                addOrderLogToDb({
+                    action: "database_init",
+                    screen: "Initialization",
+                    timestamp: new Date().toISOString(),
+                    message: "Database initialization test entry"
+                });
+            };
+        };
+    }
+
+    // Call the initialization function
+    initializeDatabase();
 
     // Helper function to add a log entry to IndexedDB
     function addOrderLogToDb(logData) {
@@ -48,23 +88,38 @@ odoo.define("gw_pos_logging.OrderLogging", function (require) {
             return;
         }
 
-        const transaction = db.transaction(["order_logs"], "readwrite");
-        const objectStore = transaction.objectStore("order_logs");
+        console.log("Adding order log to database:", logData);
 
-        // Add timestamp if not provided
-        if (!logData.timestamp) {
-            logData.timestamp = new Date().toISOString();
+        try {
+            const transaction = db.transaction(["order_logs"], "readwrite");
+            const objectStore = transaction.objectStore("order_logs");
+
+            // Add timestamp if not provided
+            if (!logData.timestamp) {
+                logData.timestamp = new Date().toISOString();
+            }
+
+            const request = objectStore.add(logData);
+
+            request.onsuccess = function (event) {
+                console.log("Order log added successfully with ID:", event.target.result);
+            };
+
+            request.onerror = function (event) {
+                console.error("Error adding order log:", event.target.error);
+            };
+
+            // Add transaction complete handler
+            transaction.oncomplete = function() {
+                console.log("Transaction completed successfully");
+            };
+
+            transaction.onerror = function(event) {
+                console.error("Transaction error:", event.target.error);
+            };
+        } catch (error) {
+            console.error("Exception while adding order log:", error);
         }
-
-        const request = objectStore.add(logData);
-
-        request.onsuccess = function () {
-            console.log("Order log added successfully");
-        };
-
-        request.onerror = function (event) {
-            console.error("Error adding order log:", event.target.error);
-        };
     }
 
     // Extend the ProductScreen to add logging functionality
