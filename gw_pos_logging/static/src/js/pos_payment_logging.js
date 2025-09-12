@@ -3,6 +3,7 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
 
     const PaymentScreen = require("point_of_sale.PaymentScreen");
     const Registries = require("point_of_sale.Registries");
+    const {isConnectionError} = require("point_of_sale.utils");
 
     // Database initialization
     const dbName = "pos_payment_logs";
@@ -71,14 +72,14 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
         class extends PaymentScreen {
             async validateOrder(isForceValidate) {
                 const order = this.currentOrder;
-                let methods = [];
-                for (let line of this.paymentLines) {
+                const methods = [];
+                for (const line of this.paymentLines) {
                     methods.push(line.payment_method.name);
                 }
                 addLogToDb({
                     action: "validate_order",
                     order_name: order.name,
-                    payment_method: methods.join(', '),
+                    payment_method: methods.join(", "),
                     total_amount: order.get_total_with_tax(),
                     timestamp: new Date().toISOString(),
                 });
@@ -94,7 +95,7 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                     timestamp: new Date().toISOString(),
                 });
 
-                return await super._isOrderValid(isForceValidate)
+                return await super._isOrderValid(isForceValidate);
             }
             /**
              * Override to ad d logging when payment is validated
@@ -108,12 +109,18 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                     timestamp: new Date().toISOString(),
                 });
 
-                if ((this.currentOrder.is_paid_with_cash() || this.currentOrder.get_change()) && this.env.pos.config.iface_cashdrawer && this.env.proxy && this.env.proxy.printer) {
+                if (
+                    (this.currentOrder.is_paid_with_cash() ||
+                        this.currentOrder.get_change()) &&
+                    this.env.pos.config.iface_cashdrawer &&
+                    this.env.proxy &&
+                    this.env.proxy.printer
+                ) {
                     this.env.proxy.printer.open_cashbox();
                 }
 
                 this.currentOrder.initialize_validation_date();
-                for (let line of this.paymentLines) {
+                for (const line of this.paymentLines) {
                     if (!line.amount === 0) {
                         this.currentOrder.remove_paymentline(line);
                     }
@@ -125,14 +132,14 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                         total_amount: order.get_total_with_tax(),
                         timestamp: new Date().toISOString(),
                     });
-
                 }
                 this.currentOrder.finalized = true;
 
+                // eslint-disable-next-line init-declarations
                 let syncOrderResult, hasError;
 
                 try {
-                    this.env.services.ui.block()
+                    this.env.services.ui.block();
                     addLogToDb({
                         action: "start_syncing_order",
                         order_name: order.name,
@@ -141,7 +148,9 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                     });
 
                     // 1. Save order to server.
-                    syncOrderResult = await this.env.pos.push_single_order(this.currentOrder);
+                    syncOrderResult = await this.env.pos.push_single_order(
+                        this.currentOrder
+                    );
 
                     addLogToDb({
                         action: "end_syncing_order",
@@ -152,16 +161,26 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                     });
 
                     // 2. Invoice.
-                    if (this.shouldDownloadInvoice() && this.currentOrder.is_to_invoice()) {
+                    if (
+                        this.shouldDownloadInvoice() &&
+                        this.currentOrder.is_to_invoice()
+                    ) {
                         if (syncOrderResult.length) {
                             await this.doInvoice(syncOrderResult[0].account_move);
                         } else {
-                            throw { code: 401, message: 'Backend Invoice', data: { order: this.currentOrder } };
+                            throw {
+                                code: 401,
+                                message: "Backend Invoice",
+                                data: {order: this.currentOrder},
+                            };
                         }
                     }
 
                     // 3. Post process.
-                    if (syncOrderResult.length && this.currentOrder.wait_for_push_order()) {
+                    if (
+                        syncOrderResult.length &&
+                        this.currentOrder.wait_for_push_order()
+                    ) {
                         const postPushResult = await this._postPushOrderResolve(
                             this.currentOrder,
                             syncOrderResult.map((res) => res.id)
@@ -173,19 +192,20 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                                 total_amount: order.get_total_with_tax(),
                                 timestamp: new Date().toISOString(),
                             });
-                            this.showPopup('ErrorPopup', {
-                                title: this.env._t('Error: no internet connection.'),
-                                body: this.env._t('Some, if not all, post-processing after syncing order failed.'),
+                            this.showPopup("ErrorPopup", {
+                                title: this.env._t("Error: no internet connection."),
+                                body: this.env._t(
+                                    "Some, if not all, post-processing after syncing order failed."
+                                ),
                             });
                         }
                     }
                 } catch (error) {
-                    // unblock the UI before showing the error popup
+                    // Unblock the UI before showing the error popup
                     this.env.services.ui.unblock();
-                    if (error.code == 700 || error.code == 701)
-                        this.error = true;
+                    if (error.code == 700 || error.code == 701) this.error = true;
 
-                    if ('code' in error) {
+                    if ("code" in error) {
                         // We started putting `code` in the rejected object for invoicing error.
                         // We can continue with that convention such that when the error has `code`,
                         // then it is an error when invoicing. Besides, _handlePushOrderError was
@@ -193,17 +213,20 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                         await this._handlePushOrderError(error);
                     } else {
                         // We don't block for connection error. But we rethrow for any other errors.
+                        // eslint-disable-next-line no-lonely-if
                         if (isConnectionError(error)) {
-                            this.showPopup('OfflineErrorPopup', {
-                                title: this.env._t('Connection Error'),
-                                body: this.env._t('Order is not synced. Check your internet connection'),
+                            this.showPopup("OfflineErrorPopup", {
+                                title: this.env._t("Connection Error"),
+                                body: this.env._t(
+                                    "Order is not synced. Check your internet connection"
+                                ),
                             });
                         } else {
                             throw error;
                         }
                     }
                 } finally {
-                    this.env.services.ui.unblock()
+                    this.env.services.ui.unblock();
                     // Always show the next screen regardless of error since pos has to
                     // continue working even offline.
                     this.showScreen(this.nextScreen);
@@ -219,11 +242,15 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
                     });
 
                     // Ask the user to sync the remaining unsynced orders.
-                    if (!hasError && syncOrderResult && this.env.pos.db.get_orders().length) {
-                        const { confirmed } = await this.showPopup('ConfirmPopup', {
-                            title: this.env._t('Remaining unsynced orders'),
+                    if (
+                        !hasError &&
+                        syncOrderResult &&
+                        this.env.pos.db.get_orders().length
+                    ) {
+                        const {confirmed} = await this.showPopup("ConfirmPopup", {
+                            title: this.env._t("Remaining unsynced orders"),
                             body: this.env._t(
-                                'There are unsynced orders. Do you want to sync these orders?'
+                                "There are unsynced orders. Do you want to sync these orders?"
                             ),
                         });
                         if (confirmed) {

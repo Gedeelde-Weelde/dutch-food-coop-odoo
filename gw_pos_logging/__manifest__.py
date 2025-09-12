@@ -1,10 +1,8 @@
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-
 {
     "name": "POS Order Logging",
     "version": "16.0.1.0.0",
     "category": "Point of Sale",
-    "summary": "Logs POS order operations and payment events to browser database with CSV export",
+    "summary": "Logs POS payment events to browser database with CSV export",
     "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",

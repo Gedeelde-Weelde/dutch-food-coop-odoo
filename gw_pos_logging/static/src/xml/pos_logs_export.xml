@@ -1,13 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <templates id="template" xml:space="preserve">
-
     <t t-inherit="point_of_sale.DebugWidget" t-inherit-mode="extension">
-        <xpath expr="//p[contains(text(), 'Others')]/following-sibling::ul[1]" position="inside">
+        <xpath expr="//p[last()]/following-sibling::ul[1]" position="inside">
             <li class="button" t-on-click="exportLogs">
-                <i class="fa fa-download"></i>
+                <i class="fa fa-download" />
                 Export Logs
             </li>
         </xpath>
     </t>
-
 </templates>
