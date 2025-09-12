@@ -29,6 +29,12 @@ msgid "Enable check digit validation for price-encoded barcodes"
 msgstr ""
 
 #. module: gedeelde_weelde_custom
+#: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_product__is_batch
+#: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_template__is_batch
+msgid "Is Batch"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_product__is_bio_basic
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_template__is_bio_basic
 msgid "Is Bio Basic"
