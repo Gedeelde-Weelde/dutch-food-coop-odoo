@@ -13,7 +13,6 @@
     "assets": {
         "point_of_sale.assets": [
             "gw_pos_logging/static/src/js/pos_payment_logging.js",
-            "gw_pos_logging/static/src/js/pos_order_logging.js",
             "gw_pos_logging/static/src/js/pos_logs_export.js",
             "gw_pos_logging/static/src/xml/pos_logs_export.xml",
         ],

@@ -6,9 +6,8 @@ odoo.define("gw_pos_logging.LogsExport", function (require) {
     const Registries = require("point_of_sale.Registries");
     const { useListener } = require("@web/core/utils/hooks");
 
-    // Database names
+    // Database name
     const paymentLogsDbName = "pos_payment_logs";
-    const orderLogsDbName = "pos_order_logs"; // Ensure this matches exactly with the name in pos_order_logging.js
 
     class LogsExportButton extends PosComponent {
         setup() {
@@ -23,41 +22,16 @@ odoo.define("gw_pos_logging.LogsExport", function (require) {
 
                 console.log("Export button clicked - retrieving logs");
 
-                // Force database deletion and recreation for order logs
-                await this.resetOrderLogsDatabase();
-
-                // Get logs from both databases
+                // Get logs from payment logs database
                 const paymentLogs = await this.getLogsFromDb(paymentLogsDbName, "payment_logs");
                 console.log("Payment logs retrieved:", paymentLogs.length);
-
-                const orderLogs = await this.getLogsFromDb(orderLogsDbName, "order_logs");
-                console.log("Order logs retrieved:", orderLogs.length);
-
-                // Add a test entry to order logs if none exist
-                if (orderLogs.length === 0) {
-                    console.log("No order logs found, adding test entry");
-                    await this.addTestOrderLog();
-                    // Retrieve logs again
-                    const updatedOrderLogs = await this.getLogsFromDb(orderLogsDbName, "order_logs");
-                    console.log("Updated order logs count:", updatedOrderLogs.length);
-
-                    if (updatedOrderLogs.length > 0) {
-                        this.downloadLogsAsCSV(updatedOrderLogs, 'order_logs');
-                    }
-                } else {
-                    // Export order logs as CSV
-                    this.downloadLogsAsCSV(orderLogs, 'order_logs');
-                }
 
                 // Export payment logs as CSV
                 if (paymentLogs.length > 0) {
                     this.downloadLogsAsCSV(paymentLogs, 'payment_logs');
-                }
-
-                if (paymentLogs.length === 0 && orderLogs.length === 0) {
-                    this.showTempMessage('No logs found to export');
-                } else {
                     this.showTempMessage('Logs exported successfully');
+                } else {
+                    this.showTempMessage('No logs found to export');
                 }
             } catch (error) {
                 console.error('Error exporting logs:', error);
@@ -65,102 +39,6 @@ odoo.define("gw_pos_logging.LogsExport", function (require) {
             }
         }
 
-        /**
-         * Reset the order logs database to fix potential issues
-         */
-        async resetOrderLogsDatabase() {
-            return new Promise((resolve, reject) => {
-                console.log("Attempting to reset order logs database");
-
-                // First try to delete the database
-                const deleteRequest = indexedDB.deleteDatabase(orderLogsDbName);
-
-                deleteRequest.onerror = function(event) {
-                    console.error("Error deleting database:", event.target.error);
-                    // Continue anyway
-                    resolve();
-                };
-
-                deleteRequest.onsuccess = function() {
-                    console.log("Database deleted successfully or didn't exist");
-
-                    // Create a new database
-                    const createRequest = indexedDB.open(orderLogsDbName, 1);
-
-                    createRequest.onerror = function(event) {
-                        console.error("Error creating database:", event.target.error);
-                        reject(event.target.error);
-                    };
-
-                    createRequest.onupgradeneeded = function(event) {
-                        console.log("Creating new order_logs database");
-                        const db = event.target.result;
-
-                        // Create the object store
-                        const objectStore = db.createObjectStore("order_logs", {
-                            keyPath: "id",
-                            autoIncrement: true,
-                        });
-
-                        // Create indexes
-                        objectStore.createIndex("timestamp", "timestamp", { unique: false });
-                        objectStore.createIndex("order_uid", "order_uid", { unique: false });
-                        objectStore.createIndex("action", "action", { unique: false });
-                        objectStore.createIndex("screen", "screen", { unique: false });
-                    };
-
-                    createRequest.onsuccess = function(event) {
-                        console.log("New database created successfully");
-                        resolve();
-                    };
-                };
-            });
-        }
-
-        /**
-         * Add a test log entry to the order logs database
-         */
-        async addTestOrderLog() {
-            return new Promise((resolve, reject) => {
-                const request = indexedDB.open(orderLogsDbName);
-
-                request.onerror = function(event) {
-                    console.error("Error opening database:", event.target.error);
-                    reject(event.target.error);
-                };
-
-                request.onsuccess = function(event) {
-                    const db = event.target.result;
-
-                    try {
-                        const transaction = db.transaction(["order_logs"], "readwrite");
-                        const objectStore = transaction.objectStore("order_logs");
-
-                        const testLog = {
-                            action: "test_entry",
-                            screen: "LogsExport",
-                            timestamp: new Date().toISOString(),
-                            message: "This is a test entry to verify order logs export functionality"
-                        };
-
-                        const addRequest = objectStore.add(testLog);
-
-                        addRequest.onsuccess = function(event) {
-                            console.log("Test log added successfully");
-                            resolve();
-                        };
-
-                        addRequest.onerror = function(event) {
-                            console.error("Error adding test log:", event.target.error);
-                            reject(event.target.error);
-                        };
-                    } catch (error) {
-                        console.error("Exception adding test log:", error);
-                        reject(error);
-                    }
-                };
-            });
-        }
 
         /**
          * Retrieve all logs from the specified database and object store

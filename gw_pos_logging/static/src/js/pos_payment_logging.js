@@ -69,77 +69,171 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
     // Extend the PaymentScreen to add logging functionality
     const PosPaymentLoggingScreen = (PaymentScreen) =>
         class extends PaymentScreen {
-            /**
-             * Override to add logging when a new payment line is added
-             */
-            addNewPaymentLine({detail: paymentMethod}) {
-                const result = super.addNewPaymentLine({detail: paymentMethod});
-
-                if (result) {
-                    const order = this.currentOrder;
-                    const paymentLine =
-                        order.get_paymentlines()[order.get_paymentlines().length - 1];
-
-                    // Log the payment line addition
-                    addLogToDb({
-                        action: "add_payment",
-                        payment_method: paymentMethod.name,
-                        payment_method_id: paymentMethod.id,
-                        amount: paymentLine.amount,
-                        order_uid: order.uid,
-                        order_name: order.name,
-                        timestamp: new Date().toISOString(),
-                    });
+            async validateOrder(isForceValidate) {
+                const order = this.currentOrder;
+                let methods = [];
+                for (let line of this.paymentLines) {
+                    methods.push(line.payment_method.name);
                 }
+                addLogToDb({
+                    action: "validate_order",
+                    order_name: order.name,
+                    payment_method: methods.join(', '),
+                    total_amount: order.get_total_with_tax(),
+                    timestamp: new Date().toISOString(),
+                });
 
-                return result;
+                await super.validateOrder(isForceValidate);
             }
+            async _isOrderValid(isForceValidate) {
+                const order = this.currentOrder;
+                addLogToDb({
+                    action: "_is_order_valid",
+                    order_name: order.name,
+                    total_amount: order.get_total_with_tax(),
+                    timestamp: new Date().toISOString(),
+                });
 
-            /**
-             * Override to add logging when a payment line is deleted
-             */
-            deletePaymentLine(event) {
-                const paymentLine = this.paymentLines.find(
-                    (line) => line.cid === event.detail.cid
-                );
-
-                if (paymentLine) {
-                    // Log the payment line deletion
-                    addLogToDb({
-                        action: "delete_payment",
-                        payment_method: paymentLine.payment_method.name,
-                        payment_method_id: paymentLine.payment_method.id,
-                        amount: paymentLine.amount,
-                        order_uid: this.currentOrder.uid,
-                        order_name: this.currentOrder.name,
-                        timestamp: new Date().toISOString(),
-                    });
-                }
-
-                super.deletePaymentLine(event);
+                return await super._isOrderValid(isForceValidate)
             }
-
             /**
-             * Override to add logging when payment is validated
+             * Override to ad d logging when payment is validated
              */
             async _finalizeValidation() {
-                // Log the payment validation
                 const order = this.currentOrder;
-                const paymentLines = order.get_paymentlines();
+                addLogToDb({
+                    action: "start_finialize_validation",
+                    order_name: order.name,
+                    total_amount: order.get_total_with_tax(),
+                    timestamp: new Date().toISOString(),
+                });
 
-                for (const line of paymentLines) {
-                    addLogToDb({
-                        action: "validate_payment",
-                        payment_method: line.payment_method.name,
-                        payment_method_id: line.payment_method.id,
-                        amount: line.amount,
-                        order_uid: order.uid,
-                        order_name: order.name,
-                        timestamp: new Date().toISOString(),
-                    });
+                if ((this.currentOrder.is_paid_with_cash() || this.currentOrder.get_change()) && this.env.pos.config.iface_cashdrawer && this.env.proxy && this.env.proxy.printer) {
+                    this.env.proxy.printer.open_cashbox();
                 }
 
-                return super._finalizeValidation();
+                this.currentOrder.initialize_validation_date();
+                for (let line of this.paymentLines) {
+                    if (!line.amount === 0) {
+                        this.currentOrder.remove_paymentline(line);
+                    }
+                    addLogToDb({
+                        action: "looping_over_payment_lines",
+                        payment_method: line.payment_method.name,
+                        payment_method_id: line.payment_method.id,
+                        order_name: order.name,
+                        total_amount: order.get_total_with_tax(),
+                        timestamp: new Date().toISOString(),
+                    });
+
+                }
+                this.currentOrder.finalized = true;
+
+                let syncOrderResult, hasError;
+
+                try {
+                    this.env.services.ui.block()
+                    addLogToDb({
+                        action: "start_syncing_order",
+                        order_name: order.name,
+                        total_amount: order.get_total_with_tax(),
+                        timestamp: new Date().toISOString(),
+                    });
+
+                    // 1. Save order to server.
+                    syncOrderResult = await this.env.pos.push_single_order(this.currentOrder);
+
+                    addLogToDb({
+                        action: "end_syncing_order",
+                        order_pos_reference: order.order_pos_reference,
+                        order_name: order.name,
+                        total_amount: order.get_total_with_tax(),
+                        timestamp: new Date().toISOString(),
+                    });
+
+                    // 2. Invoice.
+                    if (this.shouldDownloadInvoice() && this.currentOrder.is_to_invoice()) {
+                        if (syncOrderResult.length) {
+                            await this.doInvoice(syncOrderResult[0].account_move);
+                        } else {
+                            throw { code: 401, message: 'Backend Invoice', data: { order: this.currentOrder } };
+                        }
+                    }
+
+                    // 3. Post process.
+                    if (syncOrderResult.length && this.currentOrder.wait_for_push_order()) {
+                        const postPushResult = await this._postPushOrderResolve(
+                            this.currentOrder,
+                            syncOrderResult.map((res) => res.id)
+                        );
+                        if (!postPushResult) {
+                            addLogToDb({
+                                action: "order_not_pushed",
+                                order_name: order.name,
+                                total_amount: order.get_total_with_tax(),
+                                timestamp: new Date().toISOString(),
+                            });
+                            this.showPopup('ErrorPopup', {
+                                title: this.env._t('Error: no internet connection.'),
+                                body: this.env._t('Some, if not all, post-processing after syncing order failed.'),
+                            });
+                        }
+                    }
+                } catch (error) {
+                    // unblock the UI before showing the error popup
+                    this.env.services.ui.unblock();
+                    if (error.code == 700 || error.code == 701)
+                        this.error = true;
+
+                    if ('code' in error) {
+                        // We started putting `code` in the rejected object for invoicing error.
+                        // We can continue with that convention such that when the error has `code`,
+                        // then it is an error when invoicing. Besides, _handlePushOrderError was
+                        // introduce to handle invoicing error logic.
+                        await this._handlePushOrderError(error);
+                    } else {
+                        // We don't block for connection error. But we rethrow for any other errors.
+                        if (isConnectionError(error)) {
+                            this.showPopup('OfflineErrorPopup', {
+                                title: this.env._t('Connection Error'),
+                                body: this.env._t('Order is not synced. Check your internet connection'),
+                            });
+                        } else {
+                            throw error;
+                        }
+                    }
+                } finally {
+                    this.env.services.ui.unblock()
+                    // Always show the next screen regardless of error since pos has to
+                    // continue working even offline.
+                    this.showScreen(this.nextScreen);
+                    // Remove the order from the local storage so that when we refresh the page, the order
+                    // won't be there
+                    this.env.pos.db.remove_unpaid_order(this.currentOrder);
+                    addLogToDb({
+                        action: "final_validation",
+                        order_name: order.name,
+                        total_amount: order.get_total_with_tax(),
+                        remaining_orders: this.env.pos.db.get_orders().length,
+                        timestamp: new Date().toISOString(),
+                    });
+
+                    // Ask the user to sync the remaining unsynced orders.
+                    if (!hasError && syncOrderResult && this.env.pos.db.get_orders().length) {
+                        const { confirmed } = await this.showPopup('ConfirmPopup', {
+                            title: this.env._t('Remaining unsynced orders'),
+                            body: this.env._t(
+                                'There are unsynced orders. Do you want to sync these orders?'
+                            ),
+                        });
+                        if (confirmed) {
+                            // NOTE: Not yet sure if this should be awaited or not.
+                            // If awaited, some operations like changing screen
+                            // might not work.
+                            this.env.pos.push_orders();
+                        }
+                    }
+                }
             }
         };
 
