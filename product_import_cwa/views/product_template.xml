@@ -114,6 +114,9 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <form string="Retailer view">
+                <field name="type" invisible="1"/>
+                <field name="sale_ok" invisible="1"/>
+                <field name="is_product_variant" invisible="1"/>
                 <sheet>
                     <div class="oe_left" style="width: 500px;">
                         <field
