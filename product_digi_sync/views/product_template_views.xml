@@ -46,12 +46,10 @@
                             name="show_packed_date_on_label"
                             attrs="{'invisible': [('send_to_scale', '=', False)]}"
                         />
-                        <field name="product_brand_id" />
                         <field
                             name="shop_plucode"
                             attrs="{'required': [('send_to_scale', '=', True)]}"
                         />
-                        <field name="barcode" />
                     </group>
                     <group name="digi_right">
                         <field name="best_before_days" />

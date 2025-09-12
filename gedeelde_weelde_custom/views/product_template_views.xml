@@ -28,7 +28,7 @@
         />
         <field name="arch" type="xml">
             <!-- Add the is_bio_basic field before the eancode field -->
-            <xpath expr="//field[@name='eancode']" position="before">
+            <xpath expr="//field[@name='available_in_pos']" position="after">
                 <field name="is_bio_basic" />
             </xpath>
         </field>
