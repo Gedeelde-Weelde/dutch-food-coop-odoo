@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
 
-    <t t-name="LogsExportButton" owl="1">
-        <div class="control-button" t-on-click="onClick">
-            <i class="fa fa-download"></i>
-            <span>Export Logs</span>
-        </div>
-    </t>
-
-    <t t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
-        <xpath expr="//div[hasclass('control-buttons')]" position="inside">
-            <LogsExportButton />
+    <t t-inherit="point_of_sale.DebugWidget" t-inherit-mode="extension">
+        <xpath expr="//p[contains(text(), 'Others')]/following-sibling::ul[1]" position="inside">
+            <li class="button" t-on-click="exportLogs">
+                <i class="fa fa-download"></i>
+                Export Logs
+            </li>
         </xpath>
     </t>
 
