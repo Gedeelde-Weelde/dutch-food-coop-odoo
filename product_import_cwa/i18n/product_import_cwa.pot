@@ -477,13 +477,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d204
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d204
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d204
 msgid "Cacao"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d204
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d204
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d204
 msgid "Cacao."
 msgstr ""
 
@@ -1110,13 +1110,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d212
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d212
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d212
 msgid "Ei"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d212
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d212
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d212
 msgid "Ei."
 msgstr ""
 
@@ -1179,25 +1179,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d209
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d209
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d209
 msgid "Glutamaat"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d209
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d209
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d209
 msgid "Glutamaat."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d210
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d210
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d210
 msgid "Gluten"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d210
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d210
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d210
 msgid "Gluten."
 msgstr ""
 
@@ -1461,25 +1461,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d213
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d213
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d213
 msgid "Kip"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d213
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d213
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d213
 msgid "Kip."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d234
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d234
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d234
 msgid "Koriander"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d234
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d234
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d234
 msgid "Koriander."
 msgstr ""
 
@@ -1511,13 +1511,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d215
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d215
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d215
 msgid "Lactose"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d215
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d215
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d215
 msgid "Lactose."
 msgstr ""
 
@@ -1653,13 +1653,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d239
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d239
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d239
 msgid "Lupine"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d239
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d239
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d239
 msgid "Lupine."
 msgstr ""
 
@@ -1759,13 +1759,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d216
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d216
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d216
 msgid "Mais"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d216
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d216
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d216
 msgid "Mais."
 msgstr ""
 
@@ -1787,13 +1787,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d214
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d214
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d214
 msgid "Melk"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d214
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d214
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d214
 msgid "Melk."
 msgstr ""
 
@@ -1826,13 +1826,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d241
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d241
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d241
 msgid "Mosterd"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d241
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d241
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d241
 msgid "Mosterd."
 msgstr ""
 
@@ -1989,25 +1989,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d217
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d217
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d217
 msgid "Noten"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d217
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d217
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d217
 msgid "Noten."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d217b
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d217b
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d217b
 msgid "Notenolie"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d217b
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d217b
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d217b
 msgid "Notenolie."
 msgstr ""
 
@@ -2171,13 +2171,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d220
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d220
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d220
 msgid "Peulvruchten"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d220
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d220
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d220
 msgid "Peulvruchten."
 msgstr ""
 
@@ -2188,25 +2188,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d221
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d221
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d221
 msgid "Pinda"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d221
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d221
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d221
 msgid "Pinda."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d221b
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d221b
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d221b
 msgid "Pindaolie"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d221b
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d221b
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d221b
 msgid "Pindaolie."
 msgstr ""
 
@@ -2418,25 +2418,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d222
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d222
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d222
 msgid "Rogge"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d222
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d222
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d222
 msgid "Rogge."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d223
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d223
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d223
 msgid "Rundvlees"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d223
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d223
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d223
 msgid "Rundvlees."
 msgstr ""
 
@@ -2457,13 +2457,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d236
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d236
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d236
 msgid "Schaaldieren"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d236
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d236
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d236
 msgid "Schaaldieren."
 msgstr ""
 
@@ -2479,13 +2479,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d235
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d235
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d235
 msgid "Selderij"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d235
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d235
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d235
 msgid "Selderij."
 msgstr ""
 
@@ -2516,25 +2516,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d238
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d238
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d238
 msgid "Sesam"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d238
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d238
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d238
 msgid "Sesam."
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d238b
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d238b
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d238b
 msgid "Sesamolie"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d238b
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d238b
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d238b
 msgid "Sesamolie."
 msgstr ""
 
@@ -2545,25 +2545,25 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d225
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d225
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d225
 msgid "Soja"
 msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d226
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d226
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d226
 msgid "Soja-olie"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d226
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d226
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d226
 msgid "Soja-olie."
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d225
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d225
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d225
 msgid "Soja."
 msgstr ""
 
@@ -2633,13 +2633,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d228
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d228
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d228
 msgid "Sulfiet"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d228
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d228
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d228
 msgid "Sulfiet."
 msgstr ""
 
@@ -2701,13 +2701,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d230
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d230
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d230
 msgid "Tarwe"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d230
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d230
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d230
 msgid "Tarwe."
 msgstr ""
 
@@ -2861,13 +2861,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d232
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d232
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d232
 msgid "Varkensvlees"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d232
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d232
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d232
 msgid "Varkensvlees."
 msgstr ""
 
@@ -2916,13 +2916,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d237
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d237
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d237
 msgid "Vis"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d237
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d237
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d237
 msgid "Vis."
 msgstr ""
 
@@ -2934,13 +2934,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d242
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d242
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d242
 msgid "Weekdieren"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d242
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d242
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d242
 msgid "Weekdieren."
 msgstr ""
 
@@ -2970,13 +2970,13 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model:ir.model.fields,help:product_import_cwa.field_cwa_product__d240
+#: model:ir.model.fields,help:product_import_cwa.field_product_product__d240
+#: model:ir.model.fields,help:product_import_cwa.field_product_template__d240
 msgid "Wortel"
 msgstr ""
 
 #. module: product_import_cwa
-#: model:ir.model.fields,help:product_import_cwa.field_product_product__d240
 #: model:ir.model.fields,help:product_import_cwa.field_product_supplierinfo__d240
-#: model:ir.model.fields,help:product_import_cwa.field_product_template__d240
 msgid "Wortel."
 msgstr ""
 
