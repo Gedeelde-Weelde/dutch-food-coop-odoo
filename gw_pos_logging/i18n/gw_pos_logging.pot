@@ -1,0 +1,63 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gw_pos_logging
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "Connection Error"
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "Error: no internet connection."
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/xml/pos_logs_export.xml:0
+#, python-format
+msgid "Export Logs"
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "Order is not synced. Check your internet connection"
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "Remaining unsynced orders"
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "Some, if not all, post-processing after syncing order failed."
+msgstr ""
+
+#. module: gw_pos_logging
+#. odoo-javascript
+#: code:addons/gw_pos_logging/static/src/js/pos_payment_logging.js:0
+#, python-format
+msgid "There are unsynced orders. Do you want to sync these orders?"
+msgstr ""
