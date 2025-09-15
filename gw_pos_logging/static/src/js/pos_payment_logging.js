@@ -4,6 +4,7 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
     const PaymentScreen = require("point_of_sale.PaymentScreen");
     const Registries = require("point_of_sale.Registries");
     const {isConnectionError} = require("point_of_sale.utils");
+    const utils = require("web.utils");
 
     // Database initialization
     const dbName = "pos_payment_logs";
@@ -70,6 +71,66 @@ odoo.define("gw_pos_logging.PaymentScreen", function (require) {
     // Extend the PaymentScreen to add logging functionality
     const PosPaymentLoggingScreen = (PaymentScreen) =>
         class extends PaymentScreen {
+            async _sendPaymentRequest({detail: line}) {
+                const order = this.currentOrder;
+                // Other payment lines can not be reversed anymore
+                const methods = [];
+                for (const line of this.paymentLines) {
+                    methods.push(line.payment_method.name);
+                }
+
+                addLogToDb({
+                    action: "_send_payment_request",
+                    order_name: order.name,
+                    payment_method: methods.join(", "),
+                    total_amount: order.get_total_with_tax(),
+                    timestamp: new Date().toISOString(),
+                });
+                this.paymentLines.forEach(function (line) {
+                    line.can_be_reversed = false;
+                });
+
+                const payment_terminal = line.payment_method.payment_terminal;
+                line.set_payment_status("waiting");
+
+                const isPaymentSuccessful = await payment_terminal.send_payment_request(
+                    line.cid
+                );
+                if (isPaymentSuccessful) {
+                    addLogToDb({
+                        action: "_send_payment_request_successful",
+                        order_name: order.name,
+                        payment_method: methods.join(", "),
+                        total_amount: order.get_total_with_tax(),
+                        timestamp: new Date().toISOString(),
+                    });
+
+                    line.set_payment_status("done");
+                    line.can_be_reversed = payment_terminal.supports_reversals;
+                    // Automatically validate the order when after an electronic payment,
+                    // the current order is fully paid and due is zero.
+                    if (
+                        this.currentOrder.is_paid() &&
+                        utils.float_is_zero(
+                            this.currentOrder.get_due(),
+                            this.env.pos.currency.decimal_places
+                        )
+                    ) {
+                        this.trigger("validate-order");
+                    }
+                } else {
+                    addLogToDb({
+                        action: "_send_payment_request_unsuccessful",
+                        order_name: order.name,
+                        payment_method: methods.join(", "),
+                        total_amount: order.get_total_with_tax(),
+                        timestamp: new Date().toISOString(),
+                    });
+
+                    line.set_payment_status("retry");
+                }
+            }
+
             async validateOrder(isForceValidate) {
                 const order = this.currentOrder;
                 const methods = [];
