@@ -8,7 +8,7 @@ from PIL import Image
 
 class ProductTransformer:
     @classmethod
-    def transform_product_to_payload(self, product):
+    def transform_product_to_payload(self, product, language_code):
         data = {}
         data["DataId"] = product.shop_plucode
         commodity = f"08010000{product.name}"
@@ -20,7 +20,7 @@ class ProductTransformer:
             commodity += "~01000000"
         data["Names"] = [
             {
-                "Reference": "Nederlands",
+                "Reference": language_code,
                 "DdFormatCommodity": commodity,
             }
         ]
@@ -81,7 +81,7 @@ class ProductTransformer:
         return json.dumps(data)
 
     @classmethod
-    def transform_product_to_image_payload(cls, product):
+    def transform_product_to_image_payload(cls, product, language_code):
         image_name = product.name.lower().replace(" ", "_")
         payload = {"DataId": product.shop_plucode}
         image_data = base64.b64decode(product.image_1920)
@@ -101,7 +101,7 @@ class ProductTransformer:
         payload["Names"] = [
             {
                 "DataId": 1,
-                "Reference": "Nederlands",
+                "Reference": language_code,
                 "Name": image_name,
             }
         ]
@@ -109,13 +109,13 @@ class ProductTransformer:
         return json.dumps(payload)
 
     @classmethod
-    def transform_product_category_to_payload(cls, product_category):
+    def transform_product_category_to_payload(cls, product_category, language_code):
         payload = {
             "DataId": product_category.external_digi_id,
             "DepartmentId": 97,
             "Names": [
                 {
-                    "Reference": "Nederlands",
+                    "Reference": language_code,
                     "Name": product_category.name,
                 }
             ],
@@ -123,12 +123,12 @@ class ProductTransformer:
         return json.dumps(payload)
 
     @classmethod
-    def transform_product_origin_to_payload(cls, product_origin):
+    def transform_product_origin_to_payload(cls, product_origin, language_code):
         payload = {
             "DataId": product_origin.external_digi_id,
             "Names": [
                 {
-                    "Reference": "Nederlands",
+                    "Reference": language_code,
                     "DdData": f"02000000"
                     f"<span style='font-family:\"DejaVu Sans\";font-size:24px;'>"
                     f"Herkomst:"
@@ -143,7 +143,7 @@ class ProductTransformer:
         return json.dumps(payload)
 
     @classmethod
-    def transform_product_quality_to_image_payload(cls, product):
+    def transform_product_quality_to_image_payload(cls, product, language_code):
         product_quality = product.product_quality_id
         image_name = product_quality.name.lower().replace(" ", "_")
         payload = {"DataId": product_quality.digi_image_id}
@@ -154,7 +154,7 @@ class ProductTransformer:
         payload["Names"] = [
             {
                 "DataId": 1,
-                "Reference": "Nederlands",
+                "Reference": language_code,
                 "Name": image_name,
             }
         ]
