@@ -80,9 +80,9 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_storage_temp = 6
         self.patched_get_param.start()
 
-        l_code = 'NL_nl'
+        l_code = 'nl_NL'
         self.digi_client.write({
-            language_code: l_code
+            "language_code": l_code,
         })
         test_category = self.env["pos.category"].create(
             {

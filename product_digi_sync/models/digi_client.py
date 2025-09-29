@@ -24,6 +24,11 @@ class DigiClient(models.Model):
     username = fields.Char("@Fresh Username", required=True)
     password = fields.Char("@Fresh Password", required=True)
     api_url = fields.Char(required=True, default=DEFAULT_FRESH_URL, string="API URL")
+    language_code = fields.Char(
+        "Language code",
+        default="Nederlands",
+        help="The language code used for the API. Defaults to 'Nederlands'.",
+    )
 
     def send_product_to_digi(self, product):
         self.ensure_one()
