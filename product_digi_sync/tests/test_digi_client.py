@@ -80,6 +80,10 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_storage_temp = 6
         self.patched_get_param.start()
 
+        l_code = 'NL_nl'
+        self.digi_client.write({
+            language_code: l_code
+        })
         test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
@@ -96,6 +100,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             category_id=test_category.external_digi_id,
             show_packed_date_on_label=True,
             storage_temp=expected_storage_temp,
+            language_code=l_code,
         )
 
         product = self.env["product.product"].create(
@@ -853,7 +858,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         data["DataId"] = kwargs.get("shop_plucode")
         data["Names"] = [
             {
-                "Reference": "Nederlands",
+                "Reference": kwargs.get("language_code", "Nederlands"),
                 "DdFormatCommodity": f"08010000{kwargs.get('name')}~01000000",
             }
         ]
