@@ -12,6 +12,7 @@
                         <field name="username" />
                         <field name="password" password="True" />
                         <field name="api_url" widget="url" />
+                        <field name="language_code" />
                     </group>
                 </sheet>
             </form>

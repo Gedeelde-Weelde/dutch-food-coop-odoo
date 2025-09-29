@@ -80,6 +80,12 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         expected_storage_temp = 6
         self.patched_get_param.start()
 
+        l_code = "nl_NL"
+        self.digi_client.write(
+            {
+                "language_code": l_code,
+            }
+        )
         test_category = self.env["pos.category"].create(
             {
                 "name": "Test category",
@@ -96,6 +102,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             category_id=test_category.external_digi_id,
             show_packed_date_on_label=True,
             storage_temp=expected_storage_temp,
+            language_code=l_code,
         )
 
         product = self.env["product.product"].create(
@@ -510,6 +517,8 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         self.patched_get_param.start()
         name = "product Name"
         shop_plucode = 200
+        l_code = "nl_NL"
+        self.digi_client.write({"language_code": l_code})
 
         with self.patch_request_post() as post_spy:
             product_with_image = self._create_product_with_image(name, shop_plucode)
@@ -533,7 +542,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             payload["Names"] = [
                 {
                     "DataId": 1,
-                    "Reference": "Nederlands",
+                    "Reference": "nl_NL",
                     "Name": "product_name",
                 }
             ]
@@ -588,6 +597,8 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     def test_it_sends_a_product_quality_image_to_digi_with_the_right_payload(self):
         self.patched_get_param.start()
+        l_code = "en_EN"
+        self.digi_client.write({"language_code": l_code})
         with self.patch_request_post() as post_spy:
             image_id = 1000010
             quality = self.env["product_food_fields.product_quality"].create(
@@ -617,7 +628,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             payload["Names"] = [
                 {
                     "DataId": 1,
-                    "Reference": "Nederlands",
+                    "Reference": l_code,
                     "Name": "biologisch_dynamisch",
                 }
             ]
@@ -659,6 +670,8 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     def test_it_sends_a_category_digi(self):
         self.patched_get_param.start()
+        l_code = "nl_NL"
+        self.digi_client.write({"language_code": l_code})
         category_name = "Test category"
         digi_id = 2
         category = self.env["pos.category"].create(
@@ -673,7 +686,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             "DepartmentId": 97,
             "Names": [
                 {
-                    "Reference": "Nederlands",
+                    "Reference": l_code,
                     "Name": category_name,
                 }
             ],
@@ -688,6 +701,8 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
 
     def test_it_sends_a_product_origin_to_digi_with_the_right_payload(self):
         self.patched_get_param.start()
+        l_code = "en_EN"
+        self.digi_client.write({"language_code": l_code})
         origin = self.env["product_food_fields.product_origin"].create(
             {"name": "Spanje"}
         )
@@ -696,7 +711,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
             "DataId": origin.external_digi_id,
             "Names": [
                 {
-                    "Reference": "Nederlands",
+                    "Reference": l_code,
                     "DdData": "02000000"
                     "<span style='font-family:\"DejaVu Sans\";font-size:24px;'>"
                     "Herkomst:"
@@ -853,7 +868,7 @@ class DigiClientTestCase(DigiSyncBaseTestCase):
         data["DataId"] = kwargs.get("shop_plucode")
         data["Names"] = [
             {
-                "Reference": "Nederlands",
+                "Reference": kwargs.get("language_code", "Nederlands"),
                 "DdFormatCommodity": f"08010000{kwargs.get('name')}~01000000",
             }
         ]

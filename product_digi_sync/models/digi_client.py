@@ -24,12 +24,19 @@ class DigiClient(models.Model):
     username = fields.Char("@Fresh Username", required=True)
     password = fields.Char("@Fresh Password", required=True)
     api_url = fields.Char(required=True, default=DEFAULT_FRESH_URL, string="API URL")
+    language_code = fields.Char(
+        "Language code",
+        default="Nederlands",
+        help="The language code used for the API. Defaults to 'Nederlands'.",
+    )
 
     def send_product_to_digi(self, product):
         self.ensure_one()
         url = self.create_article_url()
 
-        body = ProductTransformer.transform_product_to_payload(product)
+        body = ProductTransformer.transform_product_to_payload(
+            product, language_code=self.language_code
+        )
 
         self._post_to_digi(url, body)
 
@@ -37,7 +44,9 @@ class DigiClient(models.Model):
         self.ensure_one()
         url = self.create_image_url()
 
-        body = ProductTransformer.transform_product_to_image_payload(product)
+        body = ProductTransformer.transform_product_to_image_payload(
+            product, language_code=self.language_code
+        )
 
         self._post_to_digi(url, body)
 
@@ -45,7 +54,9 @@ class DigiClient(models.Model):
         self.ensure_one()
         url = self.create_image_url()
 
-        body = ProductTransformer.transform_product_quality_to_image_payload(product)
+        body = ProductTransformer.transform_product_quality_to_image_payload(
+            product, language_code=self.language_code
+        )
 
         self._post_to_digi(url, body)
 
@@ -54,7 +65,8 @@ class DigiClient(models.Model):
         url = self.create_category_url()
 
         body = ProductTransformer.transform_product_category_to_payload(
-            product_category
+            product_category,
+            language_code=self.language_code,
         )
 
         self._post_to_digi(url, body)
@@ -63,7 +75,9 @@ class DigiClient(models.Model):
         self.ensure_one()
         url = self.create_labeltext_url()
 
-        body = ProductTransformer.transform_product_origin_to_payload(product_origin)
+        body = ProductTransformer.transform_product_origin_to_payload(
+            product_origin, language_code=self.language_code
+        )
 
         self._post_to_digi(url, body)
 
