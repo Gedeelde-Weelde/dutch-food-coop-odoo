@@ -145,6 +145,7 @@
                         <page name="extended_information" string="Artikelbeheer">
                             <group name="group_top">
                                 <group name="group_left">
+                                    <field name="detailed_type" />
                                     <field name="available_in_pos" />
                                     <field name="barcode" />
                                     <field name="product_variant_count" invisible="1" />
@@ -334,7 +335,7 @@
         <field name="name">Retailer view</field>
         <field name="res_model">product.template</field>
         <field name="view_mode">tree,form</field>
-        <field name="context">{}</field>
+        <field name="context">{'default_detailed_type': 'product'}</field>
         <field name="search_view_id" ref="product_template_retailer_view_search" />
         <field
             name="view_ids"
