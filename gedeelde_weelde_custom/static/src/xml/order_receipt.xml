@@ -1,0 +1,8 @@
+<templates id="template" xml:space="preserve">
+    <t t-inherit="point_of_sale.OrderReceipt" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('pos-receipt-amount')]" position="after">
+            Totaal with tax<span t-esc="receipt.total_with_tax" /> Total discount: <span t-esc="receipt.total_discount" />
+            <p> Total without discount:<span t-esc="receipt.total_without_discount_lines" /></p>
+        </xpath>
+    </t>
+</templates>
