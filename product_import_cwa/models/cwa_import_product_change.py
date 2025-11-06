@@ -2,6 +2,21 @@ from odoo import api, fields, models
 
 FIELDS_TO_COMPARE = ("ingredients",)
 
+KEY_MAPPINGS_CWA_PRODUCT_TO_PRODUCT = {
+    "ingredienten": "ingredients",
+    "gebruikstips": "usage_tips",
+    "bewaartemperatuur": "storage_temperature",
+    "aantaldagenhoudbaar": "use_by_days",
+    "consumentenprijs": "list_price",
+    "inkoopprijs": "standard_price",
+}
+
+
+def map_key(key):
+    if key in KEY_MAPPINGS_CWA_PRODUCT_TO_PRODUCT:
+        return KEY_MAPPINGS_CWA_PRODUCT_TO_PRODUCT[key]
+    return key
+
 
 class CwaImportProductChange(models.Model):
     _name = "cwa.import.product.change"
@@ -74,8 +89,10 @@ class CwaImportProductChange(models.Model):
     def update_product_with_latest_changes(self):
         self.ensure_one()
         if self.state == "new":
+            changed_keys = [map_key(key) for key in self.value_changes.keys()]
             self.source_cwa_product_id.update_from_recent_changes(
-                self.affected_product_id
+                self.affected_product_id,
+                changed_keys,
             )
             self.state = "processed-automatically"
 

@@ -570,8 +570,11 @@ class CwaProduct(models.Model):
                 raise
         return
 
-    def update_from_recent_changes(self, imported_product):
+    def update_from_recent_changes(self, imported_product, changed_fields=None):
         new_values = self._create_product_dict_from_self()
+        if changed_fields:
+            new_values = {k: v for k, v in new_values.items() if k in changed_fields}
+
         imported_product.write(new_values)
 
     def _create_new_product(self, extra_prod_dict, prod_obj, supplier_dict):

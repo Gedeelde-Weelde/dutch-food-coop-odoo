@@ -752,6 +752,56 @@ class TestProductImportCwa(TransactionCase):
         }
         self.assertEqual(actual_result, expected_result)
 
+    def test_cwa_import_changes_allow_for_automatic_update_of_product_using_only_changed_fields(
+        self
+    ):
+        cwa_product_obj = self.env["cwa.product"]
+        self.import_first_file(cwa_product_obj)
+        cwa_prod = cwa_product_obj.search([("omschrijving", "=", "BOEKWEIT")])
+        self.add_translations_for_brand_uom_cblcode_and_tax(cwa_prod)
+        self.create_origin()
+        cwa_prod.to_product()
+
+        imported_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
+
+        barcode = "8714811142843"
+        imported_product.write(
+            {
+                "barcode": barcode,
+            }
+        )
+
+        self.import_second_file(cwa_product_obj)
+
+        import_result = self.env["cwa.import.product.change"].search(
+            [("affected_product_id", "=", imported_product.id)]
+        )
+
+        import_result.update_product_with_latest_changes()
+
+        reloaded_product = self.env["product.template"].search(
+            [("name", "=", "BOEKWEIT")]
+        )
+        reloaded_cwa_product = cwa_product_obj.search(
+            [("omschrijving", "=", "BOEKWEIT")]
+        )
+
+        expected_result = {
+            "list_price": reloaded_cwa_product.consumentenprijs,
+            "ingredients": "Boekweit, Eekhoorns",
+            "standard_price": reloaded_cwa_product.inkoopprijs,
+            "barcode": barcode,
+        }
+        actual_result = {
+            "list_price": reloaded_product.list_price,
+            "ingredients": reloaded_product.ingredients,
+            "standard_price": round(reloaded_product.standard_price, 2),
+            "barcode": reloaded_product.barcode,
+        }
+        self.assertEqual(actual_result, expected_result)
+
     def test_cwa_import_changes_get_bulk_imported_state_when_processed_using_bulk_action(
         self
     ):
