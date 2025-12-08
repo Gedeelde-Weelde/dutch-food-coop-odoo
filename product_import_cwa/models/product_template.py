@@ -69,6 +69,7 @@ class ProductTemplate(models.Model):
         "Price per Standard Unit", compute="_compute_price_per_su"
     )
     margin = fields.Float(compute="_compute_margin", store=False)
+    margin_absolute = fields.Float(compute="_compute_margin_absolute", store=False)
 
     cwa_import_product_changes = fields.One2many(
         "cwa.import.product.change",
@@ -102,6 +103,21 @@ class ProductTemplate(models.Model):
             )
             template.margin = (
                 margin / price_without_taxes if price_without_taxes else 0.0
+            )
+
+    @api.depends("list_price", "standard_price")
+    def _compute_margin_absolute(self):
+        for template in self:
+            res = template.taxes_id.compute_all(
+                template.list_price, product=template, partner=self.env["res.partner"]
+            )
+            price_without_taxes = (
+                res["total_excluded"] if res["total_excluded"] else template.list_price
+            )
+            template.margin_absolute = (
+                price_without_taxes - template.standard_price
+                if price_without_taxes and template.standard_price
+                else 0.0
             )
 
     def make_available_in_pos(self):
