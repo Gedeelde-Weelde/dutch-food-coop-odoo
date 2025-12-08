@@ -199,6 +199,7 @@
                                     />
                                     <field name="standard_price" />
                                     <field name="margin" widget="percentage" />
+                                    <field name="margin_absolute" />
                                     <field
                                         name="product_quality_id"
                                         options="{'no_create': True}"
