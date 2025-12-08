@@ -7,10 +7,10 @@ list_order_price = 15.0
 standard_price = 38.5
 list_price = 58.9
 
+
 class TestPosOrderLineTotalCost(TransactionCase):
     def setUp(self):
         super().setUp()
-
 
         # Create currency
         self.currency = self.env["res.currency"].create(
@@ -68,7 +68,7 @@ class TestPosOrderLineTotalCost(TransactionCase):
                 "name": "Test Line",
                 "price_subtotal": 13.76,
                 "price_subtotal_incl": list_order_price,
-                "price_unit": list_order_price
+                "price_unit": list_order_price,
             }
         )
         self.order_line._compute_total_cost(FALSE)
@@ -84,7 +84,7 @@ class TestPosOrderLineTotalCost(TransactionCase):
                 "name": "Test Line",
                 "price_subtotal": 27.52,
                 "price_subtotal_incl": list_order_price * 2,
-                "price_unit": list_order_price
+                "price_unit": list_order_price,
             }
         )
         self.order_line._compute_total_cost(FALSE)
