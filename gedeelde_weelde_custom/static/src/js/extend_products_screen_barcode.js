@@ -3,7 +3,6 @@ odoo.define("gedeelde_weelde_custom.ProductScreen", function (require) {
 
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
-    const {onMounted} = owl;
 
     const CustomProductScreen = (ProductScreen) =>
         class extends ProductScreen {
