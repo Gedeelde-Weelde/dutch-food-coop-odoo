@@ -1,4 +1,4 @@
-odoo.define("gedeelde_weelde_custom.ReceiptScreen", function (require) {
+odoo.define("dfc_pos_improvements.ReceiptScreen", function (require) {
     "use strict";
 
     const ReceiptScreen = require("point_of_sale.ReceiptScreen");
