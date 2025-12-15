@@ -4,7 +4,7 @@ odoo.define("gedeelde_weelde_custom.Order", function (require) {
     var utils = require('web.utils');
     var round_pr = utils.round_precision;
 
-    const { Order } = require('point_of_sale.models');
+    const { Order, Orderline } = require('point_of_sale.models');
     const Registries = require("point_of_sale.Registries");
 
     const CustomOrder = (Order) =>
@@ -29,7 +29,18 @@ odoo.define("gedeelde_weelde_custom.Order", function (require) {
             }
         };
 
+    const CustomOrderline = (Orderline) =>
+        class extends Orderline {
+            export_for_printing() {
+                const result = super.export_for_printing();
+                const product = this.get_product();
+                result.is_discount = product.default_code  === 'DISC';
+                return result;
+            }
+        }
+
     Registries.Model.extend(Order, CustomOrder);
+    Registries.Model.extend(Orderline, CustomOrderline);
 
     return CustomOrder;
 });
