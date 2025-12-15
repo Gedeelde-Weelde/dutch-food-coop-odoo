@@ -525,6 +525,7 @@ msgstr ""
 
 #. module: product_import_cwa
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_view_search
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Category"
 msgstr ""
 
@@ -2292,6 +2293,11 @@ msgstr ""
 #: model:ir.model,name:product_import_cwa.model_cwa_product_cblcode
 #: model:ir.ui.menu,name:product_import_cwa.cwa_product_cblcode_menuitem
 msgid "Product CBL code"
+msgstr ""
+
+#. module: product_import_cwa
+#: model:ir.model.fields,field_description:product_import_cwa.field_cwa_import_product_change__product_category_id
+msgid "Product Category"
 msgstr ""
 
 #. module: product_import_cwa
