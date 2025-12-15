@@ -19,6 +19,7 @@
                     operator="ilike"
                 />
                 <field name="product_brand_id" string="Brand" operator="ilike" />
+                <field name="product_category_id" string="Category" operator="ilike" />
                 <field name="state" string="Status" />
                 <filter
                     name="state_new"
