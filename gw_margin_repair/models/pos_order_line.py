@@ -11,7 +11,7 @@ class PosOrderLine(models.Model):
         """
         for line in self.filtered(lambda ln: not ln.is_total_cost_computed):
             product = line.product_id
-            if line.price_unit != product.list_price:
+            if product.list_price > 0 and line.price_unit != product.list_price:
                 product_cost = (
                     line.price_unit / product.list_price
                 ) * product.standard_price
