@@ -89,3 +89,26 @@ class TestPosOrderLineTotalCost(TransactionCase):
         )
         self.order_line._compute_total_cost(FALSE)
         self.assertEqual(self.order_line.total_cost, 19.61)
+
+    def test_no_division_by_zero(self):
+        self.product = self.env["product.product"].create(
+            {
+                "name": "Test Product",
+                "standard_price": 0.0,
+                "list_price": 0.0,
+                "cost_currency_id": self.currency.id,
+            }
+        )
+        self.order_line = self.env["pos.order.line"].create(
+            {
+                "order_id": self.pos_order.id,
+                "product_id": self.product.id,
+                "qty": 1.0,
+                "name": "Test Line",
+                "price_subtotal": 0.0,
+                "price_subtotal_incl": 0.0,
+                "price_unit": -0.5,
+            }
+        )
+        self.order_line._compute_total_cost(FALSE)
+        self.assertEqual(self.order_line.total_cost, 0.0)
