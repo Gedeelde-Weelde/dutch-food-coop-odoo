@@ -24,6 +24,13 @@ msgid "Base class for Digi Sync models"
 msgstr ""
 
 #. module: gedeelde_weelde_custom
+#. odoo-javascript
+#: code:addons/gedeelde_weelde_custom/static/src/xml/order_receipt.xml:0
+#, python-format
+msgid "Connection Coin (10%)"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
 #: model:ir.model.fields,help:gedeelde_weelde_custom.field_barcode_rule__price_check_digit
 msgid "Enable check digit validation for price-encoded barcodes"
 msgstr ""
@@ -57,4 +64,18 @@ msgstr ""
 #: code:addons/gedeelde_weelde_custom/static/src/xml/customer_facing_display_order_line_template.xml:0
 #, python-format
 msgid "Quantity"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
+#. odoo-javascript
+#: code:addons/gedeelde_weelde_custom/static/src/xml/order_receipt.xml:0
+#, python-format
+msgid "Te betalen"
+msgstr ""
+
+#. module: gedeelde_weelde_custom
+#. odoo-javascript
+#: code:addons/gedeelde_weelde_custom/static/src/xml/order_receipt.xml:0
+#, python-format
+msgid "Totaal"
 msgstr ""
