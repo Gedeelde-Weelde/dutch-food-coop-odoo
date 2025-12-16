@@ -9,6 +9,10 @@
             <field name="barcode" position="before">
                 <field name="send_to_scale" />
                 <field
+                    name="active_in_scale"
+                    attrs="{'invisible': [('send_to_scale', '=', False)]}"
+                />
+                <field
                     name="is_weighted_article"
                     attrs="{'invisible': [('send_to_scale', '=', False)]}"
                 />
@@ -38,6 +42,10 @@
                 <group name="group_digi_sync">
                     <group name="digi_left">
                         <field name="send_to_scale" />
+                        <field
+                            name="active_in_scale"
+                            attrs="{'invisible': [('send_to_scale', '=', False)]}"
+                        />
                         <field
                             name="is_weighted_article"
                             attrs="{'invisible': [('send_to_scale', '=', False)]}"

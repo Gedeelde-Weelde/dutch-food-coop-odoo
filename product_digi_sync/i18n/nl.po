@@ -243,8 +243,8 @@ msgstr "Stuur naar digi"
 #. module: product_digi_sync
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_product__send_to_scale
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_template__send_to_scale
-msgid "Send to scale"
-msgstr "Stuur naar weegschaal"
+msgid "Manage in scale"
+msgstr "Beheer in weegschaal"
 
 #. module: product_digi_sync
 #: model:ir.model.fields,field_description:product_digi_sync.field_product_product__shop_plucode
