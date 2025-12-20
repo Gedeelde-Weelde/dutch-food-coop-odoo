@@ -41,8 +41,8 @@ class ProductTransformer:
         if product.product_origin_id:
             data["LabelText6DataId"] = product.product_origin_id.external_digi_id
         data["StatusFields"] = {
-            "ActiveInScale": product.available_in_pos,
-            "Active": product.available_in_pos,
+            "ActiveInScale": product.active_in_scale,
+            "Active": product.active_in_scale,
             "PiecesArticle": not product.is_weighted_article,
             "PackedDate": product.show_packed_date_on_label,
             "ShowMinStorageTemp": False,

@@ -17,7 +17,10 @@ class ProductTemplate(DigiSyncBaseModel, models.Model):
     shop_plucode = fields.Integer(
         string="Shop plucode", required=False, default=None, copy=False
     )
-    send_to_scale = fields.Boolean(string="Send to scale", required=False)
+    send_to_scale = fields.Boolean(string="Manage in scale", required=False)
+    active_in_scale = fields.Boolean(
+        string="Available in scale", required=False, default=True
+    )
     is_weighted_article = fields.Boolean(
         string="Weighted article", required=False, default=True
     )
