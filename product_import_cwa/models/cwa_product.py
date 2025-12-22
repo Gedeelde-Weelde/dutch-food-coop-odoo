@@ -304,7 +304,7 @@ class CwaProduct(models.Model):
     def _detect_product_changes(self, cwa_product, supplier_info, supplier_info_vals):
         if cwa_product.eancode:
             product_tmpl = self.env["product.template"].search(
-                [("eancode", "=", cwa_product.eancode)]
+                [("barcode", "=", cwa_product.eancode)]
             )
         else:
             product_tmpl = self.env["product.template"].search(
@@ -529,7 +529,7 @@ class CwaProduct(models.Model):
                 [("unique_id", "=", self.unique_id)]
             )
             products_by_same_ean_code = self.eancode and prod_obj.search(
-                [("eancode", "=", self.eancode)]
+                [("barcode", "=", self.eancode)]
             )
             # Create new product if the eancode is missing
             if not products_by_same_unique_code and not products_by_same_ean_code:
@@ -592,7 +592,6 @@ class CwaProduct(models.Model):
     def _create_product_dict_from_self(self):
         return {
             "unique_id": self.unique_id,
-            "eancode": self.eancode,
             "barcode": self.eancode,
             "name": self.omschrijving,
             "standard_price": self.inkoopprijs,
