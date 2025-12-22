@@ -13,7 +13,7 @@ _logger = logging.getLogger(__name__)
 class ProductTemplate(models.Model):
     _inherit = "product.template"
 
-    eancode = fields.Char(help="Eancode.")
+    eancode = fields.Char(help="Eancode.", copy=False)
     kwaliteit = fields.Many2one("cwa.product.quality", help="Kwaliteitsaanduiding.")
     unique_id = fields.Char("Unique ID.", copy=False)
 

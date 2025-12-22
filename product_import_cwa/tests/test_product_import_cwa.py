@@ -329,7 +329,7 @@ class TestProductImportCwa(TransactionCase):
         self.create_origin("NL")
         for rec in cwa_dup1:
             rec.to_product()
-        prod1 = self.env["product.template"].search([("eancode", "=", "8711812421205")])
+        prod1 = self.env["product.template"].search([("barcode", "=", "8711812421205")])
         self.assertEqual(len(prod1), 1)
         self.assertEqual(len(prod1.seller_ids), 2)
 
@@ -655,7 +655,7 @@ class TestProductImportCwa(TransactionCase):
         cwa_prod2.to_product()
 
         imported_product = self.env["product.template"].search(
-            [("eancode", "=", "8714811142843")]
+            [("barcode", "=", "8714811142843")]
         )
 
         imported_product.unlink()
@@ -704,7 +704,7 @@ class TestProductImportCwa(TransactionCase):
         cwa_prod.to_product()
 
         imported_product = self.env["product.template"].search(
-            [("eancode", "=", "8714811142843")]
+            [("barcode", "=", "8714811142843")]
         )
 
         self.assertEqual(

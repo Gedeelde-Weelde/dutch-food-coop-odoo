@@ -5,10 +5,10 @@
         <field name="model">cwa.product</field>
         <field name="arch" type="xml">
             <search string="Search CWA Catalogue">
-                <field name="omschrijving" />
-                <field name="leveranciernummer" />
-                <field name="bestelnummer" />
                 <field name="eancode" string="Eancode" />
+                <field name="omschrijving" string="Product" />
+                <field name="bestelnummer" />
+                <field name="leveranciernummer" />
                 <field name="merk" />
                 <separator />
                 <filter
