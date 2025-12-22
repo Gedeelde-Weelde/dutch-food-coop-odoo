@@ -24,13 +24,12 @@
         <field name="model">product.template</field>
         <field name="arch" type="xml">
             <search string="Product">
+                <field name="barcode" />
                 <field
                     name="name"
                     string="Product"
                     filter_domain="['|',('default_code','ilike',self),('name','ilike',self)]"
                 />
-                <field name="eancode" />
-                <field name="barcode" />
                 <field name="unique_id" string="Bestelnummer-Leveranciernummer" />
                 <filter
                     string="Services"
