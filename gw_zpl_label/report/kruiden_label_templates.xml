@@ -52,13 +52,13 @@
 <t t-set="price_25g_str" t-value="str('{0:,.2f}'.format(price_25g)).replace('.',',')" />
 
 <!-- 25 GRAM bottom-left -->
-^FO60,200^A0N,40^FD25 GRAM^FS
+^FO10,200^A0N,40^FD25 GRAM^FS
 
 <!-- Price per kg in brackets under 25 GRAM, with euro via _15 -->
-^FO60,235^A0N,25^FH_^FD( _15<t t-esc="price_kg_str" /> / kg)^FS
+^FO10,235^A0N,25^FH_^FD( _15 <t t-esc="price_kg_str" /> / kg)^FS
 
 <!-- Price / 25 g bottom-right with euro via _15 -->
-^FO330,200^A0N,40^FH_^FD_15<t t-esc="price_25g_str" />^FS
+^FO330,200^A0N,40^FH_^FD_15 <t t-esc="price_25g_str" />^FS
 
 <!-- BIO box: same position as main template -->
 <t t-if="product.product_quality_id.code">
