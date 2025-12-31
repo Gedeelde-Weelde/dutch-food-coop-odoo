@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <!-- custom template that runs on report.product-->
+    <template id="label_product_product_kruiden_view" name="Kruiden Product Label ZPL">
+<t
+            name="Kruiden Product Label ZPL"
+            t-name="gw_zpl_label.label_product_product_kruiden_view"
+        >
+    <t t-foreach="quantity.items()" t-as="barcode_and_qty_by_product">
+        <t t-set="product" t-value="barcode_and_qty_by_product[0]" />
+        <t t-foreach="barcode_and_qty_by_product[1]" t-as="product_info">
+            <t t-set="barcode" t-value="product_info['barcode']" />
+            <t t-foreach="range(product_info['quantity'])" t-as="qty">
+                <t t-translation="off">
+
+^XA
+^PW455
+^LH0,0
+
+<!-- PRODUCT NAME: same logic & position as main template -->
+<t t-set="product_name_raw" t-value="product_info['display_name_markup'] or ''" />
+<t
+                                t-set="product_name_clean"
+                                t-value="product_name_raw.replace('&amp;amp;', '&amp;')"
+                            />
+<t
+                                t-set="product_name"
+                                t-value="product_name_clean
+        .replace('É','E').replace('È','E').replace('Ê','E').replace('Ë','E')
+        .replace('é','e').replace('è','e').replace('ê','e').replace('ë','e')
+        .replace('Á','A').replace('À','A').replace('Â','A').replace('Ä','A')
+        .replace('á','a').replace('à','a').replace('â','a').replace('ä','a')
+        .replace('Í','I').replace('Ì','I').replace('Î','I').replace('Ï','I')
+        .replace('í','i').replace('ì','i').replace('î','i').replace('ï','i')
+        .replace('Ó','O').replace('Ò','O').replace('Ô','O').replace('Ö','O')
+        .replace('ó','o').replace('ò','o').replace('ô','o').replace('ö','o')
+        .replace('Ú','U').replace('Ù','U').replace('Û','U').replace('Ü','U')
+        .replace('ú','u').replace('ù','u').replace('û','u').replace('ü','u')
+        .replace('Ñ','N').replace('ñ','n')
+        .replace('Ç','C').replace('ç','c')"
+                            />
+
+^FO10,10^A0N,30^FD<t t-raw="product_name" />^FS
+
+<!-- Prices -->
+<t
+                                t-set="price_kg"
+                                t-value="product.lst_price if 'lst_price' in product else product.list_price"
+                            />
+<t t-set="price_25g" t-value="price_kg / 20.0" />
+<t t-set="price_kg_str" t-value="str('{0:,.2f}'.format(price_kg)).replace('.',',')" />
+<t t-set="price_25g_str" t-value="str('{0:,.2f}'.format(price_25g)).replace('.',',')" />
+
+<!-- 25 GRAM bottom-left -->
+^FO10,200^A0N,40^FD25 GRAM^FS
+
+<!-- Price per kg in brackets under 25 GRAM, with euro via _15 -->
+^FO10,235^A0N,25^FH_^FD( _15 <t t-esc="price_kg_str" /> / kg)^FS
+
+<!-- Price / 25 g bottom-right with euro via _15 -->
+^FO330,200^A0N,40^FH_^FD_15 <t t-esc="price_25g_str" />^FS
+
+<!-- BIO box: same position as main template -->
+<t t-if="product.product_quality_id.code">
+^FO378,96^GB72,35,2^FS
+^FO380,100^ADN,40^FD<t t-out="product.product_quality_id.code[:3].upper()" />^FS
+</t>
+
+^XZ
+
+                </t>
+            </t>
+        </t>
+    </t>
+</t>
+
+    </template>
+
+    <record id="action_label_product_product_kruiden" model="ir.actions.report">
+        <field name="name">Kruiden ZPL Label</field>
+        <field name="model">product.product</field>
+        <field name="report_type">qweb-text</field>
+        <field
+            name="report_name"
+        >gw_zpl_label.label_product_product_kruiden_view</field>
+        <field
+            name="report_file"
+        >gw_zpl_label.label_product_product_kruiden_view</field>
+        <field name="print_report_name">
+            'Kruiden Label - %s' % (object.display_name)
+        </field>
+    </record>
+</odoo>
