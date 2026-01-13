@@ -2255,6 +2255,11 @@ msgid "Price per Standard Unit"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_tree_view
+msgid "Print Labels"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields.selection,name:product_import_cwa.selection__cwa_import_product_change__state__processed
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.view_cwa_import_product_change_search
 msgid "Processed"
