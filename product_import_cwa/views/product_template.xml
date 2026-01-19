@@ -183,6 +183,7 @@
                                     />
                                     <field
                                         name="deposit_product_id"
+                                        string="Deposit product"
                                         options="{'no_create': True}"
                                         attrs="{
                                             'invisible': ['|', '|', '|', ('is_deposit', '!=', False), ('sale_ok', '=', False), ('type', '=', 'service'), '&amp;', ('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)],
@@ -205,7 +206,11 @@
                                         string=""
                                     />
                                     <field name="standard_price" />
-                                    <field name="margin" widget="percentage" />
+                                    <field
+                                        name="margin"
+                                        widget="percentage"
+                                        digits="[5, 1]"
+                                    />
                                     <field name="margin_absolute" />
                                     <field
                                         name="product_quality_id"
