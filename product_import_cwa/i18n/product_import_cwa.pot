@@ -990,6 +990,11 @@ msgid "Deposit Price"
 msgstr ""
 
 #. module: product_import_cwa
+#: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
+msgid "Deposit product"
+msgstr ""
+
+#. module: product_import_cwa
 #: model:ir.model.fields,field_description:product_import_cwa.field_cwa_vat_tax_trans_wizard__description
 msgid "Description"
 msgstr ""
