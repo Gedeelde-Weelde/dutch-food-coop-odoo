@@ -41,7 +41,7 @@ msgstr "Is Partijhandel"
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_product__is_bio_basic
 #: model:ir.model.fields,field_description:gedeelde_weelde_custom.field_product_template__is_bio_basic
 msgid "Is Bio Basic"
-msgstr "Is Bio Basis"
+msgstr "Is BioBasic"
 
 #. module: gedeelde_weelde_custom
 #. odoo-javascript
