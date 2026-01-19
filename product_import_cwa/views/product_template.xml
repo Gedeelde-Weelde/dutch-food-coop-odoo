@@ -183,7 +183,7 @@
                                     />
                                     <field
                                         name="deposit_product_id"
-                                        string="Deposit product"
+                                        string="Statiegeld"
                                         options="{'no_create': True}"
                                         attrs="{
                                             'invisible': ['|', '|', '|', ('is_deposit', '!=', False), ('sale_ok', '=', False), ('type', '=', 'service'), '&amp;', ('product_variant_count', '&gt;', 1), ('is_product_variant', '=', False)],
