@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Add discount info columns to the sale order form line tree -->
-    <record id="view_order_form_discount_info" model="ir.ui.view">
-        <field name="name">sale.order.form.discount.info</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+    <!-- Add discount info columns to the POS order form line tree -->
+    <record id="view_pos_order_form_discount_info" model="ir.ui.view">
+        <field name="name">pos.order.form.discount.info</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/tree//field[@name='price_unit']"
+            <xpath expr="//field[@name='lines']/tree//field[@name='price_unit']"
                    position="after">
                 <field name="original_price"
                        string="List Price"
@@ -25,14 +25,14 @@
         </field>
     </record>
 
-    <!-- Also add to the quotation form (same base view, but let's be explicit) -->
-    <record id="view_quotation_form_discount_info" model="ir.ui.view">
-        <field name="name">sale.order.quotation.form.discount.info</field>
-        <field name="model">sale.order</field>
-        <field name="inherit_id" ref="sale.view_order_form"/>
+    <!-- Add sum to discount_total field -->
+    <record id="view_pos_order_form_discount_total_sum" model="ir.ui.view">
+        <field name="name">pos.order.form.discount.total.sum</field>
+        <field name="model">pos.order</field>
+        <field name="inherit_id" ref="view_pos_order_form_discount_info"/>
         <field name="priority">20</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='order_line']/tree//field[@name='discount_total']"
+            <xpath expr="//field[@name='lines']/tree//field[@name='discount_total']"
                    position="attributes">
                 <attribute name="sum">Total Discount</attribute>
             </xpath>

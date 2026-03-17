@@ -1,8 +1,8 @@
 from odoo import api, fields, models
 
 
-class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
+class PosOrderLine(models.Model):
+    _inherit = "pos.order.line"
 
     original_price = fields.Float(
         string="Original Price",
@@ -27,14 +27,22 @@ class SaleOrderLine(models.Model):
         help="Total discount amount: (original price − discounted price) × quantity.",
     )
 
-    @api.depends("original_price", "discounted_price", "product_uom_qty")
+    @api.depends("original_price", "discounted_price", "qty")
     def _compute_discount_total(self):
         for line in self:
             line.discount_total = (
-                (line.original_price - line.discounted_price) * line.product_uom_qty
+                (line.original_price - line.discounted_price) * line.qty
             )
 
-    def _update_pricelist_discount_info(self):
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Compute discount info when creating POS order lines."""
+        lines = super().create(vals_list)
+        for line in lines:
+            line._compute_pricelist_discount_info()
+        return lines
+
+    def _compute_pricelist_discount_info(self):
         """Capture the original list price and the pricelist price."""
         for line in self:
             if not line.product_id or not line.order_id.pricelist_id:
@@ -42,25 +50,16 @@ class SaleOrderLine(models.Model):
                 line.discounted_price = line.price_unit
                 continue
 
-            # --- Original price: product list price, converted to line UoM ---
+            # --- Original price: product list price ---
             original = line.product_id.lst_price
-            if (
-                line.product_uom
-                and line.product_id.uom_id
-                and line.product_id.uom_id != line.product_uom
-            ):
-                original = line.product_id.uom_id._compute_price(
-                    original, line.product_uom
-                )
 
             # --- Pricelist price: what the customer actually pays per unit ---
             pricelist = line.order_id.pricelist_id
             pricelist_price = pricelist._get_product_price(
                 line.product_id,
-                line.product_uom_qty or 1.0,
-                uom=line.product_uom,
+                line.qty or 1.0,
                 date=line.order_id.date_order,
-                )
+            )
 
             line.original_price = original
 
@@ -74,17 +73,3 @@ class SaleOrderLine(models.Model):
                 # "with_discount" (default): price_unit IS the discounted
                 # price, native discount field is 0.
                 line.discounted_price = pricelist_price
-
-    # --- Hook into the standard onchange methods ---
-
-    @api.onchange("product_id")
-    def product_id_change(self):
-        result = super().product_id_change()
-        self._update_pricelist_discount_info()
-        return result
-
-    @api.onchange("product_uom", "product_uom_qty")
-    def product_uom_change(self):
-        result = super().product_uom_change()
-        self._update_pricelist_discount_info()
-        return result
