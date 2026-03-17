@@ -2603,7 +2603,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.cwa_wizard_view
 #: model_terms:ir.ui.view,arch_db:product_import_cwa.product_template_retailer_form_view
 msgid "Product Name"
-msgstr "Omschrijving"
+msgstr "Productnaam"
 
 #. module: product_import_cwa
 #: model:ir.model,name:product_import_cwa.model_cwa_product_quality
