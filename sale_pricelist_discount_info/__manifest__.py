@@ -19,6 +19,7 @@
             "sale_pricelist_discount_info/static/src/js/models.js",
         ],
     },
+    "post_init_hook": "post_init_compute_discount_total",
     "installable": True,
     "application": False,
     "auto_install": False,
