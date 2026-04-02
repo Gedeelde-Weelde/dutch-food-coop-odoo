@@ -10,6 +10,11 @@
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     'license': 'AGPL-3',
     'depends': ['point_of_sale'],
+    'assets': {
+        'point_of_sale.assets': [
+            'gw_connection_coin/static/src/js/barcode_handler.js',
+        ],
+    },
     'installable': True,
     'application': False,
     'auto_install': False,
