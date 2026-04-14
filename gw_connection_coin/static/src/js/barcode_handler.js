@@ -22,6 +22,14 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                             });
                             return;
                         }
+                        const diffTime = expiryDate - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        if (diffDays >= 0 && diffDays <= 7) {
+                            this.showPopup('ConfirmPopup', {
+                                title: this.env._t('Connection Coin expiring soon'),
+                                body: _.str.sprintf(this.env._t('The Connection Coin for %s (Number: %s) will expire in %s days, on %s.'), partner.name, partner.x_cc_nummer, diffDays, partner.x_cc_einde),
+                            });
+                        }
                     }
 
                     this.env.pos.get_order().set_partner(partner);
