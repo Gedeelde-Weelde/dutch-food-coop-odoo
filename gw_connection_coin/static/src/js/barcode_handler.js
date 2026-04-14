@@ -11,9 +11,10 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
                 if (partner) {
                     console.log('Scanned contact met discount:', partner);
+                    console.log('Einde:', partner.x_cc_einde)
                     this.showPopup('ConfirmPopup', {
                         title: this.env._t('Contact Scanned'),
-                        body: _.str.sprintf(this.env._t('Scanned contact: %s'), partner.name),
+                        body: _.str.sprintf(this.env._t('Scanned contact: %s, %s'), partner.name, partner.x_cc_nummer),
                     });
                 }
                 // Call apply_discount with the ProductScreen as context
