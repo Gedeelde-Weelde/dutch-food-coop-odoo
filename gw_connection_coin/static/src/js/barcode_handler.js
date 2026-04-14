@@ -10,16 +10,25 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
             _barcodePartnerAction(code) {
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
                 if (partner) {
-                    console.log('Scanned contact met discount:', partner);
-                    console.log('Einde:', partner.x_cc_einde)
-                    this.showPopup('ConfirmPopup', {
-                        title: this.env._t('Contact Scanned'),
-                        body: _.str.sprintf(this.env._t('Scanned contact: %s, %s'), partner.name, partner.x_cc_nummer),
-                    });
-                }
-                // Call apply_discount with the ProductScreen as context
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    if (partner.x_cc_einde) {
+                        const expiryDate = new Date(partner.x_cc_einde);
+                        expiryDate.setHours(0, 0, 0, 0);
+                        if (expiryDate < today) {
+                            this.showPopup('ErrorPopup', {
+                                title: this.env._t('Connection Coin is expired'),
+                                body: _.str.sprintf(this.env._t('The Connection Coin for %s (Number: %s) expired on %s.'), partner.name, partner.x_cc_nummer, partner.x_cc_einde),
+                            });
+                            return;
+                        }
+                    }
+
+                    this.env.pos.get_order().set_partner(partner);
+                    // Call apply_discount with the ProductScreen as context
                     // since it shares the same this.env and this.showPopup
-                DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
+                    DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
+                }
                 return super._barcodePartnerAction(code);
             }
         };
