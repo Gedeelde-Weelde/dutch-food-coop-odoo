@@ -17,7 +17,7 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                         expiryDate.setHours(0, 0, 0, 0);
                         if (expiryDate < today) {
                             this.showPopup('ErrorPopup', {
-                                title: this.env._t('Connection Coin is expired'),
+                                title: this.env._t('Connection Coin is verlopen'),
                                 body: _.str.sprintf(this.env._t('The Connection Coin for %s (Number: %s) expired on %s.'), partner.name, partner.x_cc_nummer, partner.x_cc_einde),
                             });
                             return;
@@ -26,7 +26,7 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                         const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                         if (diffDays >= 0 && diffDays <= 7) {
                             this.showPopup('ConfirmPopup', {
-                                title: this.env._t('Connection Coin expiring soon'),
+                                title: this.env._t('Connection Coin verlopen'),
                                 body: _.str.sprintf(this.env._t('The Connection Coin for %s (Number: %s) will expire in %s days, on %s.'), partner.name, partner.x_cc_nummer, diffDays, partner.x_cc_einde),
                             });
                         }
