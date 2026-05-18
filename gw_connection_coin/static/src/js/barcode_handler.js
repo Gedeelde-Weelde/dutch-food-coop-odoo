@@ -7,6 +7,25 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
 
     const GWConnectionCoinProductScreen = (ProductScreen) =>
         class extends ProductScreen {
+            async _barcodeProductAction(code) {
+                await super._barcodeProductAction(code);
+                this._updateDiscount();
+            }
+            async _addProduct(product, options) {
+                await super._addProduct(product, options);
+                this._updateDiscount();
+            }
+            _updateDiscount() {
+                const order = this.env.pos.get_order();
+                const discountProductId = this.env.pos.config.discount_product_id && this.env.pos.config.discount_product_id[0];
+                if (!discountProductId) {
+                    return;
+                }
+                const discountLine = order.get_orderlines().find(line => line.product.id === discountProductId);
+                if (discountLine) {
+                    DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
+                }
+            }
             _barcodePartnerAction(code) {
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
                 if (partner) {
