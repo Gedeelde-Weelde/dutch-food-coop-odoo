@@ -23,7 +23,11 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                 }
                 const discountLine = order.get_orderlines().find(line => line.product.id === discountProductId);
                 if (discountLine) {
+                    const selectedLine = order.get_selected_orderline();
                     DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
+                    if (selectedLine && selectedLine.product.id !== discountProductId) {
+                        order.select_orderline(selectedLine);
+                    }
                 }
             }
             _barcodePartnerAction(code) {
@@ -51,10 +55,14 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                         }
                     }
 
-                    this.env.pos.get_order().set_partner(partner);
-                    // Call apply_discount with the ProductScreen as context
-                    // since it shares the same this.env and this.showPopup
+                    const order = this.env.pos.get_order();
+                    order.set_partner(partner);
+                    const discountProductId = this.env.pos.config.discount_product_id && this.env.pos.config.discount_product_id[0];
+                    const selectedLine = order.get_selected_orderline();
                     DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
+                    if (selectedLine && selectedLine.product.id !== discountProductId) {
+                        order.select_orderline(selectedLine);
+                    }
                 }
                 return super._barcodePartnerAction(code);
             }
