@@ -17,7 +17,7 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
             }
             _setValue(val) {
                 super._setValue(val);
-                if (this.env.pos.numpadMode === 'quantity' || this.env.pos.numpadMode === 'discount') {
+                if (this.env.pos.numpadMode === 'quantity' || this.env.pos.numpadMode === 'discount' || this.env.pos.numpadMode === 'price') {
                     this._updateDiscount();
                 }
             }
