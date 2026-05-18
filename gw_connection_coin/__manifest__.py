@@ -9,12 +9,15 @@
     "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",
-    "depends": ["point_of_sale"],
+    "depends": ["point_of_sale", "contacts", "partner_firstname"],
     "assets": {
         "point_of_sale.assets": [
             "gw_connection_coin/static/src/js/barcode_handler.js",
         ],
     },
+    "data": [
+        "views/res_partner_views.xml",
+    ],
     "installable": True,
     "application": False,
     "auto_install": False,
