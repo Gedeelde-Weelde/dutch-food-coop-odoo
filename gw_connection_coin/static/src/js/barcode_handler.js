@@ -15,6 +15,16 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                 await super._addProduct(product, options);
                 this._updateDiscount();
             }
+            _setValue(val) {
+                super._setValue(val);
+                if (this.env.pos.numpadMode === 'quantity' || this.env.pos.numpadMode === 'discount') {
+                    this._updateDiscount();
+                }
+            }
+            _barcodeDiscountAction(code) {
+                super._barcodeDiscountAction(code);
+                this._updateDiscount();
+            }
             _updateDiscount() {
                 const order = this.env.pos.get_order();
                 const discountProductId = this.env.pos.config.discount_product_id && this.env.pos.config.discount_product_id[0];
@@ -24,9 +34,13 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                 const discountLine = order.get_orderlines().find(line => line.product.id === discountProductId);
                 if (discountLine) {
                     const selectedLine = order.get_selected_orderline();
+                    const currentMode = this.env.pos.numpadMode;
                     DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
                     if (selectedLine && selectedLine.product.id !== discountProductId) {
                         order.select_orderline(selectedLine);
+                        if (this.env.pos.numpadMode !== currentMode) {
+                            this.env.pos.numpadMode = currentMode;
+                        }
                     }
                 }
             }
@@ -59,9 +73,13 @@ odoo.define('gw_connection_coin.ProductScreen', function (require) {
                     order.set_partner(partner);
                     const discountProductId = this.env.pos.config.discount_product_id && this.env.pos.config.discount_product_id[0];
                     const selectedLine = order.get_selected_orderline();
+                    const currentMode = this.env.pos.numpadMode;
                     DiscountButton.prototype.apply_discount.call(this, this.env.pos.config.discount_pc);
                     if (selectedLine && selectedLine.product.id !== discountProductId) {
                         order.select_orderline(selectedLine);
+                        if (this.env.pos.numpadMode !== currentMode) {
+                            this.env.pos.numpadMode = currentMode;
+                        }
                     }
                 }
                 return super._barcodePartnerAction(code);
