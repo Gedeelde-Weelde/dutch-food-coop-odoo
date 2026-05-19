@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.tools import get_barcode_check_digit
 from datetime import date
 import calendar
 
@@ -13,12 +14,28 @@ class ConnectionCoinWizard(models.TransientModel):
     street = fields.Char(string="Street")
     zip = fields.Char(string="ZIP")
     city = fields.Char(string="City")
+    country_id = fields.Many2one('res.country', string="Country")
     date_issuance = fields.Date(string="Date of Issuance", default=fields.Date.context_today, required=True)
     coin_number = fields.Char(string="Coin Number", required=True)
     barcode = fields.Char(string="Barcode")
     bank_account_number = fields.Char(string="Bank Account Number")
 
     partner_id = fields.Many2one('res.partner', string="Existing Person", help="Find an existing person if available")
+
+    @api.onchange('coin_number')
+    def _onchange_coin_number(self):
+        if self.coin_number:
+            try:
+                # Ensure it's numeric and format to 5 digits
+                coin_int = int(self.coin_number)
+                coin_padded = str(coin_int).zfill(5)
+                # First 3: 042, then 5 digits coin, then 4 zeros = 12 digits
+                base_barcode = f"042{coin_padded}0000"
+                check_digit = get_barcode_check_digit(base_barcode)
+                self.barcode = f"{base_barcode}{check_digit}"
+            except (ValueError, TypeError):
+                # If not numeric, we can't generate a valid barcode this way
+                pass
 
     @api.onchange('firstname', 'lastname')
     def _onchange_name(self):
@@ -32,6 +49,7 @@ class ConnectionCoinWizard(models.TransientModel):
                 self.street = partner.street
                 self.zip = partner.zip
                 self.city = partner.city
+                self.country_id = partner.country_id
                 if not self.bank_account_number and partner.bank_ids:
                     self.bank_account_number = partner.bank_ids[0].acc_number
 
@@ -46,6 +64,7 @@ class ConnectionCoinWizard(models.TransientModel):
             'street': self.street,
             'zip': self.zip,
             'city': self.city,
+            'country_id': self.country_id.id,
             'x_cc_nummer': self.coin_number,
             'x_cc_verleng': self.date_issuance,
             'barcode': self.barcode,

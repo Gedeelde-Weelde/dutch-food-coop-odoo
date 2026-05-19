@@ -18,13 +18,14 @@
                             <field name="street"/>
                             <field name="zip"/>
                             <field name="city"/>
+                            <field name="country_id" options="{'no_open': True, 'no_quick_create': True}"/>
                         </group>
                     </group>
                     <group>
                         <group string="Coin Details">
                             <field name="date_issuance"/>
                             <field name="coin_number"/>
-                            <field name="barcode"/>
+                            <field name="barcode" force_save="1"/>
                         </group>
                         <group string="Bank Details">
                             <field name="bank_account_number"/>
