@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_connection_coin_wizard_form" model="ir.ui.view">
+        <field name="name">connection.coin.wizard.form</field>
+        <field name="model">connection.coin.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Connection Coin Registration">
+                <sheet>
+                    <group>
+                        <group string="Personal Information">
+                            <field name="firstname"/>
+                            <field name="lastname"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                            <field name="partner_id" readonly="1" force_save="1"/>
+                        </group>
+                        <group string="Address">
+                            <field name="street"/>
+                            <field name="zip"/>
+                            <field name="city"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group string="Coin Details">
+                            <field name="date_issuance"/>
+                            <field name="coin_number"/>
+                            <field name="barcode"/>
+                        </group>
+                        <group string="Bank Details">
+                            <field name="bank_account_number"/>
+                        </group>
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="action_save" string="Save" type="object" class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_connection_coin_wizard" model="ir.actions.act_window">
+        <field name="name">Connection Coin Wizard</field>
+        <field name="res_model">connection.coin.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_connection_coin_wizard"
+              name="Connection Coin Wizard"
+              action="action_connection_coin_wizard"
+              parent="contacts.menu_contacts"
+              sequence="2"/>
+</odoo>
