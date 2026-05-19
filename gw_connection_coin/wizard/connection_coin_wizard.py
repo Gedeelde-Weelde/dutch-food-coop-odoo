@@ -68,7 +68,8 @@ class ConnectionCoinWizard(models.TransientModel):
             'city': self.city,
             'country_id': self.country_id.id,
             'x_cc_nummer': self.coin_number,
-            'x_cc_verleng': self.date_issuance,
+            'x_cc_begin': self.date_issuance,
+            'x_cc_verleng': date(self.date_issuance.year + 1, 1, 1),
             'barcode': self.barcode,
             'x_automatic_debit': self.automatic_debit,
         }
