@@ -19,6 +19,7 @@
         "security/ir.model.access.csv",
         "views/res_partner_views.xml",
         "wizard/connection_coin_wizard_views.xml",
+        "report/connection_coin_report.xml",
     ],
     "installable": True,
     "application": False,

@@ -29,6 +29,7 @@
                         </group>
                         <group string="Bank Details">
                             <field name="bank_account_number"/>
+                            <field name="automatic_debit"/>
                         </group>
                     </group>
                 </sheet>

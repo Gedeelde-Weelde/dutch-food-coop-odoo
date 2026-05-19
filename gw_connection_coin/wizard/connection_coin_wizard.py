@@ -19,6 +19,7 @@ class ConnectionCoinWizard(models.TransientModel):
     coin_number = fields.Char(string="Coin Number", required=True)
     barcode = fields.Char(string="Barcode")
     bank_account_number = fields.Char(string="Bank Account Number")
+    automatic_debit = fields.Boolean(string="Automatische incasso")
 
     partner_id = fields.Many2one('res.partner', string="Existing Person", help="Find an existing person if available")
 
@@ -50,6 +51,7 @@ class ConnectionCoinWizard(models.TransientModel):
                 self.zip = partner.zip
                 self.city = partner.city
                 self.country_id = partner.country_id
+                self.automatic_debit = partner.x_automatic_debit
                 if not self.bank_account_number and partner.bank_ids:
                     self.bank_account_number = partner.bank_ids[0].acc_number
 
@@ -68,6 +70,7 @@ class ConnectionCoinWizard(models.TransientModel):
             'x_cc_nummer': self.coin_number,
             'x_cc_verleng': self.date_issuance,
             'barcode': self.barcode,
+            'x_automatic_debit': self.automatic_debit,
         }
 
         if self.partner_id:
@@ -91,13 +94,7 @@ class ConnectionCoinWizard(models.TransientModel):
         # Create Invoice
         self._create_invoice(partner)
 
-        return {
-            'type': 'ir.actions.act_window',
-            'res_model': 'res.partner',
-            'res_id': partner.id,
-            'view_mode': 'form',
-            'target': 'current',
-        }
+        return self.env.ref('gw_connection_coin.action_report_connection_coin_registration').report_action(self)
 
     def _create_invoice(self, partner):
         today = self.date_issuance or date.today()

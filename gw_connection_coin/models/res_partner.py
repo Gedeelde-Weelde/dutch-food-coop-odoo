@@ -7,6 +7,7 @@ class ResPartner(models.Model):
     x_cc_nummer = fields.Char(string="CC Nummer")
     x_cc_verleng = fields.Date(string="CC Verlengdatum")
     x_cc_einde = fields.Date(string="CC Einddatum")
+    x_automatic_debit = fields.Boolean(string="Automatische incasso")
 
     same_name_partner_id = fields.Many2one(
         "res.partner", string="Partner with same name", compute="_compute_duplicates"
