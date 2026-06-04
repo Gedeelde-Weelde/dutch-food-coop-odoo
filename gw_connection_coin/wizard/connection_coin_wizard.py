@@ -31,9 +31,8 @@ class ConnectionCoinWizard(models.TransientModel):
                 coin_int = int(self.coin_number)
                 coin_padded = str(coin_int).zfill(5)
                 # First 3: 042, then 5 digits coin, then 4 zeros = 12 digits
-                base_barcode = f"042{coin_padded}0000"
-                check_digit = get_barcode_check_digit(base_barcode)
-                self.barcode = f"{base_barcode}{check_digit}"
+                base_barcode = f"042{coin_padded}"
+                self.barcode = f"{base_barcode}"
             except (ValueError, TypeError):
                 # If not numeric, we can't generate a valid barcode this way
                 pass

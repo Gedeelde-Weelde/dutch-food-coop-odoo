@@ -65,11 +65,4 @@
             </xpath>
         </field>
     </record>
-
-    <menuitem id="menu_res_partner_simple_form"
-              name="New Contact (Simple)"
-              action="action_res_partner_simple_form"
-              parent="contacts.menu_contacts"
-              sequence="1"/>
-
 </odoo>
