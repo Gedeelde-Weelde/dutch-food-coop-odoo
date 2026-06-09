@@ -53,9 +53,11 @@ class ProductTransformer:
             data["StatusFields"]["ShowMinStorageTemp"] = True
             data["MinStorageTemp"] = product.storage_temperature
         if product.use_by_days != 0:
+            # sell by date is tht
             data["StatusFields"]["SellByDate"] = True
             data["SellByDateAmount"] = product.use_by_days
         if product.best_before_days != 0:
+            # taste date is tgt
             data["StatusFields"]["TasteDate"] = True
             data["TasteDateAmount"] = product.best_before_days
         if product and product.get_current_barcode_rule() is not None:

@@ -7,3 +7,39 @@
         }
     }
 }
+
+.focus-warning-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+}
+
+.focus-warning-content {
+    background: white;
+    border-radius: 8px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+}
+
+.focus-warning-content .fa {
+    color: #e74c3c;
+    margin-bottom: 15px;
+}
+
+.focus-warning-content h2 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.focus-warning-content p {
+    color: #666;
+    font-size: 16px;
+}
