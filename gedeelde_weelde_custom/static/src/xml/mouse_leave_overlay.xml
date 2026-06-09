@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <t t-inherit="point_of_sale.ProductScreen" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('product-screen')]" position="inside">
+            <div t-if="focusWarningState.show" class="focus-warning-overlay">
+                <div class="focus-warning-content">
+                    <i class="fa fa-exclamation-triangle fa-3x" />
+                    <h2>Warning</h2>
+                    <p
+                    >The mouse has left the screen. Please stay within the POS window in order to scan.</p>
+                </div>
+            </div>
+        </xpath>
+    </t>
+
+</templates>
