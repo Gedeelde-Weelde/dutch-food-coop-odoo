@@ -8,7 +8,7 @@
                     <i class="fa fa-exclamation-triangle fa-3x" />
                     <h2>Warning</h2>
                     <p
-                    >The mouse has left the screen. Please stay within the POS window.</p>
+                    >The mouse has left the screen. Please stay within the POS window in order to scan.</p>
                 </div>
             </div>
         </xpath>
