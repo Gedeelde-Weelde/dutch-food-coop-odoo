@@ -14,6 +14,7 @@ odoo.define("gedeelde_weelde_custom.FocusWarning", function (require) {
 
                 this._onMouseLeave = () => {
                     this.focusWarningState.show = true;
+                    this.playSound("error");
                 };
 
                 this._onMouseEnter = () => {
