@@ -25,6 +25,7 @@
             "gedeelde_weelde_custom/static/src/js/extend_barcode_parser.js",
             "gedeelde_weelde_custom/static/src/js/extend_products_screen_barcode.js",
             "gedeelde_weelde_custom/static/src/js/extend_payment_screen.js",
+            "gedeelde_weelde_custom/static/src/js/extend_products_screen_discount.js",
             "gedeelde_weelde_custom/static/src/js/pos_order_receipt.js",
             "gedeelde_weelde_custom/static/src/xml/receipt_screen.xml",
             "gedeelde_weelde_custom/static/src/xml/order_receipt.xml",
