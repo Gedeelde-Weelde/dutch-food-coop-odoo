@@ -68,18 +68,18 @@ msgstr ""
 
 #. module: gedeelde_weelde_custom
 #. odoo-javascript
-#: code:addons/gedeelde_weelde_custom/static/src/xml/order_receipt.xml:0
+#: code:addons/gedeelde_weelde_custom/static/src/xml/mouse_leave_overlay.xml:0
 #, python-format
-msgid "Te betalen"
+msgid ""
+"Scans are not being received properly. Tap on the screen first to continue "
+"scanning."
 msgstr ""
 
 #. module: gedeelde_weelde_custom
 #. odoo-javascript
-#: code:addons/gedeelde_weelde_custom/static/src/xml/mouse_leave_overlay.xml:0
+#: code:addons/gedeelde_weelde_custom/static/src/xml/order_receipt.xml:0
 #, python-format
-msgid ""
-"Scans are not being received properly. Tap on the screen first to continue scanning."
-""
+msgid "Te betalen"
 msgstr ""
 
 #. module: gedeelde_weelde_custom
