@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t
+        t-name="ProductsWidgetControlPanel"
+        t-inherit="point_of_sale.ProductsWidgetControlPanel"
+        t-inherit-mode="extension"
+    >
+        <!-- Remove autofocus so the search input doesn't steal focus on scan -->
+        <xpath expr="//input[@t-ref='search-word-input-product']" position="attributes">
+            <attribute name="autofocus" />
+        </xpath>
+    </t>
+</templates>

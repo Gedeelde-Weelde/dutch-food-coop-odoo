@@ -32,6 +32,7 @@
             "gedeelde_weelde_custom/static/src/xml/mouse_leave_overlay.xml",
             "gedeelde_weelde_custom/static/src/xml/order_receipt.xml",
             "gedeelde_weelde_custom/static/src/xml/customer_facing_display_order_line_template.xml",
+            "gedeelde_weelde_custom/static/src/xml/products_widget_control_panel.xml",
             "gedeelde_weelde_custom/static/src/css/pos_custom.scss",
         ],
     },

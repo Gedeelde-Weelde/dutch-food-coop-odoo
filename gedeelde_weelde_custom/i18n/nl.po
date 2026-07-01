@@ -66,5 +66,5 @@ msgstr "Hoeveelheid"
 #. odoo-javascript
 #: code:addons/gedeelde_weelde_custom/static/src/xml/mouse_leave_overlay.xml:0
 #, python-format
-msgid "The mouse has left the screen. Please stay within the POS window in order to scan."
-msgstr "De muis is niet meer in het scherm. Blijft in het scherm om te kunnen scannen."
+msgid "Scans are not being received properly. Tap on the screen first to continue scanning."
+msgstr "Scans worden niet goed ontvangen. Tik eerst op het scherm om door te gaan met scannen."
