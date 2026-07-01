@@ -30,11 +30,6 @@ odoo.define("gedeelde_weelde_custom.FocusWarning", function (require) {
                     this._updateWarning();
                 };
 
-                this._onMouseEnter = () => {
-                    this._mouseInside = true;
-                    this._updateWarning();
-                };
-
                 this._onWindowBlur = () => {
                     this._windowFocused = false;
                     this._updateWarning();
