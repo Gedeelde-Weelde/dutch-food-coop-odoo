@@ -53,6 +53,17 @@
                 color: #ff671f;
                 font-weight: bold;
             }
+            body .pos-customer_facing_display .pos-customer_products .pos_orderlines .pos_orderlines_item:last-of-type {
+                animation: none;
+            }
+
+            body .pos-customer_facing_display.pos-palette_01 .pos-payment_info .pos-payment_info_details .pos-total > div:nth-child(2n) {
+                font-size: 140%
+            }
+            body .pos-customer_facing_display.pos-palette_01 .pos-customer_products,
+            body .pos-customer_facing_display.pos-palette_01 .pos-payment_info {
+                height: 96%;
+            }
         </style>
     </xpath>
 </t>
