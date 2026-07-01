@@ -19,6 +19,7 @@ odoo.define("gedeelde_weelde_custom.FocusWarning", function (require) {
                     const shouldWarn = !this._mouseInside && !this._windowFocused;
                     if (shouldWarn && !this.focusWarningState.show) {
                         this.focusWarningState.show = true;
+                        this.playSound("bell");
                     } else if (!shouldWarn) {
                         this.focusWarningState.show = false;
                     }
