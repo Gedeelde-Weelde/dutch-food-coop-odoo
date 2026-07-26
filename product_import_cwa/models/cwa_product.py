@@ -892,8 +892,8 @@ class CwaProduct(models.Model):
         port = int(port) if port else 21
         tmp = False
         try:
-            ftp_server = ftplib.FTP()
-            ftp_server.connect(host, port, timeout=20)
+            ftp_server = ftplib.FTP(timeout=20)
+            ftp_server.connect(host, port)
             ftp_server.login(username, passwd)
             ftp_server.encoding = "utf-8"
             root = "VoorWinkel"
