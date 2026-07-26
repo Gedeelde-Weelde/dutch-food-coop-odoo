@@ -3,6 +3,8 @@ import logging
 import os
 from datetime import date
 
+import paramiko
+
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError
 
@@ -869,19 +871,30 @@ class CwaProduct(models.Model):
             host = ir_config.get_param("cwa_ftp_address")
             username = ir_config.get_param("cwa_ftp_username")
             passwd = ir_config.get_param("cwa_ftp_password")
-
+            method = ir_config.get_param("cwa_import_method", default="ftp")
+            port = ir_config.get_param("cwa_ftp_port")
         else:
             # Get credentials from the odoo.cfg
             host = config_address
             username = tools.config.get("ftp_username")
             passwd = tools.config.get("ftp_password")
+            method = "ftp"
+            port = None
 
         if not host or not username or not passwd:
             return
 
+        if method == "sftp":
+            return self._get_prod_file_from_sftp(host, username, passwd, port)
+        return self._get_prod_file_from_plain_ftp(host, username, passwd, port)
+
+    def _get_prod_file_from_plain_ftp(self, host, username, passwd, port):
+        port = int(port) if port else 21
         tmp = False
         try:
-            ftp_server = ftplib.FTP(host, username, passwd, timeout=20)
+            ftp_server = ftplib.FTP()
+            ftp_server.connect(host, port, timeout=20)
+            ftp_server.login(username, passwd)
             ftp_server.encoding = "utf-8"
             root = "VoorWinkel"
             # Go into the Root Directory
@@ -907,4 +920,45 @@ class CwaProduct(models.Model):
                 ftp_server.quit()
         except ftplib.all_errors as err:
             _logger.error("Failed to Download from FTP: %s" % err)
+        return tmp
+
+    def _get_prod_file_from_sftp(self, host, username, passwd, port):
+        port = int(port) if port else 22
+        tmp = False
+        ssh_client = paramiko.SSHClient()
+        ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        try:
+            ssh_client.connect(
+                host,
+                port=port,
+                username=username,
+                password=passwd,
+                timeout=20,
+                look_for_keys=False,
+                allow_agent=False,
+            )
+            sftp = ssh_client.open_sftp()
+            root = "VoorWinkel"
+            files_in_dir = sftp.listdir(root)
+            # ignore Actie files
+            files_in_dir = [x for x in files_in_dir if "Artikelen" in x]
+            # pick the latest if there are files
+            if not files_in_dir:
+                _logger.error("Directory '%s' is empty!" % root)
+                return
+            remote = f"{root}/{files_in_dir[-1]}"
+            tmp = "/tmp/products_data.xml"
+            _logger.info(f"Downloading file: {remote} >>>> {tmp}")
+            try:
+                sftp.get(remote, tmp)
+                _logger.info("File successfully downloaded....proceed with Import!")
+            except OSError as err:
+                _logger.error("Downloading Failed!!: %s" % err)
+                return
+            finally:
+                sftp.close()
+        except paramiko.SSHException as err:
+            _logger.error("Failed to Download from SFTP: %s" % err)
+        finally:
+            ssh_client.close()
         return tmp
