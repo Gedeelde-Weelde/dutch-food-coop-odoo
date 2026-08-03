@@ -1,0 +1,419 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gw_connection_coin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-03 10:54+0000\n"
+"PO-Revision-Date: 2026-08-03 10:54+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "<strong>Address</strong>"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "<strong>Bank Details</strong>"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "<strong>Coin Details</strong>"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "<strong>Personal Information</strong>"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid ""
+"<strong>Signature:</strong>\n"
+"                                    <br/><br/><br/><br/>"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "A contact with the same name already exists:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Address"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__automatic_debit
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__x_automatic_debit
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__x_automatic_debit
+msgid "Automatische incasso"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Automatische incasso:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__bank_account_number
+msgid "Bank Account Number"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Bank Account:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Bank Details"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Barcode:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__x_cc_einde
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__x_cc_einde
+msgid "CC Einddatum"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__x_cc_nummer
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__x_cc_nummer
+msgid "CC Nummer"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__x_cc_verleng
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__x_cc_verleng
+msgid "CC Verlengdatum"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Cancel"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__city
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "City"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "City:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Coin Details"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__coin_number
+msgid "Coin Number"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Coin Number:"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/wizard/connection_coin_wizard.py:0
+#, python-format
+msgid "Connection Coin Fee"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.report,name:gw_connection_coin.action_report_connection_coin_registration
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Connection Coin Registration"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_connection_coin_wizard
+msgid "Connection Coin Registration Wizard"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.act_window,name:gw_connection_coin.action_connection_coin_wizard
+#: model:ir.ui.menu,name:gw_connection_coin.menu_connection_coin_wizard
+msgid "Connection Coin Wizard"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Connection Coin expires soon"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Connection Coin has been terminated"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Connection Coin has expired"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_res_partner
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Contact"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__country_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Country"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Country:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__date_issuance
+msgid "Date of Issuance"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Date of Issuance:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Duplicate check"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__email
+msgid "Email"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Email:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__partner_id
+msgid "Existing Person"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,help:gw_connection_coin.field_connection_coin_wizard__partner_id
+msgid "Find an existing person if available"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__firstname
+msgid "First Name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "First Name:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__id
+msgid "ID"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_res_partner_filter_inherit
+msgid "Individuals"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__lastname
+msgid "Last Name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Last Name:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.act_window,name:gw_connection_coin.action_res_partner_simple_form
+msgid "New Individual Contact"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "No"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__same_name_partner_id
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__same_name_partner_id
+msgid "Partner with same name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Personal Information"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__phone
+msgid "Phone Number"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Phone:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_pos_session
+msgid "Point of Sale Session"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__potential_duplicate_ids
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__potential_duplicate_ids
+msgid "Potential Duplicates"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
+msgid "Save"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "State"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__street
+msgid "Street"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Street 2..."
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Street..."
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Street:"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s expires on %s. Alert the customer to renew in "
+"time."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s has been terminated on %s. Inform the customer "
+"about this and ask if they want to return the coin."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s has expired on %s and no longer provides a "
+"discount. Ask the customer if they want to renew. If not, ask the customer "
+"if they want to return the coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "Yes"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__zip
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "ZIP"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "ZIP:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
+msgid "____________________________________"
+msgstr ""
