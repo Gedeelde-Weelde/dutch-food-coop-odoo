@@ -12,7 +12,7 @@ class TestPosOrderAnonymization(TransactionCase):
             {"config_id": self.pos_config.id}
         )
 
-    def _create_order(self, partner=None, account_move=None):
+    def _create_order(self, partner=None, account_move=None, to_invoice=None):
         vals = {
             "session_id": self.pos_session.id,
             "date_order": fields.Datetime.now(),
@@ -26,11 +26,17 @@ class TestPosOrderAnonymization(TransactionCase):
             vals["partner_id"] = partner.id
         if account_move is not None:
             vals["account_move"] = account_move.id
+        if to_invoice is not None:
+            vals["to_invoice"] = to_invoice
         return self.env["pos.order"].create(vals)
 
     def test_partner_cleared_on_create_without_invoice(self):
         order = self._create_order(partner=self.partner)
         self.assertEqual(order.partner_id.id, False)
+
+    def test_partner_kept_on_create_with_to_invoice_flag(self):
+        order = self._create_order(partner=self.partner, to_invoice=True)
+        self.assertEqual(order.partner_id, self.partner)
 
     def test_partner_kept_on_create_with_invoice(self):
         invoice = self.env["account.move"].create({})
