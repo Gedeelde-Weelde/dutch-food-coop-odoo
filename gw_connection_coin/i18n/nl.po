@@ -128,6 +128,13 @@ msgid "City:"
 msgstr "Plaats:"
 
 #. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Close"
+msgstr "Sluiten"
+
+#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
 msgid "Coin Details"
 msgstr "Muntgegevens"
@@ -299,6 +306,13 @@ msgstr "Laatst bijgewerkt door"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__write_date
 msgid "Last Updated on"
 msgstr "Laatst bijgewerkt op"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Mark as returned"
+msgstr "Markeer als ingeleverd"
 
 #. module: gw_connection_coin
 #: model:ir.actions.act_window,name:gw_connection_coin.action_res_partner_simple_form

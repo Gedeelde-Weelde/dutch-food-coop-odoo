@@ -24,6 +24,10 @@ class ResPartner(models.Model):
                 vals["barcode"] = self._cc_nummer_to_barcode(vals["x_cc_nummer"])
         return super().create(vals_list)
 
+    def end_connection_coin(self):
+        for partner in self:
+            partner.x_cc_einde = partner.x_cc_verleng
+
     def write(self, vals):
         if "x_cc_nummer" in vals:
             vals["barcode"] = (

@@ -67,7 +67,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                     this._applyDiscount();
                 }
             }
-            _checkConnectionCoinExpiry(partner) {
+            async _checkConnectionCoinExpiry(partner) {
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
                 const expiryDate = new Date(partner.x_cc_verleng);
@@ -75,7 +75,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 expiryDate.setHours(0, 0, 0, 0);
 
                 if (expiryDate < today && !endDate.getTime()) {
-                    this.showPopup("ErrorPopup", {
+                    const { confirmed } = await this.showPopup("ConfirmPopup", {
                         title: this.env._t("Connection Coin has expired"),
                         body: _.str.sprintf(
                             this.env._t(
@@ -84,7 +84,18 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                             partner.name,
                             partner.x_cc_verleng
                         ),
+                        confirmText: this.env._t("Mark as returned"),
+                        cancelText: this.env._t("Close"),
                     });
+                    if (confirmed) {
+                        await this.rpc({
+                            model: "res.partner",
+                            method: "end_connection_coin",
+                            args: [[partner.id]],
+                            context: this.env.session.user_context,
+                        });
+                        partner.x_cc_einde = partner.x_cc_verleng;
+                    }
                     return false;
                 }
                 if (endDate.getTime() && endDate < today) {
@@ -123,13 +134,13 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 }
                 return true;
             }
-            _barcodePartnerAction(code) {
+            async _barcodePartnerAction(code) {
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
                 if (!partner) {
                     return super._barcodePartnerAction(code);
                 }
 
-                const isConnectionCoinValid = this._checkConnectionCoinExpiry(partner);
+                const isConnectionCoinValid = await this._checkConnectionCoinExpiry(partner);
                 console.debug("isConnectionCoinValid", isConnectionCoinValid);
                 if (isConnectionCoinValid) {
                     const order = this.env.pos.get_order();

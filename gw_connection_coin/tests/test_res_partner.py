@@ -1,3 +1,4 @@
+from odoo import fields
 from odoo.tests import TransactionCase
 
 
@@ -29,3 +30,14 @@ class TestResPartner(TransactionCase):
         )
         partner.write({"x_cc_nummer": False})
         self.assertEqual(partner.barcode, False)
+
+    def test_end_connection_coin_sets_einde_to_verleng(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        partner.end_connection_coin()
+        self.assertEqual(partner.x_cc_einde, partner.x_cc_verleng)
