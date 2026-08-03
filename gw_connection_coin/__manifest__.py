@@ -13,6 +13,8 @@
     "assets": {
         "point_of_sale.assets": [
             "gw_connection_coin/static/src/js/barcode_handler.js",
+            "gw_connection_coin/static/src/js/customer_facing_display.js",
+            "gw_connection_coin/static/src/xml/customer_facing_display.xml",
         ],
     },
     "data": [
