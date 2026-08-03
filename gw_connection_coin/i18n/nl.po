@@ -311,8 +311,8 @@ msgstr "Laatst bijgewerkt op"
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
 #, python-format
-msgid "Mark as returned"
-msgstr "Markeer als ingeleverd"
+msgid "Returned"
+msgstr "Ingeleverd"
 
 #. module: gw_connection_coin
 #: model:ir.actions.act_window,name:gw_connection_coin.action_res_partner_simple_form
@@ -365,6 +365,13 @@ msgstr "Opslaan"
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
 msgid "State"
 msgstr "Provincie"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "Stop Coin"
+msgstr "Stop Coin"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__street

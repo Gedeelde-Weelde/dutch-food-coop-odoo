@@ -84,7 +84,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                             partner.name,
                             partner.x_cc_verleng
                         ),
-                        confirmText: this.env._t("Mark as returned"),
+                        confirmText: this.env._t("Returned"),
                         cancelText: this.env._t("Close"),
                     });
                     if (confirmed) {
@@ -119,7 +119,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 );
                 console.debug("diffDays", diffDays);
                 if (diffDays >= 0 && diffDays <= 14) {
-                    this.showPopup("ConfirmPopup", {
+                    const { confirmed } = await this.showPopup("ConfirmPopup", {
                         title: this.env._t("Connection Coin expires soon"),
                         body: _.str.sprintf(
                             this.env._t(
@@ -130,7 +130,18 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                                 luxon.DateTime.DATE_FULL
                             )
                         ),
+                        confirmText: this.env._t("Stop Coin"),
+                        cancelText: this.env._t("Close"),
                     });
+                    if (confirmed) {
+                        await this.rpc({
+                            model: "res.partner",
+                            method: "end_connection_coin",
+                            args: [[partner.id]],
+                            context: this.env.session.user_context,
+                        });
+                        partner.x_cc_einde = partner.x_cc_verleng;
+                    }
                 }
                 return true;
             }
