@@ -19,3 +19,13 @@ class TestResPartner(TransactionCase):
         )
         partner.write({"x_cc_nummer": "711"})
         self.assertEqual(partner.barcode, "4200711")
+
+    def test_barcode_cleared_when_cc_nummer_removed(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+            }
+        )
+        partner.write({"x_cc_nummer": False})
+        self.assertEqual(partner.barcode, False)

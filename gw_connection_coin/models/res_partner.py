@@ -15,8 +15,7 @@ class ResPartner(models.Model):
 
     @api.onchange("x_cc_nummer")
     def _onchange_x_cc_nummer(self):
-        if self.x_cc_nummer:
-            self.barcode = self._cc_nummer_to_barcode(self.x_cc_nummer)
+        self.barcode = self._cc_nummer_to_barcode(self.x_cc_nummer) if self.x_cc_nummer else False
 
     @api.model_create_multi
     def create(self, vals_list):
@@ -26,8 +25,10 @@ class ResPartner(models.Model):
         return super().create(vals_list)
 
     def write(self, vals):
-        if vals.get("x_cc_nummer"):
-            vals["barcode"] = self._cc_nummer_to_barcode(vals["x_cc_nummer"])
+        if "x_cc_nummer" in vals:
+            vals["barcode"] = (
+                self._cc_nummer_to_barcode(vals["x_cc_nummer"]) if vals["x_cc_nummer"] else False
+            )
         return super().write(vals)
 
     same_name_partner_id = fields.Many2one(
