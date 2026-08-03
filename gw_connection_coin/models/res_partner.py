@@ -11,7 +11,7 @@ class ResPartner(models.Model):
 
     @api.model
     def _cc_nummer_to_barcode(self, cc_nummer):
-        return "42" + str(int(cc_nummer)).zfill(5)
+        return "042" + str(int(cc_nummer)).zfill(5)
 
     @api.onchange("x_cc_nummer")
     def _onchange_x_cc_nummer(self):

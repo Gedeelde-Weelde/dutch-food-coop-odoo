@@ -9,7 +9,7 @@ class TestResPartner(TransactionCase):
                 "x_cc_nummer": "711",
             }
         )
-        self.assertEqual(partner.barcode, "4200711")
+        self.assertEqual(partner.barcode, "04200711")
 
     def test_barcode_set_from_cc_nummer_on_write(self):
         partner = self.env["res.partner"].create(
@@ -18,7 +18,7 @@ class TestResPartner(TransactionCase):
             }
         )
         partner.write({"x_cc_nummer": "711"})
-        self.assertEqual(partner.barcode, "4200711")
+        self.assertEqual(partner.barcode, "04200711")
 
     def test_barcode_cleared_when_cc_nummer_removed(self):
         partner = self.env["res.partner"].create(
