@@ -68,24 +68,36 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 }
             }
             _checkConnectionCoinExpiry(partner) {
-                if (!partner.x_cc_einde) {
-                    return true;
-                }
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
-                const expiryDate = new Date(partner.x_cc_einde);
+                const expiryDate = new Date(partner.x_cc_verleng);
+                const endDate = new Date(partner.x_cc_einde);
                 expiryDate.setHours(0, 0, 0, 0);
 
-                if (expiryDate < today) {
+                if (expiryDate < today && !endDate.getTime()) {
                     this.showPopup("ErrorPopup", {
-                        title: this.env._t("Connection Coin is verlopen"),
+                        title: this.env._t("Connection Coin has expired"),
                         body: _.str.sprintf(
                             this.env._t(
-                                "The Connection Coin for %s (Number: %s) expired on %s."
+                                "The Connection Coin of %s has expired on %s and no longer provides a discount. Ask the customer if they want to renew. If not, ask the customer if they want to return the coin"
                             ),
                             partner.name,
-                            partner.x_cc_nummer,
-                            partner.x_cc_einde
+                            partner.x_cc_verleng
+                        ),
+                    });
+                    return false;
+                }
+                if (endDate.getTime() && endDate < today) {
+                    this.showPopup("ErrorPopup", {
+                        title: this.env._t("Connection Coin has been terminated"),
+                        body: _.str.sprintf(
+                            this.env._t(
+                                "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if they want to return the coin."
+                            ),
+                            partner.name,
+                            luxon.DateTime.fromISO(partner.x_cc_einde).toLocaleString(
+                                luxon.DateTime.DATE_FULL
+                            )
                         ),
                     });
                     return false;
@@ -94,17 +106,18 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 const diffDays = Math.ceil(
                     (expiryDate - today) / (1000 * 60 * 60 * 24)
                 );
-                if (diffDays >= 0 && diffDays <= 7) {
+                console.debug("diffDays", diffDays);
+                if (diffDays >= 0 && diffDays <= 14) {
                     this.showPopup("ConfirmPopup", {
-                        title: this.env._t("Connection Coin verlopen"),
+                        title: this.env._t("Connection Coin expires soon"),
                         body: _.str.sprintf(
                             this.env._t(
-                                "The Connection Coin for %s (Number: %s) will expire in %s days, on %s."
+                                "The Connection Coin of %s expires on %s. Alert the customer to renew in time."
                             ),
                             partner.name,
-                            partner.x_cc_nummer,
-                            diffDays,
-                            partner.x_cc_einde
+                            luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                                luxon.DateTime.DATE_FULL
+                            )
                         ),
                     });
                 }
@@ -117,6 +130,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 }
 
                 const isConnectionCoinValid = this._checkConnectionCoinExpiry(partner);
+                console.debug("isConnectionCoinValid", isConnectionCoinValid);
                 if (isConnectionCoinValid) {
                     const order = this.env.pos.get_order();
                     order.set_partner(partner);
