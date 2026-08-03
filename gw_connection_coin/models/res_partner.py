@@ -9,6 +9,27 @@ class ResPartner(models.Model):
     x_cc_einde = fields.Date(string="CC Einddatum")
     x_automatic_debit = fields.Boolean(string="Automatische incasso")
 
+    @api.model
+    def _cc_nummer_to_barcode(self, cc_nummer):
+        return "42" + str(int(cc_nummer)).zfill(5)
+
+    @api.onchange("x_cc_nummer")
+    def _onchange_x_cc_nummer(self):
+        if self.x_cc_nummer:
+            self.barcode = self._cc_nummer_to_barcode(self.x_cc_nummer)
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            if vals.get("x_cc_nummer"):
+                vals["barcode"] = self._cc_nummer_to_barcode(vals["x_cc_nummer"])
+        return super().create(vals_list)
+
+    def write(self, vals):
+        if vals.get("x_cc_nummer"):
+            vals["barcode"] = self._cc_nummer_to_barcode(vals["x_cc_nummer"])
+        return super().write(vals)
+
     same_name_partner_id = fields.Many2one(
         "res.partner", string="Partner with same name", compute="_compute_duplicates"
     )
