@@ -43,12 +43,23 @@
         </xpath>
     </t>
     <t
+        t-inherit="point_of_sale.CustomerFacingDisplayOrder"
+        t-inherit-mode="extension"
+    >
+        <xpath expr="//div[hasclass('pos-company_logo')]" position="attributes">
+            <attribute name="t-attf-style">background-image:url(/gedeelde_weelde_custom/static/src/img/company_logo.png)</attribute>
+        </xpath>
+    </t>
+    <t
         t-name="CustomerFacingDisplayHead"
         t-inherit="point_of_sale.CustomerFacingDisplayHead"
         t-inherit-mode="extension"
     >
     <xpath expr="//div[@class='resources']" position="inside">
         <style>
+            .pos-palette_01 .pos-payment_info {
+                background-color: #ff671f
+            }
             .pos_orderline_list_discount {
                 color: #ff671f;
                 font-weight: bold;
@@ -58,11 +69,27 @@
             }
 
             body .pos-customer_facing_display.pos-palette_01 .pos-payment_info .pos-payment_info_details .pos-total > div:nth-child(2n) {
-                font-size: 140%
+                font-size: 2rem;
             }
             body .pos-customer_facing_display.pos-palette_01 .pos-customer_products,
             body .pos-customer_facing_display.pos-palette_01 .pos-payment_info {
                 height: 96%;
+            }
+
+            body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-total > div:first-child {
+              flex: 0 1 35%;
+            }
+
+            body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-total > div:last-child {
+              flex: 1 1 60%;
+            }
+
+            body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-paymentlines > div:nth-child(odd) {
+              flex: 0 1 35%;
+            }
+
+            body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-paymentlines > div:nth-child(even) {
+              flex: 1 1 60%;
             }
         </style>
     </xpath>
