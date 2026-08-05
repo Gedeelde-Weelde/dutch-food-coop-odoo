@@ -75,7 +75,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 expiryDate.setHours(0, 0, 0, 0);
 
                 if (expiryDate < today && !endDate.getTime()) {
-                    const { confirmed } = await this.showPopup("ConfirmPopup", {
+                    const {confirmed} = await this.showPopup("ConfirmPopup", {
                         title: this.env._t("Connection Coin has expired"),
                         body: _.str.sprintf(
                             this.env._t(
@@ -119,7 +119,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 );
                 console.debug("diffDays", diffDays);
                 if (diffDays >= 0 && diffDays <= 14) {
-                    const { confirmed } = await this.showPopup("ConfirmPopup", {
+                    const {confirmed} = await this.showPopup("ConfirmPopup", {
                         title: this.env._t("Connection Coin expires soon"),
                         body: _.str.sprintf(
                             this.env._t(
@@ -151,7 +151,9 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                     return super._barcodePartnerAction(code);
                 }
 
-                const isConnectionCoinValid = await this._checkConnectionCoinExpiry(partner);
+                const isConnectionCoinValid = await this._checkConnectionCoinExpiry(
+                    partner
+                );
                 console.debug("isConnectionCoinValid", isConnectionCoinValid);
                 if (isConnectionCoinValid) {
                     const order = this.env.pos.get_order();

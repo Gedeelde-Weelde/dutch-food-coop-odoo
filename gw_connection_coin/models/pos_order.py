@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+
 from odoo import api, models
 
 
@@ -6,10 +8,37 @@ class PosOrder(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        for vals in vals_list:
-            if not vals.get("to_invoice") and not vals.get("account_move"):
+        has_connection_coin = [
+            self._vals_has_connection_coin(vals) for vals in vals_list
+        ]
+        for vals, connection_coin in zip(vals_list, has_connection_coin, strict=False):
+            if (
+                not vals.get("to_invoice")
+                and not vals.get("account_move")
+                and not connection_coin
+            ):
                 vals["partner_id"] = False
-        return super().create(vals_list)
+        orders = super().create(vals_list)
+        for order, connection_coin in zip(orders, has_connection_coin, strict=False):
+            if connection_coin and order.partner_id and order.partner_id.x_cc_verleng:
+                order.partner_id.x_cc_verleng = (
+                    order.partner_id.x_cc_verleng + relativedelta(years=1)
+                )
+        return orders
+
+    def _vals_has_connection_coin(self, vals):
+        product_ids = [
+            line_vals.get("product_id")
+            for command, _id, line_vals in vals.get("lines", [])
+            if command == 0
+        ]
+        if not product_ids:
+            return False
+        return bool(
+            self.env["product.product"].search_count(
+                [("id", "in", product_ids), ("is_connection_coin", "=", True)]
+            )
+        )
 
     def write(self, vals):
         result = super().write(vals)

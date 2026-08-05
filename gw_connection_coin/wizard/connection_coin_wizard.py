@@ -1,11 +1,12 @@
-from odoo import api, fields, models, _
-from odoo.tools import get_barcode_check_digit
-from datetime import date
 import calendar
+from datetime import date
+
+from odoo import _, api, fields, models
+
 
 class ConnectionCoinWizard(models.TransientModel):
-    _name = 'connection.coin.wizard'
-    _description = 'Connection Coin Registration Wizard'
+    _name = "connection.coin.wizard"
+    _description = "Connection Coin Registration Wizard"
 
     firstname = fields.Char(string="First Name", required=True)
     lastname = fields.Char(string="Last Name", required=True)
@@ -14,16 +15,22 @@ class ConnectionCoinWizard(models.TransientModel):
     street = fields.Char(string="Street")
     zip = fields.Char(string="ZIP")
     city = fields.Char(string="City")
-    country_id = fields.Many2one('res.country', string="Country")
-    date_issuance = fields.Date(string="Date of Issuance", default=fields.Date.context_today, required=True)
+    country_id = fields.Many2one("res.country", string="Country")
+    date_issuance = fields.Date(
+        string="Date of Issuance", default=fields.Date.context_today, required=True
+    )
     coin_number = fields.Char(string="Coin Number", required=True)
     barcode = fields.Char(string="Barcode")
     bank_account_number = fields.Char(string="Bank Account Number")
     automatic_debit = fields.Boolean(string="Automatische incasso")
 
-    partner_id = fields.Many2one('res.partner', string="Existing Person", help="Find an existing person if available")
+    partner_id = fields.Many2one(
+        "res.partner",
+        string="Existing Person",
+        help="Find an existing person if available",
+    )
 
-    @api.onchange('coin_number')
+    @api.onchange("coin_number")
     def _onchange_coin_number(self):
         if self.coin_number:
             try:
@@ -37,11 +44,11 @@ class ConnectionCoinWizard(models.TransientModel):
                 # If not numeric, we can't generate a valid barcode this way
                 pass
 
-    @api.onchange('firstname', 'lastname')
+    @api.onchange("firstname", "lastname")
     def _onchange_name(self):
         if self.firstname and self.lastname:
             name = f"{self.firstname} {self.lastname}"
-            partner = self.env['res.partner'].search([('name', 'ilike', name)], limit=1)
+            partner = self.env["res.partner"].search([("name", "ilike", name)], limit=1)
             if partner:
                 self.partner_id = partner
                 self.email = partner.email
@@ -58,43 +65,50 @@ class ConnectionCoinWizard(models.TransientModel):
         self.ensure_one()
 
         partner_vals = {
-            'firstname': self.firstname,
-            'lastname': self.lastname,
-            'email': self.email,
-            'phone': self.phone,
-            'street': self.street,
-            'zip': self.zip,
-            'city': self.city,
-            'country_id': self.country_id.id,
-            'x_cc_nummer': self.coin_number,
-            'x_cc_begin': self.date_issuance,
-            'x_cc_verleng': date(self.date_issuance.year + 1, 1, 1),
-            'barcode': self.barcode,
-            'x_automatic_debit': self.automatic_debit,
+            "firstname": self.firstname,
+            "lastname": self.lastname,
+            "email": self.email,
+            "phone": self.phone,
+            "street": self.street,
+            "zip": self.zip,
+            "city": self.city,
+            "country_id": self.country_id.id,
+            "x_cc_nummer": self.coin_number,
+            "x_cc_begin": self.date_issuance,
+            "x_cc_verleng": date(self.date_issuance.year + 1, 1, 1),
+            "barcode": self.barcode,
+            "x_automatic_debit": self.automatic_debit,
         }
 
         if self.partner_id:
             self.partner_id.write(partner_vals)
             partner = self.partner_id
         else:
-            partner = self.env['res.partner'].create(partner_vals)
+            partner = self.env["res.partner"].create(partner_vals)
 
         # Update bank account if provided
         if self.bank_account_number:
-            existing_bank = self.env['res.partner.bank'].search([
-                ('partner_id', '=', partner.id),
-                ('acc_number', '=', self.bank_account_number)
-            ], limit=1)
+            existing_bank = self.env["res.partner.bank"].search(
+                [
+                    ("partner_id", "=", partner.id),
+                    ("acc_number", "=", self.bank_account_number),
+                ],
+                limit=1,
+            )
             if not existing_bank:
-                self.env['res.partner.bank'].create({
-                    'acc_number': self.bank_account_number,
-                    'partner_id': partner.id,
-                })
+                self.env["res.partner.bank"].create(
+                    {
+                        "acc_number": self.bank_account_number,
+                        "partner_id": partner.id,
+                    }
+                )
 
         # Create Invoice
         self._create_invoice(partner)
 
-        return self.env.ref('gw_connection_coin.action_report_connection_coin_registration').report_action(self)
+        return self.env.ref(
+            "gw_connection_coin.action_report_connection_coin_registration"
+        ).report_action(self)
 
     def _create_invoice(self, partner):
         today = self.date_issuance or date.today()
@@ -110,19 +124,27 @@ class ConnectionCoinWizard(models.TransientModel):
         # Create the invoice
         # Note: We need a product or at least an account.
         # Since I don't know the specific product, I will look for a 'Connection Coin' product or use a generic one.
-        product = self.env['product.product'].search([('name', 'ilike', 'Connection Coin')], limit=1)
+        product = self.env["product.product"].search(
+            [("name", "ilike", "Connection Coin")], limit=1
+        )
 
         invoice_vals = {
-            'move_type': 'out_invoice',
-            'partner_id': partner.id,
-            'invoice_date': today,
-            'invoice_line_ids': [(0, 0, {
-                'name': _('Connection Coin Fee'),
-                'quantity': 1,
-                'price_unit': amount,
-                'product_id': product.id if product else False,
-            })],
+            "move_type": "out_invoice",
+            "partner_id": partner.id,
+            "invoice_date": today,
+            "invoice_line_ids": [
+                (
+                    0,
+                    0,
+                    {
+                        "name": _("Connection Coin Fee"),
+                        "quantity": 1,
+                        "price_unit": amount,
+                        "product_id": product.id if product else False,
+                    },
+                )
+            ],
         }
 
-        invoice = self.env['account.move'].create(invoice_vals)
+        invoice = self.env["account.move"].create(invoice_vals)
         return invoice

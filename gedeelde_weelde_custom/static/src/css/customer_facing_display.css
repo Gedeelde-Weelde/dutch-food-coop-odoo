@@ -1,15 +1,24 @@
 .pos-palette_01 .pos-payment_info {
-    background-color: #ff671f
+    background-color: #ff671f;
 }
 .pos_orderline_list_discount {
     color: #ff671f;
     font-weight: bold;
 }
-body .pos-customer_facing_display .pos-customer_products .pos_orderlines .pos_orderlines_item:last-of-type {
+body
+    .pos-customer_facing_display
+    .pos-customer_products
+    .pos_orderlines
+    .pos_orderlines_item:last-of-type {
     animation: none;
 }
 
-body .pos-customer_facing_display.pos-palette_01 .pos-payment_info .pos-payment_info_details .pos-total > div:nth-child(2n) {
+body
+    .pos-customer_facing_display.pos-palette_01
+    .pos-payment_info
+    .pos-payment_info_details
+    .pos-total
+    > div:nth-child(2n) {
     font-size: 2rem;
 }
 body .pos-customer_facing_display.pos-palette_01 .pos-customer_products,
@@ -17,18 +26,38 @@ body .pos-customer_facing_display.pos-palette_01 .pos-payment_info {
     height: 96%;
 }
 
-body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-total > div:first-child {
-  flex: 0 1 35%;
+body
+    .pos-customer_facing_display
+    .pos-payment_info
+    .pos-payment_info_details
+    .pos-total
+    > div:first-child {
+    flex: 0 1 35%;
 }
 
-body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-total > div:last-child {
-  flex: 1 1 60%;
+body
+    .pos-customer_facing_display
+    .pos-payment_info
+    .pos-payment_info_details
+    .pos-total
+    > div:last-child {
+    flex: 1 1 60%;
 }
 
-body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-paymentlines > div:nth-child(odd) {
-  flex: 0 1 35%;
+body
+    .pos-customer_facing_display
+    .pos-payment_info
+    .pos-payment_info_details
+    .pos-paymentlines
+    > div:nth-child(odd) {
+    flex: 0 1 35%;
 }
 
-body .pos-customer_facing_display .pos-payment_info .pos-payment_info_details .pos-paymentlines > div:nth-child(even) {
-  flex: 1 1 60%;
+body
+    .pos-customer_facing_display
+    .pos-payment_info
+    .pos-payment_info_details
+    .pos-paymentlines
+    > div:nth-child(even) {
+    flex: 1 1 60%;
 }
