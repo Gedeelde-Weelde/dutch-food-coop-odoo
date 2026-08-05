@@ -3,9 +3,6 @@
     "version": "16.0.1.0.0",
     "category": "Point of Sale",
     "summary": "Connection Coin for Gedeelde Weelde",
-    "description": """
-        Gedeelde Weelde Connection Coin module.
-    """,
     "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",

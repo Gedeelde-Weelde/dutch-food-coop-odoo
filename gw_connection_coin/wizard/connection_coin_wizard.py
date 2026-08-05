@@ -1,7 +1,10 @@
 import calendar
+import logging
 from datetime import date
 
 from odoo import _, api, fields, models
+
+_logger = logging.getLogger(__name__)
 
 
 class ConnectionCoinWizard(models.TransientModel):
@@ -10,18 +13,18 @@ class ConnectionCoinWizard(models.TransientModel):
 
     firstname = fields.Char(string="First Name", required=True)
     lastname = fields.Char(string="Last Name", required=True)
-    email = fields.Char(string="Email")
+    email = fields.Char()
     phone = fields.Char(string="Phone Number")
-    street = fields.Char(string="Street")
+    street = fields.Char()
     zip = fields.Char(string="ZIP")
-    city = fields.Char(string="City")
+    city = fields.Char()
     country_id = fields.Many2one("res.country", string="Country")
     date_issuance = fields.Date(
         string="Date of Issuance", default=fields.Date.context_today, required=True
     )
-    coin_number = fields.Char(string="Coin Number", required=True)
-    barcode = fields.Char(string="Barcode")
-    bank_account_number = fields.Char(string="Bank Account Number")
+    coin_number = fields.Char(required=True)
+    barcode = fields.Char()
+    bank_account_number = fields.Char()
     automatic_debit = fields.Boolean(string="Automatische incasso")
 
     partner_id = fields.Many2one(
@@ -41,8 +44,10 @@ class ConnectionCoinWizard(models.TransientModel):
                 base_barcode = f"042{coin_padded}"
                 self.barcode = f"{base_barcode}"
             except (ValueError, TypeError):
-                # If not numeric, we can't generate a valid barcode this way
-                pass
+                _logger.debug(
+                    "Coin number %r is not numeric; skipping barcode generation",
+                    self.coin_number,
+                )
 
     @api.onchange("firstname", "lastname")
     def _onchange_name(self):
@@ -123,7 +128,7 @@ class ConnectionCoinWizard(models.TransientModel):
 
         # Create the invoice
         # Note: We need a product or at least an account.
-        # Since I don't know the specific product, I will look for a 'Connection Coin' product or use a generic one.
+        # Look for a 'Connection Coin' product, or fall back to a generic one.
         product = self.env["product.product"].search(
             [("name", "ilike", "Connection Coin")], limit=1
         )
