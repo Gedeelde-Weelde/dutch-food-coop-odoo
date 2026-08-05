@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+
 from odoo import api, fields, models
 
 
@@ -29,6 +31,11 @@ class ResPartner(models.Model):
     def end_connection_coin(self):
         for partner in self:
             partner.x_cc_einde = partner.x_cc_verleng
+
+    def extend_connection_coin(self):
+        for partner in self:
+            if partner.x_cc_verleng:
+                partner.x_cc_verleng = partner.x_cc_verleng + relativedelta(years=1)
 
     def write(self, vals):
         if "x_cc_nummer" in vals:

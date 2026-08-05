@@ -41,3 +41,18 @@ class TestResPartner(TransactionCase):
         )
         partner.end_connection_coin()
         self.assertEqual(partner.x_cc_einde, partner.x_cc_verleng)
+
+    def test_extend_connection_coin_advances_verleng_by_one_year(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        partner.extend_connection_coin()
+        self.assertEqual(partner.x_cc_verleng, fields.Date.from_string("2027-01-01"))
+
+    def test_extend_connection_coin_noop_without_verleng(self):
+        partner = self.env["res.partner"].create({"name": "Test Partner"})
+        partner.extend_connection_coin()
+        self.assertEqual(partner.x_cc_verleng, False)

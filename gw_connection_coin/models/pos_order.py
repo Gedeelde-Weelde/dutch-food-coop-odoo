@@ -1,5 +1,3 @@
-from dateutil.relativedelta import relativedelta
-
 from odoo import api, models
 
 
@@ -20,10 +18,8 @@ class PosOrder(models.Model):
                 vals["partner_id"] = False
         orders = super().create(vals_list)
         for order, connection_coin in zip(orders, has_connection_coin, strict=False):
-            if connection_coin and order.partner_id and order.partner_id.x_cc_verleng:
-                order.partner_id.x_cc_verleng = (
-                    order.partner_id.x_cc_verleng + relativedelta(years=1)
-                )
+            if connection_coin and order.partner_id:
+                order.partner_id.extend_connection_coin()
         return orders
 
     def _vals_has_connection_coin(self, vals):
