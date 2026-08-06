@@ -67,6 +67,35 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                     this._applyDiscount();
                 }
             }
+            _clearDiscount() {
+                if (!this._getDiscountProductId()) {
+                    return;
+                }
+                DiscountButton.prototype.apply_discount.call(this, 0);
+            }
+            async _syncConnectionCoinDiscount(partner) {
+                if (!this._getDiscountProductId()) {
+                    return;
+                }
+                if (!partner || !partner.x_cc_nummer) {
+                    this._clearDiscount();
+                    return;
+                }
+                const isValid = await this._checkConnectionCoinExpiry(partner);
+                if (isValid) {
+                    this._applyDiscount();
+                } else {
+                    this._clearDiscount();
+                }
+            }
+            async onClickPartner() {
+                const previousPartner = this.currentOrder.get_partner();
+                await super.onClickPartner();
+                const newPartner = this.currentOrder.get_partner();
+                if (newPartner !== previousPartner) {
+                    await this._syncConnectionCoinDiscount(newPartner);
+                }
+            }
             async _checkConnectionCoinExpiry(partner) {
                 const today = new Date();
                 today.setHours(0, 0, 0, 0);
@@ -146,21 +175,12 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 return true;
             }
             async _barcodePartnerAction(code) {
+                const result = await super._barcodePartnerAction(code);
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
-                if (!partner) {
-                    return super._barcodePartnerAction(code);
+                if (partner) {
+                    await this._syncConnectionCoinDiscount(partner);
                 }
-
-                const isConnectionCoinValid = await this._checkConnectionCoinExpiry(
-                    partner
-                );
-                console.debug("isConnectionCoinValid", isConnectionCoinValid);
-                if (isConnectionCoinValid) {
-                    const order = this.env.pos.get_order();
-                    order.set_partner(partner);
-                    this._applyDiscount();
-                }
-                return super._barcodePartnerAction(code);
+                return result;
             }
         };
 
