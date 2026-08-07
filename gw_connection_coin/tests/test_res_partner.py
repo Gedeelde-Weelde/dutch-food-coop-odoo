@@ -56,3 +56,17 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
         partner.extend_connection_coin()
         self.assertEqual(partner.x_cc_verleng, False)
+
+    def test_mark_connection_coin_forgotten_increments_count(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+            }
+        )
+        self.assertEqual(partner.x_cc_vergeten, 0)
+        result = partner.mark_connection_coin_forgotten()
+        self.assertEqual(partner.x_cc_vergeten, 1)
+        self.assertEqual(result, 1)
+        partner.mark_connection_coin_forgotten()
+        self.assertEqual(partner.x_cc_vergeten, 2)

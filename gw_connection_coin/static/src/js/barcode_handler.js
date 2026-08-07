@@ -1,9 +1,9 @@
 odoo.define("gw_connection_coin.ProductScreen", function (require) {
     "use strict";
 
-    const DiscountButton = require("pos_discount.DiscountButton");
     const ProductScreen = require("point_of_sale.ProductScreen");
     const Registries = require("point_of_sale.Registries");
+    const ConnectionCoinUtils = require("gw_connection_coin.utils");
 
     const GWConnectionCoinProductScreen = (ProductScreen) =>
         class extends ProductScreen {
@@ -29,33 +29,8 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 super._barcodeDiscountAction(code);
                 this._updateDiscount();
             }
-            _getDiscountProductId() {
-                return (
-                    this.env.pos.config.discount_product_id &&
-                    this.env.pos.config.discount_product_id[0]
-                );
-            }
-            _applyDiscount() {
-                const discountProductId = this._getDiscountProductId();
-                if (!discountProductId) {
-                    return;
-                }
-                const order = this.env.pos.get_order();
-                const selectedLine = order.get_selected_orderline();
-                const currentMode = this.env.pos.numpadMode;
-                DiscountButton.prototype.apply_discount.call(
-                    this,
-                    this.env.pos.config.discount_pc
-                );
-                if (selectedLine && selectedLine.product.id !== discountProductId) {
-                    order.select_orderline(selectedLine);
-                    if (this.env.pos.numpadMode !== currentMode) {
-                        this.env.pos.numpadMode = currentMode;
-                    }
-                }
-            }
             _updateDiscount() {
-                const discountProductId = this._getDiscountProductId();
+                const discountProductId = ConnectionCoinUtils.getDiscountProductId(this);
                 if (!discountProductId) {
                     return;
                 }
@@ -64,121 +39,14 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                     .get_orderlines()
                     .find((line) => line.product.id === discountProductId);
                 if (discountLine) {
-                    this._applyDiscount();
+                    ConnectionCoinUtils.applyDiscount(this);
                 }
-            }
-            _clearDiscount() {
-                if (!this._getDiscountProductId()) {
-                    return;
-                }
-                DiscountButton.prototype.apply_discount.call(this, 0);
-            }
-            async _syncConnectionCoinDiscount(partner) {
-                if (!this._getDiscountProductId()) {
-                    return;
-                }
-                if (!partner || !partner.x_cc_nummer) {
-                    this._clearDiscount();
-                    return;
-                }
-                const isValid = await this._checkConnectionCoinExpiry(partner);
-                if (isValid) {
-                    this._applyDiscount();
-                } else {
-                    this._clearDiscount();
-                }
-            }
-            async onClickPartner() {
-                const previousPartner = this.currentOrder.get_partner();
-                await super.onClickPartner();
-                const newPartner = this.currentOrder.get_partner();
-                if (newPartner !== previousPartner) {
-                    await this._syncConnectionCoinDiscount(newPartner);
-                }
-            }
-            async _checkConnectionCoinExpiry(partner) {
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const expiryDate = new Date(partner.x_cc_verleng);
-                const endDate = new Date(partner.x_cc_einde);
-                expiryDate.setHours(0, 0, 0, 0);
-
-                if (expiryDate < today && !endDate.getTime()) {
-                    const {confirmed} = await this.showPopup("ConfirmPopup", {
-                        title: this.env._t("Connection Coin has expired"),
-                        body: _.str.sprintf(
-                            this.env._t(
-                                "The Connection Coin of %s has expired on %s and no longer provides a discount. Ask the customer if they want to renew. If not, ask the customer if they want to return the coin"
-                            ),
-                            partner.name,
-                            partner.x_cc_verleng
-                        ),
-                        confirmText: this.env._t("Returned"),
-                        cancelText: this.env._t("Close"),
-                    });
-                    if (confirmed) {
-                        await this.rpc({
-                            model: "res.partner",
-                            method: "end_connection_coin",
-                            args: [[partner.id]],
-                            context: this.env.session.user_context,
-                        });
-                        partner.x_cc_einde = partner.x_cc_verleng;
-                    }
-                    return false;
-                }
-                if (endDate.getTime() && endDate < today) {
-                    this.showPopup("ErrorPopup", {
-                        title: this.env._t("Connection Coin has been terminated"),
-                        body: _.str.sprintf(
-                            this.env._t(
-                                "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if they want to return the coin."
-                            ),
-                            partner.name,
-                            luxon.DateTime.fromISO(partner.x_cc_einde).toLocaleString(
-                                luxon.DateTime.DATE_FULL
-                            )
-                        ),
-                    });
-                    return false;
-                }
-
-                const diffDays = Math.ceil(
-                    (expiryDate - today) / (1000 * 60 * 60 * 24)
-                );
-                console.debug("diffDays", diffDays);
-                if (diffDays >= 0 && diffDays <= 14) {
-                    const {confirmed} = await this.showPopup("ConfirmPopup", {
-                        title: this.env._t("Connection Coin expires soon"),
-                        body: _.str.sprintf(
-                            this.env._t(
-                                "The Connection Coin of %s expires on %s. Alert the customer to renew in time."
-                            ),
-                            partner.name,
-                            luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
-                                luxon.DateTime.DATE_FULL
-                            )
-                        ),
-                        confirmText: this.env._t("Stop Coin"),
-                        cancelText: this.env._t("Close"),
-                    });
-                    if (confirmed) {
-                        await this.rpc({
-                            model: "res.partner",
-                            method: "end_connection_coin",
-                            args: [[partner.id]],
-                            context: this.env.session.user_context,
-                        });
-                        partner.x_cc_einde = partner.x_cc_verleng;
-                    }
-                }
-                return true;
             }
             async _barcodePartnerAction(code) {
                 const result = await super._barcodePartnerAction(code);
                 const partner = this.env.pos.db.get_partner_by_barcode(code.code);
                 if (partner) {
-                    await this._syncConnectionCoinDiscount(partner);
+                    await ConnectionCoinUtils.syncConnectionCoinDiscount(this, partner);
                 }
                 return result;
             }

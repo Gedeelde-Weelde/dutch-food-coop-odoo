@@ -11,6 +11,7 @@ class PosSession(models.Model):
                 "x_cc_nummer",
                 "x_cc_verleng",
                 "x_cc_einde",
+                "x_cc_vergeten",
             ]
         )
         return super()._get_pos_ui_res_partner(params)

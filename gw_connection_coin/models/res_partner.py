@@ -10,6 +10,7 @@ class ResPartner(models.Model):
     x_cc_verleng = fields.Date(string="CC Verlengdatum")
     x_cc_einde = fields.Date(string="CC Einddatum")
     x_automatic_debit = fields.Boolean(string="Automatische incasso")
+    x_cc_vergeten = fields.Integer(string="CC Keer Vergeten", default=0)
 
     @api.model
     def _cc_nummer_to_barcode(self, cc_nummer):
@@ -36,6 +37,11 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.x_cc_verleng:
                 partner.x_cc_verleng = partner.x_cc_verleng + relativedelta(years=1)
+
+    def mark_connection_coin_forgotten(self):
+        self.ensure_one()
+        self.x_cc_vergeten += 1
+        return self.x_cc_vergeten
 
     def write(self, vals):
         if "x_cc_nummer" in vals:

@@ -9,8 +9,11 @@
     "depends": ["point_of_sale", "contacts", "partner_firstname"],
     "assets": {
         "point_of_sale.assets": [
+            "gw_connection_coin/static/src/js/connection_coin_utils.js",
             "gw_connection_coin/static/src/js/barcode_handler.js",
+            "gw_connection_coin/static/src/js/partner_list_screen.js",
             "gw_connection_coin/static/src/js/customer_facing_display.js",
+            "gw_connection_coin/static/src/xml/partner_list_screen.xml",
             "gw_connection_coin/static/src/xml/customer_facing_display.xml",
         ],
     },
