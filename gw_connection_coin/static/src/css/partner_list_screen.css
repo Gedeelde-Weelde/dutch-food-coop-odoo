@@ -1,0 +1,25 @@
+.pos .gw-cc-activate-button {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    margin-top: 6px;
+    padding: 10px 12px;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 1.2;
+    border: none;
+    border-radius: 5px;
+    background: #ff671f;
+    color: #fff;
+    white-space: normal;
+    margin-bottom: 16px;
+}
+
+.pos .gw-cc-activate-button:active {
+    background: #c6501a;
+}
+
+.pos .gw-cc-forgotten-count {
+    display: block;
+    font-size: 13px;
+}
