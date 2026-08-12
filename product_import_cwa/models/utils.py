@@ -182,6 +182,7 @@ class XMLProductLoader:
     def parse_from_xml(self, prod_file):
         # make a dict with existing products by unique_id
         self.fill_unique_ids_and_hash_dict()
+        _logger.debug("Start parsing XML file: %s", prod_file)
 
         # determine allowed source tags
         # determine list of destination fields
@@ -199,6 +200,7 @@ class XMLProductLoader:
             parser = etree.XMLParser(recover=True)
             root = etree.fromstring(file_content, parser)
 
+        _logger.debug("Start iterartion: %s", prod_file)
         for product in root.iter("product"):
             # copy full XML record to dict
             temp_dict = self.copy_record_to_temp_dict(product)
@@ -220,6 +222,7 @@ class XMLProductLoader:
                 load_dict, new_hash, unique_id
             )
 
+        _logger.debug("Start finished iteration: %s", prod_file)
         delete_records = self.calculate_records_that_should_be_deleted()
 
         return self.load_fields, self.load_values, self.update_records, delete_records
