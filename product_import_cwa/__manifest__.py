@@ -15,6 +15,9 @@
         "product_food_fields",
         "pos_container_deposit",
     ],
+    "external_dependencies": {
+        "python": ["paramiko"],
+    },
     "assets": {
         "point_of_sale.assets": [
             "product_import_cwa/static/src/xml/extend_customer_facing_display_order.xml",

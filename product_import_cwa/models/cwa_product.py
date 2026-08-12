@@ -1,7 +1,10 @@
 import ftplib
 import logging
 import os
+import time
 from datetime import date
+
+import paramiko
 
 from odoo import _, api, fields, models, tools
 from odoo.exceptions import UserError, ValidationError
@@ -869,19 +872,30 @@ class CwaProduct(models.Model):
             host = ir_config.get_param("cwa_ftp_address")
             username = ir_config.get_param("cwa_ftp_username")
             passwd = ir_config.get_param("cwa_ftp_password")
-
+            method = ir_config.get_param("cwa_import_method", default="ftp")
+            port = ir_config.get_param("cwa_ftp_port")
         else:
             # Get credentials from the odoo.cfg
             host = config_address
             username = tools.config.get("ftp_username")
             passwd = tools.config.get("ftp_password")
+            method = "ftp"
+            port = None
 
         if not host or not username or not passwd:
             return
 
+        if method == "sftp":
+            return self._get_prod_file_from_sftp(host, username, passwd, port)
+        return self._get_prod_file_from_plain_ftp(host, username, passwd, port)
+
+    def _get_prod_file_from_plain_ftp(self, host, username, passwd, port):
+        port = int(port) if port else 21
         tmp = False
         try:
-            ftp_server = ftplib.FTP(host, username, passwd, timeout=20)
+            ftp_server = ftplib.FTP(timeout=20)
+            ftp_server.connect(host, port)
+            ftp_server.login(username, passwd)
             ftp_server.encoding = "utf-8"
             root = "VoorWinkel"
             # Go into the Root Directory
@@ -907,4 +921,82 @@ class CwaProduct(models.Model):
                 ftp_server.quit()
         except ftplib.all_errors as err:
             _logger.error("Failed to Download from FTP: %s" % err)
+        return tmp
+
+    def _get_prod_file_from_sftp(self, host, username, passwd, port, max_retries=5):
+        port = int(port) if port else 22
+        tmp = "/tmp/products_data.xml"
+        root = "VoorWinkel"
+        remote = None
+
+        # Start each import with a clean file; partial data from an
+        # unrelated previous run should never be treated as a valid resume point.
+        if os.path.exists(tmp):
+            os.remove(tmp)
+
+        for attempt in range(1, max_retries + 1):
+            ssh_client = paramiko.SSHClient()
+            ssh_client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+            try:
+                ssh_client.connect(
+                    host,
+                    port=port,
+                    username=username,
+                    password=passwd,
+                    timeout=20,
+                    look_for_keys=False,
+                    allow_agent=False,
+                )
+                # Keep the connection alive during long transfers so an
+                # intermediate firewall/NAT doesn't consider it idle and drop it.
+                ssh_client.get_transport().set_keepalive(15)
+                sftp = ssh_client.open_sftp()
+                try:
+                    if remote is None:
+                        files_in_dir = sftp.listdir(root)
+                        # ignore Actie files
+                        files_in_dir = [x for x in files_in_dir if "Artikelen" in x]
+                        # pick the latest if there are files
+                        if not files_in_dir:
+                            _logger.error("Directory '%s' is empty!" % root)
+                            return
+                        remote = f"{root}/{files_in_dir[-1]}"
+
+                    remote_size = sftp.stat(remote).st_size
+                    local_size = os.path.getsize(tmp) if os.path.exists(tmp) else 0
+                    if local_size and local_size >= remote_size:
+                        break
+
+                    _logger.info(
+                        f"Downloading file: {remote} >>>> {tmp} "
+                        f"(resuming at {local_size}/{remote_size} bytes, "
+                        f"attempt {attempt}/{max_retries})"
+                    )
+                    with sftp.open(remote, "rb") as remote_file:
+                        remote_file.set_pipelined(True)
+                        remote_file.seek(local_size)
+                        with open(tmp, "ab") as local_file:
+                            while True:
+                                chunk = remote_file.read(32768)
+                                if not chunk:
+                                    break
+                                local_file.write(chunk)
+                    break
+                finally:
+                    sftp.close()
+            except (paramiko.SSHException, OSError) as err:
+                if attempt == max_retries:
+                    _logger.error("Failed to Download from SFTP: %s" % err)
+                    return
+                _logger.warning(
+                    "SFTP download attempt %s/%s failed (%s), retrying...",
+                    attempt,
+                    max_retries,
+                    err,
+                )
+                time.sleep(min(2**attempt, 30))
+            finally:
+                ssh_client.close()
+
+        _logger.info("File successfully downloaded....proceed with Import!")
         return tmp

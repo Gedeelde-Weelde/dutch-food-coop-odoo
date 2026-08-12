@@ -20,6 +20,20 @@
                             </div>
 
                             <div class="o_setting_right_pane">
+                                <label for="cwa_import_method" />
+                                <div class="text-muted">
+                                    Choose whether to connect via FTP or SFTP
+                                </div>
+                                <div class="text-muted">
+                                    <field
+                                        name="cwa_import_method"
+                                        attrs="{'invisible': [('enable_ftp_import', '=', False )], 'required': [('enable_ftp_import', '=', True )]}"
+                                        widget="radio"
+                                        options="{'horizontal': true}"
+                                    />
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
                                 <label for="cwa_ftp_address" />
                                 <div class="text-muted">
                                     Enter the FTP Address
@@ -32,6 +46,19 @@
                                     <field
                                         name="cwa_ftp_address"
                                         placeholder="ftp.valksolutions.nl"
+                                        attrs="{'invisible': [('enable_ftp_import', '=', False )], 'required': [('enable_ftp_import', '=', True )]}"
+                                        style="width:110%"
+                                    />
+                                </div>
+                            </div>
+                            <div class="o_setting_right_pane">
+                                <label for="cwa_ftp_port" />
+                                <div class="text-muted">
+                                    Enter the Port (defaults to 21 for FTP, 22 for SFTP)
+                                </div>
+                                <div class="text-muted">
+                                    <field
+                                        name="cwa_ftp_port"
                                         attrs="{'invisible': [('enable_ftp_import', '=', False )], 'required': [('enable_ftp_import', '=', True )]}"
                                         style="width:110%"
                                     />
