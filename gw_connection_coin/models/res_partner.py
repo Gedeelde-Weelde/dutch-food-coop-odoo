@@ -10,7 +10,7 @@ class ResPartner(models.Model):
     x_cc_verleng = fields.Date(string="CC Verlengdatum")
     x_cc_einde = fields.Date(string="CC Einddatum")
     x_automatic_debit = fields.Boolean(string="Automatische incasso")
-    x_cc_vergeten = fields.Integer(string="CC Keer Vergeten", default=0)
+    cc_forgotten = fields.Integer(string="CC Keer Vergeten", default=0)
     is_member = fields.Boolean(compute="_compute_is_member")
 
     @api.model
@@ -38,11 +38,12 @@ class ResPartner(models.Model):
         for partner in self:
             if partner.x_cc_verleng:
                 partner.x_cc_verleng = partner.x_cc_verleng + relativedelta(years=1)
+            partner.cc_forgotten = 0
 
     def mark_connection_coin_forgotten(self):
         self.ensure_one()
-        self.x_cc_vergeten += 1
-        return self.x_cc_vergeten
+        self.cc_forgotten += 1
+        return self.cc_forgotten
 
     # x_lid_begin/x_lid_einde are pre-existing manual fields (added directly
     # in the database long before this module existed), deliberately not

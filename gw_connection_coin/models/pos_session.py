@@ -11,7 +11,7 @@ class PosSession(models.Model):
                 "x_cc_nummer",
                 "x_cc_verleng",
                 "x_cc_einde",
-                "x_cc_vergeten",
+                "cc_forgotten",
                 "is_member",
             ]
         )

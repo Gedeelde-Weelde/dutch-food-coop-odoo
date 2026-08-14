@@ -6,9 +6,14 @@
             <td t-if="!env.isMobile">
                 <t t-if="hasConnectionCoin">
                     <div class="gw-cc-forgotten-count" title="Keer coin vergeten">
-                        <span>Forgotten count: </span><t t-esc="props.partner.x_cc_vergeten or 0" />
+                        <span>Forgotten count: </span><t
+                            t-esc="props.partner.cc_forgotten or 0"
+                        />
                     </div>
-                    <button class="gw-cc-activate-button" t-on-click.stop="onClickActivateCoin">
+                    <button
+                        class="gw-cc-activate-button"
+                        t-on-click.stop="onClickActivateCoin"
+                    >
                         Activate Connection Coin
                     </button>
                 </t>

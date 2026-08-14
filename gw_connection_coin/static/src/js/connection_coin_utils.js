@@ -190,7 +190,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             args: [[partner.id]],
             context: component.env.session.user_context,
         });
-        partner.x_cc_vergeten = newCount;
+        partner.cc_forgotten = newCount;
         return newCount;
     }
 

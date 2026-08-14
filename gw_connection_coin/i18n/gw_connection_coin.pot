@@ -116,8 +116,8 @@ msgid "CC Einddatum"
 msgstr ""
 
 #. module: gw_connection_coin
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__x_cc_vergeten
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__x_cc_vergeten
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_forgotten
 msgid "CC Keer Vergeten"
 msgstr ""
 

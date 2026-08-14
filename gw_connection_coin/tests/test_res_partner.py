@@ -59,6 +59,19 @@ class TestResPartner(TransactionCase):
         partner.extend_connection_coin()
         self.assertEqual(partner.x_cc_verleng, False)
 
+    def test_extend_connection_coin_resets_forgotten_count(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        partner.mark_connection_coin_forgotten()
+        partner.mark_connection_coin_forgotten()
+        self.assertEqual(partner.cc_forgotten, 2)
+        partner.extend_connection_coin()
+        self.assertEqual(partner.cc_forgotten, 0)
+
     def test_mark_connection_coin_forgotten_increments_count(self):
         partner = self.env["res.partner"].create(
             {
@@ -66,12 +79,12 @@ class TestResPartner(TransactionCase):
                 "x_cc_nummer": "711",
             }
         )
-        self.assertEqual(partner.x_cc_vergeten, 0)
+        self.assertEqual(partner.cc_forgotten, 0)
         result = partner.mark_connection_coin_forgotten()
-        self.assertEqual(partner.x_cc_vergeten, 1)
+        self.assertEqual(partner.cc_forgotten, 1)
         self.assertEqual(result, 1)
         partner.mark_connection_coin_forgotten()
-        self.assertEqual(partner.x_cc_vergeten, 2)
+        self.assertEqual(partner.cc_forgotten, 2)
 
     def test_is_member_false_when_membership_fields_absent(self):
         # On a database without the manually-added x_lid_begin/x_lid_einde
