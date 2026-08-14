@@ -12,13 +12,25 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 this._updateDiscount();
             }
             async _addProduct(product, options) {
+                if (product.is_connection_coin && !this.env.pos.get_order().partner) {
+                    // If no partner is selected, the coin may not be sold.
+                    this.showPopup("ErrorPopup", {
+                        title: this.env._t("You must select a customer first"),
+                        body: _.str.sprintf(
+                            this.env._t(
+                                "The connection coin product '%s' requires a customer to be selected first."
+                            ),
+                            product.display_name
+                        ),
+                    });
+                    return;
+                }
                 await super._addProduct(product, options);
-                // If product is connection coin, apply discount
                 if (product.is_connection_coin) {
                     ConnectionCoinUtils.applyDiscount(this);
+                } else {
+                    this._updateDiscount();
                 }
-
-                this._updateDiscount();
             }
             _setValue(val) {
                 super._setValue(val);
@@ -35,7 +47,8 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 this._updateDiscount();
             }
             _updateDiscount() {
-                const discountProductId = ConnectionCoinUtils.getDiscountProductId(this);
+                const discountProductId =
+                    ConnectionCoinUtils.getDiscountProductId(this);
                 if (!discountProductId) {
                     return;
                 }
