@@ -479,9 +479,26 @@ msgstr ""
 "coin wil inleveren."
 
 #. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The connection coin product '%s' requires a customer to be selected "
+"first."
+msgstr ""
+"Voor het product '%s' moet eerst een klant worden geselecteerd."
+
+#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
 msgid "Yes"
 msgstr "Ja"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "You must select a customer first"
+msgstr "Selecteer eerst een klant"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__zip

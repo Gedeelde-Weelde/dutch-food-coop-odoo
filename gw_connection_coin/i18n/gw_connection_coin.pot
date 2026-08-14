@@ -470,8 +470,24 @@ msgid ""
 msgstr ""
 
 #. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The connection coin product '%s' requires a customer to be selected "
+"first."
+msgstr ""
+
+#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
 msgid "Yes"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "You must select a customer first"
 msgstr ""
 
 #. module: gw_connection_coin
