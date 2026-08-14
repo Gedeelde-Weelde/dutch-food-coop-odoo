@@ -13,6 +13,11 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
             }
             async _addProduct(product, options) {
                 await super._addProduct(product, options);
+                // If product is connection coin, apply discount
+                if (product.is_connection_coin) {
+                    ConnectionCoinUtils.applyDiscount(this);
+                }
+
                 this._updateDiscount();
             }
             _setValue(val) {

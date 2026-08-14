@@ -22,6 +22,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
         const order = component.env.pos.get_order();
         const selectedLine = order.get_selected_orderline();
+        // Maintain the current numpad mode after applying the discount.
         const currentMode = component.env.pos.numpadMode;
         DiscountButton.prototype.apply_discount.call(
             component,

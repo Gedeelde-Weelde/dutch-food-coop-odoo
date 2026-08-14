@@ -15,3 +15,11 @@ class PosSession(models.Model):
             ]
         )
         return super()._get_pos_ui_res_partner(params)
+
+    def _get_pos_ui_product_product(self, params):
+        params["search_params"]["fields"].extend(
+            [
+                "is_connection_coin",
+            ]
+        )
+        return super()._get_pos_ui_product_product(params)
