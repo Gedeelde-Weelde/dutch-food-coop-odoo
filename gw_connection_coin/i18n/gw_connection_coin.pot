@@ -16,6 +16,13 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/pos_config.py:0
+#, python-format
+msgid "%s must be flagged as a Connection Coin Product."
+msgstr ""
+
+#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
 msgid "<strong>Address</strong>"
 msgstr ""
@@ -207,13 +214,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
-msgid "Connection Coin expires soon"
-msgstr ""
-
-#. module: gw_connection_coin
-#. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
-#, python-format
 msgid "Connection Coin has been terminated"
 msgstr ""
 
@@ -351,6 +351,12 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__member_connection_coin_product_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Member Connection Coin Product"
+msgstr ""
+
+#. module: gw_connection_coin
 #: model:ir.actions.act_window,name:gw_connection_coin.action_res_partner_simple_form
 msgid "New Individual Contact"
 msgstr ""
@@ -358,6 +364,19 @@ msgstr ""
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
 msgid "No"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "No connection coin product found"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__non_member_connection_coin_product_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Non-Member Connection Coin Product"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -395,6 +414,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__potential_duplicate_ids
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__potential_duplicate_ids
 msgid "Potential Duplicates"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Product added to the order when renewing a member's Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Product added to the order when renewing a non-member's Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Renew"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -476,6 +512,15 @@ msgstr ""
 msgid ""
 "The connection coin product '%s' requires a customer to be selected "
 "first."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The connection coin product for this partner's membership status is "
+"not configured. Set it up in the Point of Sale settings."
 msgstr ""
 
 #. module: gw_connection_coin

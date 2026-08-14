@@ -1,3 +1,5 @@
+from dateutil.relativedelta import relativedelta
+
 from odoo import fields
 from odoo.tests import TransactionCase
 
@@ -70,3 +72,79 @@ class TestResPartner(TransactionCase):
         self.assertEqual(result, 1)
         partner.mark_connection_coin_forgotten()
         self.assertEqual(partner.x_cc_vergeten, 2)
+
+    def test_is_member_false_when_membership_fields_absent(self):
+        # On a database without the manually-added x_lid_begin/x_lid_einde
+        # fields (e.g. this test database), is_member must degrade to False
+        # instead of raising.
+        partner = self.env["res.partner"].create({"name": "Test Partner"})
+        self.assertFalse(partner.is_member)
+
+
+class TestResPartnerMembership(TransactionCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # Simulate the pre-existing manual (Studio-added) x_lid_begin/
+        # x_lid_einde fields that _compute_is_member reads defensively,
+        # without gw_connection_coin declaring them in code (see the
+        # comment above _compute_is_member for why).
+        model_id = cls.env["ir.model"]._get_id("res.partner")
+        cls.env["ir.model.fields"].create(
+            [
+                {
+                    "name": "x_lid_begin",
+                    "field_description": "Lidmaatschap Startdatum",
+                    "model_id": model_id,
+                    "ttype": "date",
+                },
+                {
+                    "name": "x_lid_einde",
+                    "field_description": "Lidmaatschap Einddatum",
+                    "model_id": model_id,
+                    "ttype": "date",
+                },
+            ]
+        )
+
+    def test_is_member_true_within_range(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_lid_begin": fields.Date.today() - relativedelta(days=1),
+                "x_lid_einde": fields.Date.today() + relativedelta(days=1),
+            }
+        )
+        self.assertTrue(partner.is_member)
+
+    def test_is_member_true_without_end_date(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_lid_begin": fields.Date.today() - relativedelta(days=1),
+            }
+        )
+        self.assertTrue(partner.is_member)
+
+    def test_is_member_false_before_begin(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_lid_begin": fields.Date.today() + relativedelta(days=1),
+            }
+        )
+        self.assertFalse(partner.is_member)
+
+    def test_is_member_false_after_end(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_lid_begin": fields.Date.today() - relativedelta(days=10),
+                "x_lid_einde": fields.Date.today() - relativedelta(days=1),
+            }
+        )
+        self.assertFalse(partner.is_member)
+
+    def test_is_member_false_without_begin_date(self):
+        partner = self.env["res.partner"].create({"name": "Test Partner"})
+        self.assertFalse(partner.is_member)

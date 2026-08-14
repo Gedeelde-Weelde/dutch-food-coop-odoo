@@ -12,6 +12,7 @@ class PosSession(models.Model):
                 "x_cc_verleng",
                 "x_cc_einde",
                 "x_cc_vergeten",
+                "is_member",
             ]
         )
         return super()._get_pos_ui_res_partner(params)

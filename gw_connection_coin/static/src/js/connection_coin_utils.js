@@ -43,6 +43,31 @@ odoo.define("gw_connection_coin.utils", function (require) {
         DiscountButton.prototype.apply_discount.call(component, 0);
     }
 
+    // Adds the connection coin product for the partner's membership status
+    // (member vs non-member) to the current order. Uses order.add_product
+    // (the Order model method) rather than a screen component's
+    // _addProduct, since this is shared between ProductScreen and
+    // PartnerListScreen, which don't share a common UI-level method.
+    async function addConnectionCoinRenewalProduct(component, partner) {
+        const config = component.env.pos.config;
+        const productRef = partner.is_member
+            ? config.member_connection_coin_product_id
+            : config.non_member_connection_coin_product_id;
+        const product =
+            productRef && component.env.pos.db.get_product_by_id(productRef[0]);
+        if (!product) {
+            await component.showPopup("ErrorPopup", {
+                title: component.env._t("No connection coin product found"),
+                body: component.env._t(
+                    "The connection coin product for this partner's membership status is not configured. Set it up in the Point of Sale settings."
+                ),
+            });
+            return;
+        }
+        component.env.pos.get_order().add_product(product, {});
+        applyDiscount(component);
+    }
+
     async function checkConnectionCoinExpiry(component, partner) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -51,7 +76,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate < today && !endDate.getTime()) {
-            const { confirmed } = await component.showPopup("ConfirmPopup", {
+            const {confirmed} = await component.showPopup("ConfirmPopup", {
                 title: component.env._t("Connection Coin has expired"),
                 body: _.str.sprintf(
                     component.env._t(
@@ -92,9 +117,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
 
         const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
         if (diffDays >= 0 && diffDays <= 14) {
-            const { confirmed } = await component.showPopup("ConfirmPopup", {
-                title: component.env._t("Connection Coin expires soon"),
-                body: _.str.sprintf(
+            // SelectionPopup renders one button per list item plus a Cancel
+            // button, which is how a third action (Renew) is offered here
+            // alongside Stop Coin / Close. It doesn't render a `body`
+            // though, so the detail message is passed as the title instead.
+            const {payload: action} = await component.showPopup("SelectionPopup", {
+                title: _.str.sprintf(
                     component.env._t(
                         "The Connection Coin of %s expires on %s. Alert the customer to renew in time."
                     ),
@@ -103,10 +131,23 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         luxon.DateTime.DATE_FULL
                     )
                 ),
-                confirmText: component.env._t("Stop Coin"),
+                list: [
+                    {
+                        id: "renew",
+                        label: component.env._t("Renew"),
+                        isSelected: false,
+                        item: "renew",
+                    },
+                    {
+                        id: "stop",
+                        label: component.env._t("Stop Coin"),
+                        isSelected: false,
+                        item: "stop",
+                    },
+                ],
                 cancelText: component.env._t("Close"),
             });
-            if (confirmed) {
+            if (action === "stop") {
                 await component.rpc({
                     model: "res.partner",
                     method: "end_connection_coin",
@@ -114,6 +155,13 @@ odoo.define("gw_connection_coin.utils", function (require) {
                     context: component.env.session.user_context,
                 });
                 partner.x_cc_einde = partner.x_cc_verleng;
+            } else if (action === "renew") {
+                // Renewing means adding the right connection coin product to
+                // the order rather than extending the coin directly: the
+                // customer pays for the renewal, and extend_connection_coin
+                // only runs once the order is actually confirmed (see
+                // pos_order.py's create()).
+                await addConnectionCoinRenewalProduct(component, partner);
             }
         }
         return true;
