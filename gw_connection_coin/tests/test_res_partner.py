@@ -42,7 +42,18 @@ class TestResPartner(TransactionCase):
             }
         )
         partner.end_connection_coin()
-        self.assertEqual(partner.x_cc_einde, partner.x_cc_verleng)
+        self.assertEqual(partner.x_cc_einde, fields.Date.from_string("2026-01-01"))
+
+    def test_end_connection_coin_clears_verleng(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        partner.end_connection_coin()
+        self.assertEqual(partner.x_cc_verleng, False)
 
     def test_extend_connection_coin_advances_verleng_by_one_year(self):
         partner = self.env["res.partner"].create(
@@ -58,6 +69,42 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
         partner.extend_connection_coin()
         self.assertEqual(partner.x_cc_verleng, False)
+
+    def test_extend_connection_coin_sets_verleng_when_einde_in_past(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_einde": fields.Date.today() - relativedelta(days=1),
+            }
+        )
+        partner.extend_connection_coin()
+        self.assertEqual(
+            partner.x_cc_verleng, fields.Date.today() + relativedelta(years=1)
+        )
+
+    def test_extend_connection_coin_ignores_verleng_when_einde_in_past(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "x_cc_einde": fields.Date.today() - relativedelta(days=1),
+            }
+        )
+        partner.extend_connection_coin()
+        self.assertEqual(
+            partner.x_cc_verleng, fields.Date.today() + relativedelta(years=1)
+        )
+
+    def test_extend_connection_coin_uses_verleng_when_einde_in_future(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "x_cc_einde": fields.Date.today() + relativedelta(days=1),
+            }
+        )
+        partner.extend_connection_coin()
+        self.assertEqual(partner.x_cc_verleng, fields.Date.from_string("2027-01-01"))
 
     def test_extend_connection_coin_resets_forgotten_count(self):
         partner = self.env["res.partner"].create(

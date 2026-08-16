@@ -33,10 +33,14 @@ class ResPartner(models.Model):
     def end_connection_coin(self):
         for partner in self:
             partner.x_cc_einde = partner.x_cc_verleng
+            partner.x_cc_verleng = False
 
     def extend_connection_coin(self):
+        today = fields.Date.context_today(self)
         for partner in self:
-            if partner.x_cc_verleng:
+            if partner.x_cc_einde and partner.x_cc_einde < today:
+                partner.x_cc_verleng = today + relativedelta(years=1)
+            elif partner.x_cc_verleng:
                 partner.x_cc_verleng = partner.x_cc_verleng + relativedelta(years=1)
             partner.cc_forgotten = 0
 

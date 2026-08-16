@@ -76,7 +76,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate < today && !endDate.getTime()) {
-            await component.showPopup("SelectionPopup", {
+            const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has expired"),
                 body: _.str.sprintf(
                     component.env._t(
@@ -114,7 +114,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             return false;
         }
         if (endDate.getTime() && endDate < today) {
-            await component.showPopup("SelectionPopup", {
+            const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has been terminated"),
                 body: _.str.sprintf(
                     component.env._t(
