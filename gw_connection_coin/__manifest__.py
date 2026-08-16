@@ -1,6 +1,6 @@
 {
     "name": "Gedeelde Weelde Connection Coin",
-    "version": "16.0.1.1.0",
+    "version": "16.0.1.2.0",
     "category": "Point of Sale",
     "summary": "Connection Coin for Gedeelde Weelde",
     "author": "Gedeelde Weelde",
@@ -35,6 +35,7 @@
         "report/connection_coin_report.xml",
         "data/mail_template_data.xml",
         "data/ir_cron_data.xml",
+        "data/res_partner_category_data.xml",
     ],
     "installable": True,
     "application": False,

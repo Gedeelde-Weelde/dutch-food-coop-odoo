@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- These xmlids are adopted onto the pre-existing "cc actief" /
+         "cc te verlengen" / "cc inactief" tags in migrations/16.0.1.2.0/
+         pre-migrate.py, so upgrading keeps their id (and every partner
+         already tagged with them) instead of creating duplicates. On a
+         database without those tags yet, this simply creates them. -->
+    <record id="category_cc_actief" model="res.partner.category">
+        <field name="name">cc actief</field>
+    </record>
+    <record id="category_cc_te_verlengen" model="res.partner.category">
+        <field name="name">cc te verlengen</field>
+    </record>
+    <record id="category_cc_inactief" model="res.partner.category">
+        <field name="name">cc inactief</field>
+    </record>
+</odoo>
