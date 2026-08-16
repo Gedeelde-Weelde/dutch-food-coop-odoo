@@ -75,7 +75,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         const endDate = new Date(partner.x_cc_einde);
         expiryDate.setHours(0, 0, 0, 0);
 
-        if (expiryDate < today && !endDate.getTime()) {
+        if (expiryDate <= today && !endDate.getTime()) {
             component.playSound("error");
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has expired"),
@@ -114,7 +114,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             }
             return false;
         }
-        if (endDate.getTime() && endDate < today) {
+        if (endDate.getTime() && endDate <= today) {
             component.playSound("error");
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has been terminated"),
@@ -143,16 +143,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
         const daysFromExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
         if (daysFromExpiry >= 0 && daysFromExpiry <= 14) {
             component.playSound("error");
-            // SelectionPopup renders one button per list item plus a Cancel
-            // button, which is how a third action (Renew) is offered here
-            // alongside Stop Coin / Close. It doesn't render a `body`
-            // though, so the detail message is passed as the title instead.
             const {payload: action} = await component.showPopup("SelectionPopup", {
-                title: _.str.sprintf(
-                    component.env._t(
-                        "Connection Coin expires soon"
-                    )
-                ),
+                title: component.env._t("Connection Coin expires soon"),
                 body: _.str.sprintf(
                     component.env._t(
                         "The Connection Coin of %s expires on %s. Ask the customer if they want to renew or stop from this date."

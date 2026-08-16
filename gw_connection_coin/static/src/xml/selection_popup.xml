@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Core SelectionPopup declares a `body` prop (see
+         point_of_sale/static/src/js/Popups/SelectionPopup.js) but its
+         template never renders it. Add it here, styled like
+         ConfirmPopup's <main class="body">, so callers that pass a body
+         (e.g. gw_connection_coin.utils) actually see it. -->
+    <t t-name="SelectionPopup" t-inherit="point_of_sale.SelectionPopup" t-inherit-mode="extension" owl="1">
+        <xpath expr="//div[hasclass('selection')]" position="before">
+            <main class="body" t-if="props.body">
+                <t t-esc="props.body" />
+            </main>
+        </xpath>
+    </t>
+
+</templates>

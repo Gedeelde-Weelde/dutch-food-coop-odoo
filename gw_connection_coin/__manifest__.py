@@ -17,6 +17,7 @@
             "gw_connection_coin/static/src/js/customer_facing_display.js",
             "gw_connection_coin/static/src/xml/partner_list_screen.xml",
             "gw_connection_coin/static/src/xml/customer_facing_display.xml",
+            "gw_connection_coin/static/src/xml/selection_popup.xml",
         ],
     },
     "data": [
