@@ -56,6 +56,13 @@ msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Activate"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
 #, python-format
 msgid "Activate Connection Coin"
@@ -208,6 +215,13 @@ msgstr ""
 #: model:ir.actions.act_window,name:gw_connection_coin.action_connection_coin_wizard
 #: model:ir.ui.menu,name:gw_connection_coin.menu_connection_coin_wizard
 msgid "Connection Coin Wizard"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin expires soon"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -434,13 +448,6 @@ msgid "Renew"
 msgstr ""
 
 #. module: gw_connection_coin
-#. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
-#, python-format
-msgid "Returned"
-msgstr ""
-
-#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
 msgid "Save"
 msgstr ""
@@ -482,8 +489,8 @@ msgstr ""
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid ""
-"The Connection Coin of %s expires on %s. Alert the customer to renew in "
-"time."
+"The Connection Coin of %s expires on %s. Ask the customer if they want to "
+"renew or stop from this date."
 msgstr ""
 
 #. module: gw_connection_coin
@@ -492,7 +499,7 @@ msgstr ""
 #, python-format
 msgid ""
 "The Connection Coin of %s has been terminated on %s. Inform the customer "
-"about this and ask if they want to return the coin."
+"about this and ask if the coin should be activated from today."
 msgstr ""
 
 #. module: gw_connection_coin
@@ -500,9 +507,9 @@ msgstr ""
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid ""
-"The Connection Coin of %s has expired on %s and no longer provides a "
-"discount. Ask the customer if they want to renew. If not, ask the customer "
-"if they want to return the coin"
+"The Connection Coin of %s expired on %s and no longer provides a "
+"discount. Ask the customer if they want to renew from this date or stop "
+"permanently."
 msgstr ""
 
 #. module: gw_connection_coin
