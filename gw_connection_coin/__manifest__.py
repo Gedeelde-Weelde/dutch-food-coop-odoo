@@ -6,7 +6,13 @@
     "author": "Gedeelde Weelde",
     "website": "https://github.com/Gedeelde-Weelde/dutch-food-coop-odoo",
     "license": "AGPL-3",
-    "depends": ["point_of_sale", "pos_discount", "contacts", "partner_firstname"],
+    "depends": [
+        "point_of_sale",
+        "pos_discount",
+        "contacts",
+        "partner_firstname",
+        "mail",
+    ],
     "assets": {
         "point_of_sale.assets": [
             "gw_connection_coin/static/src/css/partner_list_screen.css",
@@ -27,6 +33,8 @@
         "views/res_config_settings_views.xml",
         "wizard/connection_coin_wizard_views.xml",
         "report/connection_coin_report.xml",
+        "data/mail_template_data.xml",
+        "data/ir_cron_data.xml",
     ],
     "installable": True,
     "application": False,

@@ -1,16 +1,25 @@
+import logging
+
 from dateutil.relativedelta import relativedelta
 
 from odoo import api, fields, models
 
+_logger = logging.getLogger(__name__)
+
 
 class ResPartner(models.Model):
     _inherit = "res.partner"
+
+    # Lead time and grace period for the reminder/auto-end crons below.
+    CONNECTION_COIN_REMINDER_LEAD_DAYS = 28
+    CONNECTION_COIN_AUTO_END_GRACE_MONTHS = 2
 
     x_cc_nummer = fields.Char(string="CC Nummer")
     x_cc_verleng = fields.Date(string="CC Verlengdatum")
     x_cc_einde = fields.Date(string="CC Einddatum")
     x_automatic_debit = fields.Boolean(string="Automatische incasso")
     cc_forgotten = fields.Integer(string="CC Keer Vergeten", default=0)
+    cc_reminder_sent_date = fields.Date(string="CC Herinnering Verzonden")
     is_member = fields.Boolean(compute="_compute_is_member")
 
     @api.model
@@ -32,12 +41,18 @@ class ResPartner(models.Model):
 
     def end_connection_coin(self):
         for partner in self:
-            partner.write({"x_cc_einde": partner.x_cc_verleng, "x_cc_verleng": False})
+            partner.write(
+                {
+                    "x_cc_einde": partner.x_cc_verleng,
+                    "x_cc_verleng": False,
+                    "cc_reminder_sent_date": False,
+                }
+            )
 
     def extend_connection_coin(self):
         today = fields.Date.context_today(self)
         for partner in self:
-            vals = {"cc_forgotten": 0}
+            vals = {"cc_forgotten": 0, "cc_reminder_sent_date": False}
             if partner.x_cc_einde and partner.x_cc_einde < today:
                 vals["x_cc_verleng"] = today + relativedelta(years=1)
                 vals["x_cc_einde"] = False
@@ -49,6 +64,60 @@ class ResPartner(models.Model):
         self.ensure_one()
         self.cc_forgotten += 1
         return self.cc_forgotten
+
+    @api.model
+    def _cron_send_connection_coin_reminders(self):
+        today = fields.Date.context_today(self)
+        target_date = today + relativedelta(
+            days=self.CONNECTION_COIN_REMINDER_LEAD_DAYS
+        )
+        template = self.env.ref(
+            "gw_connection_coin.mail_template_connection_coin_reminder"
+        )
+        partners = self.search(
+            [
+                ("x_cc_verleng", "!=", False),
+                ("x_cc_verleng", ">=", today),
+                ("x_cc_verleng", "<=", target_date),
+                ("cc_reminder_sent_date", "=", False),
+            ]
+        )
+        for partner in partners:
+            if partner.x_cc_einde and partner.x_cc_einde <= partner.x_cc_verleng:
+                continue
+            try:
+                template.send_mail(partner.id)
+            except Exception:
+                _logger.exception(
+                    "Failed to send connection coin reminder to partner %s",
+                    partner.id,
+                )
+                continue
+            partner.cc_reminder_sent_date = today
+
+    @api.model
+    def _cron_end_overdue_connection_coins(self):
+        today = fields.Date.context_today(self)
+        threshold = today - relativedelta(
+            months=self.CONNECTION_COIN_AUTO_END_GRACE_MONTHS
+        )
+        template = self.env.ref("gw_connection_coin.mail_template_connection_coin_ended")
+        partners = self.search(
+            [
+                ("x_cc_verleng", "!=", False),
+                ("x_cc_verleng", "<=", threshold),
+                ("x_cc_einde", "=", False),
+            ]
+        )
+        for partner in partners:
+            partner.end_connection_coin()
+            try:
+                template.send_mail(partner.id)
+            except Exception:
+                _logger.exception(
+                    "Failed to send connection coin termination email to partner %s",
+                    partner.id,
+                )
 
     # x_lid_begin/x_lid_einde are pre-existing manual fields (added directly
     # in the database long before this module existed), deliberately not

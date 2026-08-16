@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- noupdate="1": these are starting points, edited by staff afterwards
+         through the UI. A module update must never overwrite that content. -->
+    <data noupdate="1">
+        <record id="mail_template_connection_coin_reminder" model="mail.template">
+            <field name="name">Connection Coin: Herinnering verlengdatum</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">Connection Coin verloopt binnenkort</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.email_formatted }}</field>
+            <field name="description">Verzonden enkele weken voor de verlengdatum van de Connection Coin</field>
+            <field name="body_html" type="html">
+<div>
+    <p>Beste <t t-out="object.name or ''">klant</t>,</p>
+    <p>
+        De Connection Coin van <t t-out="object.name or ''">klant</t> loopt af op
+        <t t-out="format_date(object.x_cc_verleng) or ''">1 januari 2026</t>.
+    </p>
+    <p>Met vriendelijke groet,<br/><t t-out="object.company_id.name or ''">Gedeelde Weelde</t></p>
+</div>
+            </field>
+            <field name="lang">{{ object.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+
+        <record id="mail_template_connection_coin_ended" model="mail.template">
+            <field name="name">Connection Coin: Automatisch beëindigd</field>
+            <field name="model_id" ref="base.model_res_partner"/>
+            <field name="subject">Connection Coin is beëindigd</field>
+            <field name="email_from">{{ (object.company_id.email_formatted or user.email_formatted) }}</field>
+            <field name="email_to">{{ object.email_formatted }}</field>
+            <field name="description">Verzonden wanneer de Connection Coin automatisch wordt beëindigd na het verstrijken van de verlengdatum</field>
+            <field name="body_html" type="html">
+<div>
+    <p>Beste <t t-out="object.name or ''">klant</t>,</p>
+    <p>
+        De Connection Coin van <t t-out="object.name or ''">klant</t> is beëindigd op
+        <t t-out="format_date(object.x_cc_einde) or ''">1 januari 2026</t>.
+    </p>
+    <p>Met vriendelijke groet,<br/><t t-out="object.company_id.name or ''">Gedeelde Weelde</t></p>
+</div>
+            </field>
+            <field name="lang">{{ object.lang }}</field>
+            <field name="auto_delete" eval="True"/>
+        </record>
+    </data>
+</odoo>

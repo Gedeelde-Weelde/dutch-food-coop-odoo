@@ -1,7 +1,11 @@
+from unittest.mock import patch
+
 from dateutil.relativedelta import relativedelta
 
 from odoo import fields
 from odoo.tests import TransactionCase
+
+MAIL_TEMPLATE_SEND_MAIL = "odoo.addons.mail.models.mail_template.MailTemplate.send_mail"
 
 
 class TestResPartner(TransactionCase):
@@ -55,6 +59,18 @@ class TestResPartner(TransactionCase):
         partner.end_connection_coin()
         self.assertEqual(partner.x_cc_verleng, False)
 
+    def test_end_connection_coin_clears_reminder_sent_date(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_reminder_sent_date": fields.Date.today(),
+            }
+        )
+        partner.end_connection_coin()
+        self.assertEqual(partner.cc_reminder_sent_date, False)
+
     def test_extend_connection_coin_advances_verleng_by_one_year(self):
         partner = self.env["res.partner"].create(
             {
@@ -107,6 +123,17 @@ class TestResPartner(TransactionCase):
         )
         partner.extend_connection_coin()
         self.assertEqual(partner.x_cc_verleng, fields.Date.from_string("2027-01-01"))
+
+    def test_extend_connection_coin_clears_reminder_sent_date(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_reminder_sent_date": fields.Date.today(),
+            }
+        )
+        partner.extend_connection_coin()
+        self.assertEqual(partner.cc_reminder_sent_date, False)
 
     def test_extend_connection_coin_resets_forgotten_count(self):
         partner = self.env["res.partner"].create(
@@ -210,3 +237,90 @@ class TestResPartnerMembership(TransactionCase):
     def test_is_member_false_without_begin_date(self):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
         self.assertFalse(partner.is_member)
+
+
+class TestResPartnerConnectionCoinCron(TransactionCase):
+    def setUp(self):
+        super().setUp()
+        self.partner = self.env["res.partner"].create(
+            {"name": "Test Partner", "email": "test@example.com"}
+        )
+
+    def test_reminder_cron_sends_mail_within_lead_time(self):
+        today = fields.Date.today()
+        self.partner.x_cc_verleng = today + relativedelta(days=10)
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_send_connection_coin_reminders()
+        send_mail.assert_called_once_with(self.partner.id)
+        self.assertEqual(self.partner.cc_reminder_sent_date, today)
+
+    def test_reminder_cron_skips_partner_already_reminded(self):
+        today = fields.Date.today()
+        self.partner.write(
+            {
+                "x_cc_verleng": today + relativedelta(days=10),
+                "cc_reminder_sent_date": today,
+            }
+        )
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_send_connection_coin_reminders()
+        send_mail.assert_not_called()
+
+    def test_reminder_cron_skips_partner_outside_lead_time(self):
+        today = fields.Date.today()
+        self.partner.x_cc_verleng = today + relativedelta(days=40)
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_send_connection_coin_reminders()
+        send_mail.assert_not_called()
+
+    def test_reminder_cron_skips_already_ended_coin(self):
+        today = fields.Date.today()
+        self.partner.write(
+            {
+                "x_cc_verleng": today + relativedelta(days=10),
+                "x_cc_einde": today,
+            }
+        )
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_send_connection_coin_reminders()
+        send_mail.assert_not_called()
+
+    def test_reminder_cron_recovers_from_missed_run(self):
+        # A partner whose verleng date was already within the lead time
+        # yesterday (e.g. the cron didn't run) must still be picked up
+        # today, unlike the original exact-date-match implementation.
+        today = fields.Date.today()
+        self.partner.x_cc_verleng = today + relativedelta(days=1)
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_send_connection_coin_reminders()
+        send_mail.assert_called_once_with(self.partner.id)
+
+    def test_auto_end_cron_ends_overdue_coin_and_sends_mail(self):
+        today = fields.Date.today()
+        overdue_verleng = today - relativedelta(months=3)
+        self.partner.x_cc_verleng = overdue_verleng
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_end_overdue_connection_coins()
+        self.assertEqual(self.partner.x_cc_einde, overdue_verleng)
+        self.assertEqual(self.partner.x_cc_verleng, False)
+        send_mail.assert_called_once_with(self.partner.id)
+
+    def test_auto_end_cron_ignores_recent_verleng(self):
+        today = fields.Date.today()
+        self.partner.x_cc_verleng = today - relativedelta(days=10)
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_end_overdue_connection_coins()
+        send_mail.assert_not_called()
+        self.assertEqual(self.partner.x_cc_verleng, today - relativedelta(days=10))
+
+    def test_auto_end_cron_ignores_already_ended_coin(self):
+        today = fields.Date.today()
+        self.partner.write(
+            {
+                "x_cc_verleng": False,
+                "x_cc_einde": today - relativedelta(months=3),
+            }
+        )
+        with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
+            self.env["res.partner"]._cron_end_overdue_connection_coins()
+        send_mail.assert_not_called()
