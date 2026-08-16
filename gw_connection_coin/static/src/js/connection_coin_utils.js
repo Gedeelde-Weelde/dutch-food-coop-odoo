@@ -76,19 +76,31 @@ odoo.define("gw_connection_coin.utils", function (require) {
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate < today && !endDate.getTime()) {
-            const {confirmed} = await component.showPopup("ConfirmPopup", {
+            await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has expired"),
                 body: _.str.sprintf(
                     component.env._t(
-                        "The Connection Coin of %s has expired on %s and no longer provides a discount. Ask the customer if they want to renew. If not, ask the customer if they want to return the coin"
+                        "The Connection Coin of %s expired on %s and no longer provides a discount. Ask the customer if they want to renew from this date or stop permanently."
                     ),
                     partner.name,
                     partner.x_cc_verleng
                 ),
-                confirmText: component.env._t("Returned"),
-                cancelText: component.env._t("Close"),
-            });
-            if (confirmed) {
+                list: [
+                    {
+                        id: "renew",
+                        label: component.env._t("Renew"),
+                        isSelected: false,
+                        item: "renew",
+                    },
+                    {
+                        id: "stop",
+                        label: component.env._t("Stop Coin"),
+                        isSelected: false,
+                        item: "stop",
+                    },
+                ],
+                cancelText: component.env._t("Close"),            });
+            if (action === "stop") {
                 await component.rpc({
                     model: "res.partner",
                     method: "end_connection_coin",
@@ -96,27 +108,38 @@ odoo.define("gw_connection_coin.utils", function (require) {
                     context: component.env.session.user_context,
                 });
                 partner.x_cc_einde = partner.x_cc_verleng;
+            } else if (action === "renew") {
+                await addConnectionCoinRenewalProduct(component, partner);
             }
             return false;
         }
         if (endDate.getTime() && endDate < today) {
-            component.showPopup("ErrorPopup", {
+            await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has been terminated"),
                 body: _.str.sprintf(
                     component.env._t(
-                        "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if they want to return the coin."
+                        "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if the coin should be activated from today."
                     ),
                     partner.name,
-                    luxon.DateTime.fromISO(partner.x_cc_einde).toLocaleString(
-                        luxon.DateTime.DATE_FULL
-                    )
+                    partner.x_cc_verleng
                 ),
-            });
+                list: [
+                    {
+                        id: "activate",
+                        label: component.env._t("Activate"),
+                        isSelected: false,
+                        item: "activate",
+                    },
+                ],
+                cancelText: component.env._t("Close"),            });
+            if (action === "activate") {
+                await addConnectionCoinRenewalProduct(component, partner);
+            }
             return false;
         }
 
-        const diffDays = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-        if (diffDays >= 0 && diffDays <= 14) {
+        const daysFromExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
+        if (daysFromExpiry >= 0 && daysFromExpiry <= 14) {
             // SelectionPopup renders one button per list item plus a Cancel
             // button, which is how a third action (Renew) is offered here
             // alongside Stop Coin / Close. It doesn't render a `body`
@@ -124,7 +147,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: _.str.sprintf(
                     component.env._t(
-                        "The Connection Coin of %s expires on %s. Alert the customer to renew in time."
+                        "Connection Coin expires soon"
+                    )
+                ),
+                body: _.str.sprintf(
+                    component.env._t(
+                        "The Connection Coin of %s expires on %s. Ask the customer if they want to renew or stop from this date."
                     ),
                     partner.name,
                     luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
@@ -156,11 +184,6 @@ odoo.define("gw_connection_coin.utils", function (require) {
                 });
                 partner.x_cc_einde = partner.x_cc_verleng;
             } else if (action === "renew") {
-                // Renewing means adding the right connection coin product to
-                // the order rather than extending the coin directly: the
-                // customer pays for the renewal, and extend_connection_coin
-                // only runs once the order is actually confirmed (see
-                // pos_order.py's create()).
                 await addConnectionCoinRenewalProduct(component, partner);
             }
         }
