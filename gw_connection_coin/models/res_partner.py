@@ -32,17 +32,18 @@ class ResPartner(models.Model):
 
     def end_connection_coin(self):
         for partner in self:
-            partner.x_cc_einde = partner.x_cc_verleng
-            partner.x_cc_verleng = False
+            partner.write({"x_cc_einde": partner.x_cc_verleng, "x_cc_verleng": False})
 
     def extend_connection_coin(self):
         today = fields.Date.context_today(self)
         for partner in self:
+            vals = {"cc_forgotten": 0}
             if partner.x_cc_einde and partner.x_cc_einde < today:
-                partner.x_cc_verleng = today + relativedelta(years=1)
+                vals["x_cc_verleng"] = today + relativedelta(years=1)
+                vals["x_cc_einde"] = False
             elif partner.x_cc_verleng:
-                partner.x_cc_verleng = partner.x_cc_verleng + relativedelta(years=1)
-            partner.cc_forgotten = 0
+                vals["x_cc_verleng"] = partner.x_cc_verleng + relativedelta(years=1)
+            partner.write(vals)
 
     def mark_connection_coin_forgotten(self):
         self.ensure_one()

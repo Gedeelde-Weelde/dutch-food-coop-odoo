@@ -81,6 +81,7 @@ class TestResPartner(TransactionCase):
         self.assertEqual(
             partner.x_cc_verleng, fields.Date.today() + relativedelta(years=1)
         )
+        self.assertEqual(partner.x_cc_einde, False)
 
     def test_extend_connection_coin_ignores_verleng_when_einde_in_past(self):
         partner = self.env["res.partner"].create(
@@ -94,6 +95,7 @@ class TestResPartner(TransactionCase):
         self.assertEqual(
             partner.x_cc_verleng, fields.Date.today() + relativedelta(years=1)
         )
+        self.assertEqual(partner.x_cc_einde, False)
 
     def test_extend_connection_coin_uses_verleng_when_einde_in_future(self):
         partner = self.env["res.partner"].create(
