@@ -14,7 +14,7 @@
          partner instead of crashing the whole run. -->
     <data noupdate="1">
         <record id="mail_template_connection_coin_reminder" model="mail.template">
-            <field name="name">Verlengen Connection Coin</field>
+            <field name="name">Connection Coin: Verlengen</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="subject">Verlengen Connection Coin</field>
             <field name="email_from">Gedeelde Weelde &lt;connectioncoin@gedeeldeweelde.nl&gt;</field>
@@ -25,7 +25,7 @@
             <field name="body_html" type="html">
 <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size: 14px;"><font style="font-size:14px;">Beste <t t-out="object.x_aanschrijfnaam or ''' '''"/>,</font>
-    
+
     </font></p><p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size: 14px;">Het is alweer bijna een jaar geleden dat je de Connection Coin van Gedeelde Weelde hebt aangeschaft of verlengd. We willen je daar nogmaals voor bedanken!</font></p>
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
@@ -35,13 +35,13 @@
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size: 14px;">Jouw Connection Coin loopt af op <t t-out="object.x_cc_verleng.strftime('%d-%m-%Y') if object.x_cc_verleng else ''"/>. Natuurlijk zouden we het leuk vinden als je de Connection Coin verlengt, zodat je ook na deze datum weer opnieuw een jaar lang kunt genieten van 10% kassakorting op al je boodschappen. Je Connection Coin verlengen kan bij de kassa in de Gedeelde Weelde winkel voor €110,- (of €100,- voor leden). Dus gewoon bij het doen van je volgende boodschappen, wel zo makkelijk!</font>
     </p><p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;"/>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">
         <a style="text-decoration:none;box-sizing:border-box;background-color:transparent;cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-decoration-line:none;color:#337ab7;" href="https://gedeeldeweelde.nl/connectioncoin/">Hier vind je alles over de Connection Coin nog eens op een rijtje...</a>
       </font>
     </p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="color:#ff671f;font-size: 14px;">
         <b style="box-sizing:border-box;font-weight:bold;">Niet verlengen</b>
@@ -50,7 +50,7 @@
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">Wil je de Connection Coin niet verlengen, laat ons dat dan even weten als reactie op deze e-mail. Verder vinden we het prettig als je de Connection Coin dan inlevert in de winkel.</font>
     </p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="color:#ff671f;font-size: 14px;">
         <b style="box-sizing:border-box;font-weight:bold;">2e houder Connection Coin</b>
@@ -59,7 +59,7 @@
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size: 14px;">Wil je een extra coin voor één of meerdere andere personen in je huishouden? Dat kan. Stuur een mail naar connectioncoin@gedeeldeweelde.nl met de volledige naam van deze perso(o)n(en) en jouw eigen coin nummer. Zodra de coin klaar is krijg je een bevestigingsmail dat je deze af kan halen in de winkel. De extra coins kosten eenmalig €10,- per stuk, te betalen aan de kassa bij het ophalen.</font>
     </p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="color:#ff671f; font-size: 14px;">
         <b style="box-sizing:border-box;font-weight:bold;">Controleren gegevens</b>
@@ -68,18 +68,18 @@
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">Voor onze administratie hebben we jouw inschrijfgegevens opgevoerd in onze digitale administratie. Het zou fijn zijn als je deze gegevens kunt controleren en eventuele wijzigingen en aanvullingen als reactie op deze e-mail aan ons doorgeeft. Het gaat om de volgende gegevens:</font>
     </p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">Naam: <t t-out="object.name or ''' '''"/><br/>Adres: <t t-out="object.street or ''' '''"/><br/>Postcode: <t t-out="object.zip or ''' '''"/><br/>Woonplaats: <t t-out="object.city or ''' '''"/><br/>Telefoonnummer: <t t-out="object.phone or ''' '''"/><br/>Mobiel: <t t-out="object.mobile or ''' '''"/></font></p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">Nogmaals dank voor je vertrouwen en tot ziens in de winkel!</font>
     </p>
-    
+
     <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size:14px;">Hartelijke groet,</font>
     </p>
-    
+
     <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;">
       <span style="font-size:14px;">Edith Schmeits / Robin van Hontem</span>
       <br/>
@@ -99,7 +99,7 @@
         </record>
 
         <record id="mail_template_connection_coin_ended" model="mail.template">
-            <field name="name">Contact: Einde gebruik connection coin</field>
+            <field name="name">Connection Coin: Einde gebruik connection coin</field>
             <field name="model_id" ref="base.model_res_partner"/>
             <field name="subject">Einde gebruik Connection Coin</field>
             <field name="email_from">connectioncoin@gedeeldeweelde.nl</field>
@@ -109,10 +109,10 @@
             <field name="body_html" type="html">
 <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; "/>
     <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; ">
-      
+
         <span style="font-size:14px">Beste <t t-out="object.x_aanschrijfnaam or &quot;&quot;"/>,</span>
         <br/>
-      
+
     </p>
     <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; ">
       <font style="font-size:14px">
@@ -152,7 +152,7 @@
         </b>
       </font>
     </p>
-  
+
 
 
             </field>
