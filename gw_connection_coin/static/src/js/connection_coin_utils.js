@@ -76,6 +76,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate < today && !endDate.getTime()) {
+            component.playSound("error");
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has expired"),
                 body: _.str.sprintf(
@@ -114,6 +115,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             return false;
         }
         if (endDate.getTime() && endDate < today) {
+            component.playSound("error");
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin has been terminated"),
                 body: _.str.sprintf(
@@ -140,6 +142,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
 
         const daysFromExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
         if (daysFromExpiry >= 0 && daysFromExpiry <= 14) {
+            component.playSound("error");
             // SelectionPopup renders one button per list item plus a Cancel
             // button, which is how a third action (Renew) is offered here
             // alongside Stop Coin / Close. It doesn't render a `body`
