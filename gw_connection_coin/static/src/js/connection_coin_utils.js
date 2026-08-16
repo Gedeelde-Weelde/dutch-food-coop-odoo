@@ -84,7 +84,9 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s expired on %s and no longer provides a discount. Ask the customer if they want to renew from this date or stop permanently."
                     ),
                     partner.name,
-                    partner.x_cc_verleng
+                    luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                        luxon.DateTime.DATE_FULL
+                    )
                 ),
                 list: [
                     {
@@ -123,7 +125,9 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if the coin should be activated from today."
                     ),
                     partner.name,
-                    partner.x_cc_verleng
+                    luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                        luxon.DateTime.DATE_FULL
+                    )
                 ),
                 list: [
                     {
