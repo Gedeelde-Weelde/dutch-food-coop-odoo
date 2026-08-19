@@ -125,7 +125,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if the coin should be activated from today."
                     ),
                     partner.name,
-                    luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                    luxon.DateTime.fromISO(partner.x_cc_einde).toLocaleString(
                         luxon.DateTime.DATE_FULL
                     )
                 ),
