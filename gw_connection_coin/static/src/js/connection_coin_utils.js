@@ -145,7 +145,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
 
         const daysFromExpiry = Math.ceil((expiryDate - today) / (1000 * 60 * 60 * 24));
-        if (daysFromExpiry >= 0 && daysFromExpiry <= 14) {
+        if (daysFromExpiry >= 0 && daysFromExpiry <= 28) {
             component.playSound("error");
             const {payload: action} = await component.showPopup("SelectionPopup", {
                 title: component.env._t("Connection Coin expires soon"),
