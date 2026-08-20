@@ -40,14 +40,16 @@ class ResPartner(models.Model):
         return super().create(vals_list)
 
     def end_connection_coin(self):
+        result = {}
         for partner in self:
-            partner.write(
-                {
-                    "x_cc_einde": partner.x_cc_verleng,
-                    "x_cc_verleng": False,
-                    "cc_reminder_sent_date": False,
-                }
-            )
+            vals = {
+                "x_cc_einde": partner.x_cc_verleng,
+                "x_cc_verleng": False,
+                "cc_reminder_sent_date": False,
+            }
+            partner.write(vals)
+            result[partner.id] = vals
+        return result
 
     def extend_connection_coin(self):
         today = fields.Date.context_today(self)

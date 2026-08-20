@@ -68,6 +68,34 @@ odoo.define("gw_connection_coin.utils", function (require) {
         applyDiscount(component);
     }
 
+    // Stops the connection coin on the backend, syncs the partner fields on
+    // this POS instance to whatever the backend actually wrote (rather than
+    // re-deriving the same values client-side), and informs the cashier.
+    async function stopConnectionCoin(component, partner) {
+        const result = await component.rpc({
+            model: "res.partner",
+            method: "end_connection_coin",
+            args: [[partner.id]],
+            context: component.env.session.user_context,
+        });
+        const newState = result[partner.id];
+        partner.x_cc_einde = newState.x_cc_einde;
+        partner.x_cc_verleng = newState.x_cc_verleng;
+        await component.showPopup("ConfirmPopup", {
+            title: component.env._t("Connection Coin stopped"),
+            body: _.str.sprintf(
+                component.env._t(
+                    "The Connection Coin of %s has been stopped as of %s."
+                ),
+                partner.name,
+                luxon.DateTime.fromISO(newState.x_cc_einde).toLocaleString(
+                    luxon.DateTime.DATE_FULL
+                )
+            ),
+            confirmText: component.env._t("Ok"),
+        });
+    }
+
     async function checkConnectionCoinExpiry(component, partner) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -104,13 +132,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                 ],
                 cancelText: component.env._t("Close"),            });
             if (action === "stop") {
-                await component.rpc({
-                    model: "res.partner",
-                    method: "end_connection_coin",
-                    args: [[partner.id]],
-                    context: component.env.session.user_context,
-                });
-                partner.x_cc_einde = partner.x_cc_verleng;
+                await stopConnectionCoin(component, partner);
             } else if (action === "renew") {
                 await addConnectionCoinRenewalProduct(component, partner);
             }
@@ -175,13 +197,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                 cancelText: component.env._t("Close"),
             });
             if (action === "stop") {
-                await component.rpc({
-                    model: "res.partner",
-                    method: "end_connection_coin",
-                    args: [[partner.id]],
-                    context: component.env.session.user_context,
-                });
-                partner.x_cc_einde = partner.x_cc_verleng;
+                await stopConnectionCoin(component, partner);
             } else if (action === "renew") {
                 await addConnectionCoinRenewalProduct(component, partner);
             }
@@ -220,6 +236,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         getDiscountProductId,
         applyDiscount,
         clearDiscount,
+        stopConnectionCoin,
         checkConnectionCoinExpiry,
         syncConnectionCoinDiscount,
         markConnectionCoinForgotten,

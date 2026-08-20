@@ -59,6 +59,25 @@ class TestResPartner(TransactionCase):
         partner.end_connection_coin()
         self.assertEqual(partner.x_cc_verleng, False)
 
+    def test_end_connection_coin_returns_new_state_per_partner(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "x_cc_nummer": "711",
+                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_reminder_sent_date": fields.Date.today(),
+            }
+        )
+        result = partner.end_connection_coin()
+        self.assertEqual(
+            result[partner.id],
+            {
+                "x_cc_einde": fields.Date.from_string("2026-01-01"),
+                "x_cc_verleng": False,
+                "cc_reminder_sent_date": False,
+            },
+        )
+
     def test_end_connection_coin_clears_reminder_sent_date(self):
         partner = self.env["res.partner"].create(
             {
