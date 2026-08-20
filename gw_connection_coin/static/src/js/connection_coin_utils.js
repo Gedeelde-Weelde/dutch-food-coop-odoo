@@ -129,6 +129,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         isSelected: false,
                         item: "stop",
                     },
+                    {
+                        id: "none",
+                        label: component.env._t("Do nothing"),
+                        isSelected: false,
+                        item: "none",
+                    },
                 ],
                 cancelText: component.env._t("Close"),            });
             if (action === "stop") {
@@ -157,6 +163,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         label: component.env._t("Activate"),
                         isSelected: false,
                         item: "activate",
+                    },
+                    {
+                        id: "none",
+                        label: component.env._t("Do nothing"),
+                        isSelected: false,
+                        item: "none",
                     },
                 ],
                 cancelText: component.env._t("Close"),            });
@@ -192,6 +204,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         label: component.env._t("Stop Coin"),
                         isSelected: false,
                         item: "stop",
+                    },
+                    {
+                        id: "none",
+                        label: component.env._t("Do nothing"),
+                        isSelected: false,
+                        item: "none",
                     },
                 ],
                 cancelText: component.env._t("Close"),
