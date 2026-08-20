@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-07 08:56+0000\n"
-"PO-Revision-Date: 2026-08-07 08:56+0000\n"
+"POT-Creation-Date: 2026-08-20 00:00+0000\n"
+"PO-Revision-Date: 2026-08-20 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,13 @@ msgstr ""
 #, python-format
 msgid "%s must be flagged as a Connection Coin Product."
 msgstr "%s moet gemarkeerd zijn als Connection Coin Product."
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "/ 3"
+msgstr "/ 3"
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.report_connection_coin_wizard
@@ -67,8 +74,8 @@ msgstr "Activeren"
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
 #, python-format
-msgid "Activate Connection Coin"
-msgstr "Activeer Connection Coin"
+msgid "Activate Connection Coin Discount"
+msgstr "Activeer Connection Coin Korting"
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_connection_coin_wizard_form
@@ -162,6 +169,7 @@ msgstr "Plaats:"
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Close"
 msgstr "Sluiten"
@@ -241,6 +249,20 @@ msgid "Connection Coin has expired"
 msgstr "Connection Coin is verlopen"
 
 #. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Connection Coin invalid"
+msgstr "Connection Coin ongeldig"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin stopped"
+msgstr "Connection Coin gestopt"
+
+#. module: gw_connection_coin
 #: model:ir.model,name:gw_connection_coin.model_res_partner
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
 msgid "Contact"
@@ -281,6 +303,15 @@ msgstr "Uitgiftedatum:"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_connection_coin_wizard__display_name
 msgid "Display Name"
 msgstr "Weergavenaam"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Do nothing"
+msgstr "Niets doen"
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
@@ -394,6 +425,13 @@ msgstr "Geen Connection Coin product gevonden"
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
 msgid "Non-Member Connection Coin Product"
 msgstr "Connection Coin Product voor Niet-Leden"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Ok"
+msgstr "Ok"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__same_name_partner_id
@@ -524,6 +562,13 @@ msgstr ""
 "De Connection Coin van %s is verlopen op %s en geeft geen korting meer. "
 "Vraag of de klant wil verlengen vanaf deze datum of definitief wil "
 "stoppen."
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "The Connection Coin of %s has been stopped as of %s."
+msgstr "De Connection Coin van %s is gestopt vanaf %s."
 
 #. module: gw_connection_coin
 #. odoo-javascript
