@@ -96,6 +96,26 @@ odoo.define("gw_connection_coin.utils", function (require) {
         });
     }
 
+    // Pure validity check (no popups/RPCs), mirroring the two invalidity
+    // conditions in checkConnectionCoinExpiry below. Used where a boolean
+    // result is needed synchronously, e.g. to decide whether to show the
+    // "activate" button in the partner list.
+    function isConnectionCoinValid(partner) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const expiryDate = new Date(partner.x_cc_verleng);
+        const endDate = new Date(partner.x_cc_einde);
+        expiryDate.setHours(0, 0, 0, 0);
+
+        if (expiryDate <= today && !endDate.getTime()) {
+            return false;
+        }
+        if (endDate.getTime() && endDate <= today) {
+            return false;
+        }
+        return true;
+    }
+
     async function checkConnectionCoinExpiry(component, partner) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
@@ -255,6 +275,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         applyDiscount,
         clearDiscount,
         stopConnectionCoin,
+        isConnectionCoinValid,
         checkConnectionCoinExpiry,
         syncConnectionCoinDiscount,
         markConnectionCoinForgotten,

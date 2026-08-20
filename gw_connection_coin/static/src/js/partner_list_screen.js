@@ -12,6 +12,12 @@ odoo.define("gw_connection_coin.PartnerListScreen", function (require) {
             get hasConnectionCoin() {
                 return Boolean(this.props.partner.x_cc_nummer);
             }
+            get hasValidConnectionCoin() {
+                return (
+                    this.hasConnectionCoin &&
+                    ConnectionCoinUtils.isConnectionCoinValid(this.props.partner)
+                );
+            }
             onClickActivateCoin() {
                 this.trigger("activate-connection-coin", { partner: this.props.partner });
             }

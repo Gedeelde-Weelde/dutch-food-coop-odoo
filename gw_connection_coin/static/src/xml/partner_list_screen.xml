@@ -8,14 +8,18 @@
                     <div class="gw-cc-forgotten-count" title="Keer coin vergeten">
                         <span>Forgotten count: </span><t
                             t-esc="props.partner.cc_forgotten or 0"
-                        />
+                        /> <span>/ 3</span>
                     </div>
                     <button
+                        t-if="hasValidConnectionCoin"
                         class="gw-cc-activate-button"
                         t-on-click.stop="onClickActivateCoin"
                     >
-                        Activate Connection Coin
+                        Activate Connection Coin Discount
                     </button>
+                    <div t-else="" class="gw-cc-invalid-note">
+                        <span>Connection Coin invalid</span>
+                    </div>
                 </t>
             </td>
         </xpath>
