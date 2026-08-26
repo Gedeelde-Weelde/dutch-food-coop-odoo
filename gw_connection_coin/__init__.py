@@ -16,6 +16,7 @@ MANUAL_CONNECTION_COIN_COLUMNS = {
     "x_cc_verleng": "cc_renewal_date",
     "x_cc_einde": "cc_end_date",
     "x_cc_begin": "cc_start_date",
+    "x_cc_naam2": "cc_extra_holders",
 }
 
 

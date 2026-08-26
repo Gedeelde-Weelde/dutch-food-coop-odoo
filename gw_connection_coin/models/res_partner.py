@@ -35,7 +35,7 @@ class ResPartner(models.Model):
     cc_renewal_date = fields.Date(string="CC Verlengdatum")
     cc_end_date = fields.Date(string="CC Einddatum")
     cc_start_date = fields.Date(string="CC Begindatum")
-    x_automatic_debit = fields.Boolean(string="Automatische incasso")
+    cc_extra_holders = fields.Char(string="Extra Coin houders")
     cc_forgotten = fields.Integer(string="CC Keer Vergeten", default=0)
     cc_reminder_sent_date = fields.Date(string="CC Herinnering Verzonden")
     is_member = fields.Boolean(compute="_compute_is_member")
