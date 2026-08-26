@@ -16,14 +16,14 @@ class ResPartner(models.Model):
     CONNECTION_COIN_AUTO_END_GRACE_MONTHS = 2
     CONNECTION_COIN_NUMMER_MAX_DIGITS = 5
     # Fields that drive both the validation constraints and the status
-    # label below - x_cc_begin/x_is_ondernemerslid are deliberately not
-    # declared in this module (see the comment above _compute_is_member),
-    # so both are handled defensively wherever they're read.
+    # label below - x_is_ondernemerslid is deliberately not declared in
+    # this module (see the comment above _compute_is_member), so it's
+    # handled defensively wherever it's read.
     CONNECTION_COIN_STATUS_FIELDS = (
-        "x_cc_nummer",
-        "x_cc_verleng",
-        "x_cc_einde",
-        "x_cc_begin",
+        "cc_number",
+        "cc_renewal_date",
+        "cc_end_date",
+        "cc_start_date",
     )
     CONNECTION_COIN_STATUS_CATEGORY_XMLIDS = {
         "actief": "gw_connection_coin.category_cc_actief",
@@ -31,9 +31,10 @@ class ResPartner(models.Model):
         "inactief": "gw_connection_coin.category_cc_inactief",
     }
 
-    x_cc_nummer = fields.Char(string="CC Nummer")
-    x_cc_verleng = fields.Date(string="CC Verlengdatum")
-    x_cc_einde = fields.Date(string="CC Einddatum")
+    cc_number = fields.Char(string="CC Nummer")
+    cc_renewal_date = fields.Date(string="CC Verlengdatum")
+    cc_end_date = fields.Date(string="CC Einddatum")
+    cc_start_date = fields.Date(string="CC Begindatum")
     x_automatic_debit = fields.Boolean(string="Automatische incasso")
     cc_forgotten = fields.Integer(string="CC Keer Vergeten", default=0)
     cc_reminder_sent_date = fields.Date(string="CC Herinnering Verzonden")
@@ -57,17 +58,17 @@ class ResPartner(models.Model):
             )
         return "042" + str(nummer).zfill(self.CONNECTION_COIN_NUMMER_MAX_DIGITS)
 
-    @api.onchange("x_cc_nummer")
-    def _onchange_x_cc_nummer(self):
+    @api.onchange("cc_number")
+    def _onchange_cc_number(self):
         self.barcode = (
-            self._cc_nummer_to_barcode(self.x_cc_nummer) if self.x_cc_nummer else False
+            self._cc_nummer_to_barcode(self.cc_number) if self.cc_number else False
         )
 
     @api.model_create_multi
     def create(self, vals_list):
         for vals in vals_list:
-            if vals.get("x_cc_nummer"):
-                vals["barcode"] = self._cc_nummer_to_barcode(vals["x_cc_nummer"])
+            if vals.get("cc_number"):
+                vals["barcode"] = self._cc_nummer_to_barcode(vals["cc_number"])
         partners = super().create(vals_list)
         partners._update_connection_coin_labels()
         return partners
@@ -76,8 +77,8 @@ class ResPartner(models.Model):
         result = {}
         for partner in self:
             vals = {
-                "x_cc_einde": partner.x_cc_verleng,
-                "x_cc_verleng": False,
+                "cc_end_date": partner.cc_renewal_date,
+                "cc_renewal_date": False,
                 "cc_reminder_sent_date": False,
             }
             partner.write(vals)
@@ -88,11 +89,13 @@ class ResPartner(models.Model):
         today = fields.Date.context_today(self)
         for partner in self:
             vals = {"cc_forgotten": 0, "cc_reminder_sent_date": False}
-            if partner.x_cc_einde and partner.x_cc_einde < today:
-                vals["x_cc_verleng"] = today + relativedelta(years=1)
-                vals["x_cc_einde"] = False
-            elif partner.x_cc_verleng:
-                vals["x_cc_verleng"] = partner.x_cc_verleng + relativedelta(years=1)
+            if partner.cc_end_date and partner.cc_end_date < today:
+                vals["cc_renewal_date"] = today + relativedelta(years=1)
+                vals["cc_end_date"] = False
+            elif partner.cc_renewal_date:
+                vals["cc_renewal_date"] = partner.cc_renewal_date + relativedelta(
+                    years=1
+                )
             partner.write(vals)
 
     def mark_connection_coin_forgotten(self):
@@ -100,12 +103,12 @@ class ResPartner(models.Model):
         self.cc_forgotten += 1
         return self.cc_forgotten
 
-    @api.constrains("x_cc_verleng", "x_is_ondernemerslid")
+    @api.constrains("cc_renewal_date", "x_is_ondernemerslid")
     def _check_connection_coin_ondernemerslid(self):
         if "x_is_ondernemerslid" not in self._fields:
             return
         for partner in self:
-            if partner.x_is_ondernemerslid and partner.x_cc_verleng:
+            if partner.x_is_ondernemerslid and partner.cc_renewal_date:
                 raise ValidationError(
                     _(
                         "Connection Coin: %s is ondernemerslid, dan mag er "
@@ -116,17 +119,16 @@ class ResPartner(models.Model):
 
     @api.constrains(*CONNECTION_COIN_STATUS_FIELDS, "x_is_ondernemerslid")
     def _check_connection_coin_consistency(self):
-        has_begin = "x_cc_begin" in self._fields
         has_ondernemerslid = "x_is_ondernemerslid" in self._fields
         for partner in self:
-            heeft_nummer = bool(partner.x_cc_nummer)
-            begin = partner.x_cc_begin if has_begin else False
+            heeft_nummer = bool(partner.cc_number)
+            begin = partner.cc_start_date
             is_ondernemerslid = (
                 partner.x_is_ondernemerslid if has_ondernemerslid else False
             )
 
-            if partner.x_cc_einde:
-                if has_begin and not begin:
+            if partner.cc_end_date:
+                if not begin:
                     raise ValidationError(
                         _(
                             "Connection Coin: er staat een 'CC Einddatum' bij "
@@ -142,7 +144,7 @@ class ResPartner(models.Model):
                         )
                         % partner.display_name
                     )
-                if partner.x_cc_verleng:
+                if partner.cc_renewal_date:
                     raise ValidationError(
                         _(
                             "Connection Coin: %s heeft een 'CC Einddatum', "
@@ -152,8 +154,8 @@ class ResPartner(models.Model):
                         % partner.display_name
                     )
 
-            if partner.x_cc_verleng:
-                if has_begin and not begin:
+            if partner.cc_renewal_date:
+                if not begin:
                     raise ValidationError(
                         _(
                             "Connection Coin: er staat een 'CC Verlengdatum' "
@@ -170,7 +172,7 @@ class ResPartner(models.Model):
                         % partner.display_name
                     )
 
-            if has_begin and begin and not heeft_nummer:
+            if begin and not heeft_nummer:
                 raise ValidationError(
                     _(
                         "Connection Coin: er staat een 'CC Begindatum' bij "
@@ -182,7 +184,7 @@ class ResPartner(models.Model):
             if not heeft_nummer:
                 continue
 
-            if has_begin and not begin:
+            if not begin:
                 raise ValidationError(
                     _(
                         "Connection Coin: 'CC Begindatum' is verplicht zodra "
@@ -191,8 +193,8 @@ class ResPartner(models.Model):
                     % partner.display_name
                 )
             if (
-                not partner.x_cc_verleng
-                and not partner.x_cc_einde
+                not partner.cc_renewal_date
+                and not partner.cc_end_date
                 and not is_ondernemerslid
             ):
                 raise ValidationError(
@@ -202,35 +204,34 @@ class ResPartner(models.Model):
                     )
                     % partner.display_name
                 )
-            if has_begin and begin:
-                if partner.x_cc_verleng and partner.x_cc_verleng < begin:
-                    raise ValidationError(
-                        _(
-                            "Connection Coin: 'CC Verlengdatum' mag niet "
-                            "vóór 'CC Begindatum' liggen bij %s."
-                        )
-                        % partner.display_name
+            if partner.cc_renewal_date and partner.cc_renewal_date < begin:
+                raise ValidationError(
+                    _(
+                        "Connection Coin: 'CC Verlengdatum' mag niet "
+                        "vóór 'CC Begindatum' liggen bij %s."
                     )
-                if partner.x_cc_einde and partner.x_cc_einde < begin:
-                    raise ValidationError(
-                        _(
-                            "Connection Coin: 'CC Einddatum' mag niet vóór "
-                            "'CC Begindatum' liggen bij %s."
-                        )
-                        % partner.display_name
+                    % partner.display_name
+                )
+            if partner.cc_end_date and partner.cc_end_date < begin:
+                raise ValidationError(
+                    _(
+                        "Connection Coin: 'CC Einddatum' mag niet vóór "
+                        "'CC Begindatum' liggen bij %s."
                     )
+                    % partner.display_name
+                )
 
     def _compute_connection_coin_status(self):
         self.ensure_one()
-        if not self.x_cc_nummer:
+        if not self.cc_number:
             return None
         today = fields.Date.context_today(self)
-        if "x_cc_begin" in self._fields and self.x_cc_begin and self.x_cc_begin > today:
+        if self.cc_start_date and self.cc_start_date > today:
             # Coin not yet active: none of the three status labels apply.
             return None
-        if self.x_cc_einde and self.x_cc_einde <= today:
+        if self.cc_end_date and self.cc_end_date <= today:
             return "inactief"
-        if self.x_cc_verleng and self.x_cc_verleng < today:
+        if self.cc_renewal_date and self.cc_renewal_date < today:
             return "te_verlengen"
         return "actief"
 
@@ -261,16 +262,16 @@ class ResPartner(models.Model):
         )
         partners = self.search(
             [
-                ("x_cc_verleng", "!=", False),
-                ("x_cc_verleng", ">=", today),
-                ("x_cc_verleng", "<=", target_date),
+                ("cc_renewal_date", "!=", False),
+                ("cc_renewal_date", ">=", today),
+                ("cc_renewal_date", "<=", target_date),
                 ("cc_reminder_sent_date", "=", False),
             ]
         )
         for partner in partners:
-            # x_cc_verleng and x_cc_einde are mutually exclusive
+            # cc_renewal_date and cc_end_date are mutually exclusive
             # (_check_connection_coin_consistency), so any partner matched
-            # by the domain above never has an x_cc_einde to check.
+            # by the domain above never has a cc_end_date to check.
             try:
                 template.send_mail(partner.id)
             except Exception:
@@ -290,9 +291,9 @@ class ResPartner(models.Model):
         template = self.env.ref("gw_connection_coin.mail_template_connection_coin_ended")
         partners = self.search(
             [
-                ("x_cc_verleng", "!=", False),
-                ("x_cc_verleng", "<=", threshold),
-                ("x_cc_einde", "=", False),
+                ("cc_renewal_date", "!=", False),
+                ("cc_renewal_date", "<=", threshold),
+                ("cc_end_date", "=", False),
             ]
         )
         for partner in partners:
@@ -328,10 +329,10 @@ class ResPartner(models.Model):
             )
 
     def write(self, vals):
-        if "x_cc_nummer" in vals:
+        if "cc_number" in vals:
             vals["barcode"] = (
-                self._cc_nummer_to_barcode(vals["x_cc_nummer"])
-                if vals["x_cc_nummer"]
+                self._cc_nummer_to_barcode(vals["cc_number"])
+                if vals["cc_number"]
                 else False
             )
         update_labels = any(

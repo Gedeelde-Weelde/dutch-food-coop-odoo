@@ -7,6 +7,11 @@ from odoo.exceptions import ValidationError
 from odoo.tests import TransactionCase
 
 MAIL_TEMPLATE_SEND_MAIL = "odoo.addons.mail.models.mail_template.MailTemplate.send_mail"
+# cc_start_date is now a required companion of cc_number (see
+# _check_connection_coin_consistency), so tests that don't specifically
+# exercise begin-date ordering just need any date safely before every other
+# date used below.
+DEFAULT_CC_START_DATE = fields.Date.from_string("2020-01-01")
 
 
 class TestResPartner(TransactionCase):
@@ -14,8 +19,9 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertEqual(partner.barcode, "04200711")
@@ -28,8 +34,9 @@ class TestResPartner(TransactionCase):
         )
         partner.write(
             {
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertEqual(partner.barcode, "04200711")
@@ -38,41 +45,45 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
-        partner.write({"x_cc_nummer": False, "x_cc_verleng": False})
+        partner.write({"cc_number": False, "cc_renewal_date": False})
         self.assertEqual(partner.barcode, False)
 
     def test_end_connection_coin_sets_einde_to_verleng(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         partner.end_connection_coin()
-        self.assertEqual(partner.x_cc_einde, fields.Date.from_string("2026-01-01"))
+        self.assertEqual(partner.cc_end_date, fields.Date.from_string("2026-01-01"))
 
     def test_end_connection_coin_clears_verleng(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         partner.end_connection_coin()
-        self.assertEqual(partner.x_cc_verleng, False)
+        self.assertEqual(partner.cc_renewal_date, False)
 
     def test_end_connection_coin_returns_new_state_per_partner(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
                 "cc_reminder_sent_date": fields.Date.today(),
             }
         )
@@ -80,8 +91,8 @@ class TestResPartner(TransactionCase):
         self.assertEqual(
             result[partner.id],
             {
-                "x_cc_einde": fields.Date.from_string("2026-01-01"),
-                "x_cc_verleng": False,
+                "cc_end_date": fields.Date.from_string("2026-01-01"),
+                "cc_renewal_date": False,
                 "cc_reminder_sent_date": False,
             },
         )
@@ -90,8 +101,9 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
                 "cc_reminder_sent_date": fields.Date.today(),
             }
         )
@@ -102,38 +114,41 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         partner.extend_connection_coin()
-        self.assertEqual(partner.x_cc_verleng, fields.Date.from_string("2027-01-01"))
+        self.assertEqual(partner.cc_renewal_date, fields.Date.from_string("2027-01-01"))
 
     def test_extend_connection_coin_noop_without_verleng(self):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
         partner.extend_connection_coin()
-        self.assertEqual(partner.x_cc_verleng, False)
+        self.assertEqual(partner.cc_renewal_date, False)
 
     def test_extend_connection_coin_sets_verleng_when_einde_in_past(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_einde": fields.Date.today() - relativedelta(days=1),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_end_date": fields.Date.today() - relativedelta(days=1),
             }
         )
         partner.extend_connection_coin()
         self.assertEqual(
-            partner.x_cc_verleng, fields.Date.today() + relativedelta(years=1)
+            partner.cc_renewal_date, fields.Date.today() + relativedelta(years=1)
         )
-        self.assertEqual(partner.x_cc_einde, False)
+        self.assertEqual(partner.cc_end_date, False)
 
     def test_extend_connection_coin_clears_reminder_sent_date(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
                 "cc_reminder_sent_date": fields.Date.today(),
             }
         )
@@ -144,8 +159,9 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         partner.mark_connection_coin_forgotten()
@@ -158,8 +174,9 @@ class TestResPartner(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertEqual(partner.cc_forgotten, 0)
@@ -256,7 +273,11 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
     def test_reminder_cron_sends_mail_within_lead_time(self):
         today = fields.Date.today()
         self.partner.write(
-            {"x_cc_nummer": "711", "x_cc_verleng": today + relativedelta(days=10)}
+            {
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": today + relativedelta(days=10),
+            }
         )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
             self.env["res.partner"]._cron_send_connection_coin_reminders()
@@ -267,8 +288,9 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
         today = fields.Date.today()
         self.partner.write(
             {
-                "x_cc_nummer": "711",
-                "x_cc_verleng": today + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": today + relativedelta(days=10),
                 "cc_reminder_sent_date": today,
             }
         )
@@ -279,7 +301,11 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
     def test_reminder_cron_skips_partner_outside_lead_time(self):
         today = fields.Date.today()
         self.partner.write(
-            {"x_cc_nummer": "711", "x_cc_verleng": today + relativedelta(days=40)}
+            {
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": today + relativedelta(days=40),
+            }
         )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
             self.env["res.partner"]._cron_send_connection_coin_reminders()
@@ -291,7 +317,11 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
         # today, unlike the original exact-date-match implementation.
         today = fields.Date.today()
         self.partner.write(
-            {"x_cc_nummer": "711", "x_cc_verleng": today + relativedelta(days=1)}
+            {
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": today + relativedelta(days=1),
+            }
         )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
             self.env["res.partner"]._cron_send_connection_coin_reminders()
@@ -300,29 +330,42 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
     def test_auto_end_cron_ends_overdue_coin_and_sends_mail(self):
         today = fields.Date.today()
         overdue_verleng = today - relativedelta(months=3)
-        self.partner.write({"x_cc_nummer": "711", "x_cc_verleng": overdue_verleng})
+        self.partner.write(
+            {
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": overdue_verleng,
+            }
+        )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
             self.env["res.partner"]._cron_end_overdue_connection_coins()
-        self.assertEqual(self.partner.x_cc_einde, overdue_verleng)
-        self.assertEqual(self.partner.x_cc_verleng, False)
+        self.assertEqual(self.partner.cc_end_date, overdue_verleng)
+        self.assertEqual(self.partner.cc_renewal_date, False)
         send_mail.assert_called_once_with(self.partner.id)
 
     def test_auto_end_cron_ignores_recent_verleng(self):
         today = fields.Date.today()
         recent_verleng = today - relativedelta(days=10)
-        self.partner.write({"x_cc_nummer": "711", "x_cc_verleng": recent_verleng})
+        self.partner.write(
+            {
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": recent_verleng,
+            }
+        )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
             self.env["res.partner"]._cron_end_overdue_connection_coins()
         send_mail.assert_not_called()
-        self.assertEqual(self.partner.x_cc_verleng, recent_verleng)
+        self.assertEqual(self.partner.cc_renewal_date, recent_verleng)
 
     def test_auto_end_cron_ignores_already_ended_coin(self):
         today = fields.Date.today()
         self.partner.write(
             {
-                "x_cc_nummer": "711",
-                "x_cc_verleng": False,
-                "x_cc_einde": today - relativedelta(months=3),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": False,
+                "cc_end_date": today - relativedelta(months=3),
             }
         )
         with patch(MAIL_TEMPLATE_SEND_MAIL) as send_mail:
@@ -334,72 +377,72 @@ class TestResPartnerConnectionCoinValidation(TransactionCase):
     def test_non_numeric_cc_nummer_raises(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_nummer": "ABC"}
+                {"name": "Test Partner", "cc_number": "ABC"}
             )
 
     def test_cc_nummer_too_long_raises(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_nummer": "123456"}
+                {"name": "Test Partner", "cc_number": "123456"}
             )
 
-    def test_x_cc_einde_requires_nummer(self):
+    def test_cc_end_date_requires_nummer(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_einde": fields.Date.today()}
+                {"name": "Test Partner", "cc_end_date": fields.Date.today()}
             )
 
-    def test_x_cc_verleng_requires_nummer(self):
+    def test_cc_renewal_date_requires_nummer(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_verleng": fields.Date.today()}
+                {"name": "Test Partner", "cc_renewal_date": fields.Date.today()}
             )
 
-    def test_x_cc_nummer_requires_verleng_or_einde(self):
+    def test_cc_number_requires_verleng_or_einde(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_nummer": "711"}
+                {
+                    "name": "Test Partner",
+                    "cc_number": "711",
+                    "cc_start_date": DEFAULT_CC_START_DATE,
+                }
             )
 
-    def test_x_cc_einde_and_verleng_mutually_exclusive(self):
+    def test_cc_end_date_and_verleng_mutually_exclusive(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         with self.assertRaises(ValidationError):
-            partner.write({"x_cc_einde": fields.Date.today()})
+            partner.write({"cc_end_date": fields.Date.today()})
 
     def test_valid_connection_coin_data_does_not_raise(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertTrue(partner)
 
 
 class TestResPartnerConnectionCoinManualFields(TransactionCase):
-    # x_cc_begin/x_is_ondernemerslid simulate the pre-existing manual
-    # (Studio-added) fields that the constraints and label logic read
-    # defensively, without gw_connection_coin declaring them in code (see
-    # the comment above CONNECTION_COIN_STATUS_FIELDS for why).
+    # x_is_ondernemerslid simulates the pre-existing manual (Studio-added)
+    # field that the constraints and label logic read defensively, without
+    # gw_connection_coin declaring it in code (see the comment above
+    # CONNECTION_COIN_STATUS_FIELDS for why).
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
         model_id = cls.env["ir.model"]._get_id("res.partner")
         cls.env["ir.model.fields"].create(
             [
-                {
-                    "name": "x_cc_begin",
-                    "field_description": "CC Begindatum",
-                    "model_id": model_id,
-                    "ttype": "date",
-                },
                 {
                     "name": "x_is_ondernemerslid",
                     "field_description": "Ondernemerslid",
@@ -414,15 +457,15 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
             self.env["res.partner"].create(
                 {
                     "name": "Test Partner",
-                    "x_cc_nummer": "711",
-                    "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                    "cc_number": "711",
+                    "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
                 }
             )
 
     def test_begin_requires_nummer(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
-                {"name": "Test Partner", "x_cc_begin": fields.Date.today()}
+                {"name": "Test Partner", "cc_start_date": fields.Date.today()}
             )
 
     def test_verleng_before_begin_raises(self):
@@ -431,9 +474,9 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
             self.env["res.partner"].create(
                 {
                     "name": "Test Partner",
-                    "x_cc_nummer": "711",
-                    "x_cc_begin": begin,
-                    "x_cc_verleng": begin - relativedelta(days=1),
+                    "cc_number": "711",
+                    "cc_start_date": begin,
+                    "cc_renewal_date": begin - relativedelta(days=1),
                 }
             )
 
@@ -443,9 +486,9 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
             self.env["res.partner"].create(
                 {
                     "name": "Test Partner",
-                    "x_cc_nummer": "711",
-                    "x_cc_begin": begin,
-                    "x_cc_einde": begin - relativedelta(days=1),
+                    "cc_number": "711",
+                    "cc_start_date": begin,
+                    "cc_end_date": begin - relativedelta(days=1),
                 }
             )
 
@@ -454,10 +497,10 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
             self.env["res.partner"].create(
                 {
                     "name": "Test Partner",
-                    "x_cc_nummer": "711",
-                    "x_cc_begin": fields.Date.today(),
+                    "cc_number": "711",
+                    "cc_start_date": fields.Date.today(),
                     "x_is_ondernemerslid": True,
-                    "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                    "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
                 }
             )
 
@@ -465,8 +508,8 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_begin": fields.Date.today(),
+                "cc_number": "711",
+                "cc_start_date": fields.Date.today(),
                 "x_is_ondernemerslid": True,
             }
         )
@@ -480,9 +523,9 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_begin": future_begin,
-                "x_cc_verleng": future_begin + relativedelta(days=1),
+                "cc_number": "711",
+                "cc_start_date": future_begin,
+                "cc_renewal_date": future_begin + relativedelta(days=1),
             }
         )
         self.assertFalse(partner.category_id & (actief | te_verlengen | inactief))
@@ -503,8 +546,9 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertEqual(self._label(partner), self.actief)
@@ -513,8 +557,9 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() - relativedelta(days=1),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() - relativedelta(days=1),
             }
         )
         self.assertEqual(self._label(partner), self.te_verlengen)
@@ -523,8 +568,9 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_einde": fields.Date.today(),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_end_date": fields.Date.today(),
             }
         )
         self.assertEqual(self._label(partner), self.inactief)
@@ -537,20 +583,22 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
         self.assertEqual(self._label(partner), self.actief)
-        partner.write({"x_cc_nummer": False, "x_cc_verleng": False})
+        partner.write({"cc_number": False, "cc_renewal_date": False})
         self.assertFalse(self._label(partner))
 
     def test_label_updates_on_extend_connection_coin(self):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() - relativedelta(days=1),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() - relativedelta(days=1),
             }
         )
         self.assertEqual(self._label(partner), self.te_verlengen)
@@ -558,14 +606,15 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         self.assertEqual(self._label(partner), self.actief)
 
     def test_label_updates_on_end_connection_coin(self):
-        # end_connection_coin copies x_cc_verleng into x_cc_einde as-is, so
+        # end_connection_coin copies cc_renewal_date into cc_end_date as-is, so
         # starting from an overdue (past) verleng is what actually yields a
         # past einde - and thus an immediate "inactief" status below.
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() - relativedelta(days=1),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() - relativedelta(days=1),
             }
         )
         self.assertEqual(self._label(partner), self.te_verlengen)
@@ -577,8 +626,9 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create(
             {
                 "name": "Test Partner",
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.today() + relativedelta(days=10),
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
                 "category_id": [(4, other_tag.id)],
             }
         )

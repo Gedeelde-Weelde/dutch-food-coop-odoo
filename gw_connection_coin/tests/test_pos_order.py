@@ -83,11 +83,12 @@ class TestPosOrderAnonymization(TransactionCase):
         )
         self.assertEqual(order.partner_id, self.partner)
 
-    def test_x_cc_verleng_advanced_one_year_on_connection_coin_order(self):
+    def test_cc_renewal_date_advanced_one_year_on_connection_coin_order(self):
         self.partner.write(
             {
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": fields.Date.from_string("2020-01-01"),
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         self._create_order(
@@ -95,14 +96,15 @@ class TestPosOrderAnonymization(TransactionCase):
             lines=[self._order_line_vals(self.connection_coin_product)],
         )
         self.assertEqual(
-            self.partner.x_cc_verleng, fields.Date.from_string("2027-01-01")
+            self.partner.cc_renewal_date, fields.Date.from_string("2027-01-01")
         )
 
-    def test_x_cc_verleng_unchanged_on_regular_order(self):
+    def test_cc_renewal_date_unchanged_on_regular_order(self):
         self.partner.write(
             {
-                "x_cc_nummer": "711",
-                "x_cc_verleng": fields.Date.from_string("2026-01-01"),
+                "cc_number": "711",
+                "cc_start_date": fields.Date.from_string("2020-01-01"),
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
             }
         )
         self._create_order(
@@ -110,5 +112,5 @@ class TestPosOrderAnonymization(TransactionCase):
             lines=[self._order_line_vals(self.regular_product)],
         )
         self.assertEqual(
-            self.partner.x_cc_verleng, fields.Date.from_string("2026-01-01")
+            self.partner.cc_renewal_date, fields.Date.from_string("2026-01-01")
         )

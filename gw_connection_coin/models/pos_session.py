@@ -8,9 +8,9 @@ class PosSession(models.Model):
         # Add your custom fields to the fields list
         params["search_params"]["fields"].extend(
             [
-                "x_cc_nummer",
-                "x_cc_verleng",
-                "x_cc_einde",
+                "cc_number",
+                "cc_renewal_date",
+                "cc_end_date",
                 "cc_forgotten",
                 "is_member",
             ]

@@ -79,8 +79,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
             context: component.env.session.user_context,
         });
         const newState = result[partner.id];
-        partner.x_cc_einde = newState.x_cc_einde;
-        partner.x_cc_verleng = newState.x_cc_verleng;
+        partner.cc_end_date = newState.cc_end_date;
+        partner.cc_renewal_date = newState.cc_renewal_date;
         await component.showPopup("ConfirmPopup", {
             title: component.env._t("Connection Coin stopped"),
             body: _.str.sprintf(
@@ -88,7 +88,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                     "The Connection Coin of %s has been stopped as of %s."
                 ),
                 partner.name,
-                luxon.DateTime.fromISO(newState.x_cc_einde).toLocaleString(
+                luxon.DateTime.fromISO(newState.cc_end_date).toLocaleString(
                     luxon.DateTime.DATE_FULL
                 )
             ),
@@ -103,8 +103,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
     function isConnectionCoinValid(partner) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        const expiryDate = new Date(partner.x_cc_verleng);
-        const endDate = new Date(partner.x_cc_einde);
+        const expiryDate = new Date(partner.cc_renewal_date);
+        const endDate = new Date(partner.cc_end_date);
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate <= today && !endDate.getTime()) {
@@ -119,8 +119,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
     async function checkConnectionCoinExpiry(component, partner) {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
-        const expiryDate = new Date(partner.x_cc_verleng);
-        const endDate = new Date(partner.x_cc_einde);
+        const expiryDate = new Date(partner.cc_renewal_date);
+        const endDate = new Date(partner.cc_end_date);
         expiryDate.setHours(0, 0, 0, 0);
 
         if (expiryDate <= today && !endDate.getTime()) {
@@ -132,7 +132,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s expired on %s and no longer provides a discount. Ask the customer if they want to renew from this date or stop permanently."
                     ),
                     partner.name,
-                    luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                    luxon.DateTime.fromISO(partner.cc_renewal_date).toLocaleString(
                         luxon.DateTime.DATE_FULL
                     )
                 ),
@@ -173,7 +173,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s has been terminated on %s. Inform the customer about this and ask if the coin should be activated from today."
                     ),
                     partner.name,
-                    luxon.DateTime.fromISO(partner.x_cc_einde).toLocaleString(
+                    luxon.DateTime.fromISO(partner.cc_end_date).toLocaleString(
                         luxon.DateTime.DATE_FULL
                     )
                 ),
@@ -208,7 +208,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         "The Connection Coin of %s expires on %s. Ask the customer if they want to renew or stop from this date."
                     ),
                     partner.name,
-                    luxon.DateTime.fromISO(partner.x_cc_verleng).toLocaleString(
+                    luxon.DateTime.fromISO(partner.cc_renewal_date).toLocaleString(
                         luxon.DateTime.DATE_FULL
                     )
                 ),
@@ -247,7 +247,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         if (!getDiscountProductId(component)) {
             return;
         }
-        if (!partner || !partner.x_cc_nummer) {
+        if (!partner || !partner.cc_number) {
             clearDiscount(component);
             return;
         }

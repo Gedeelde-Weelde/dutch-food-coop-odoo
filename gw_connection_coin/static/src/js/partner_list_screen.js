@@ -10,7 +10,7 @@ odoo.define("gw_connection_coin.PartnerListScreen", function (require) {
     const GWConnectionCoinPartnerLine = (PartnerLine) =>
         class extends PartnerLine {
             get hasConnectionCoin() {
-                return Boolean(this.props.partner.x_cc_nummer);
+                return Boolean(this.props.partner.cc_number);
             }
             get hasValidConnectionCoin() {
                 return (
