@@ -1,7 +1,6 @@
 import logging
 
 from . import models
-from . import wizard
 
 _logger = logging.getLogger(__name__)
 
