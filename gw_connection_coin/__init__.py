@@ -1,5 +1,7 @@
 import logging
 
+from psycopg2 import sql
+
 from . import models
 
 _logger = logging.getLogger(__name__)
@@ -29,9 +31,12 @@ def post_init_hook(cr, registry):
         if not cr.fetchone():
             continue
         _logger.info("Copying res_partner.%s into %s", old_column, new_column)
-        # old_column/new_column come from the fixed dict above, not from
-        # user input, so building the identifiers into the query is safe.
         cr.execute(
-            f'UPDATE res_partner SET "{new_column}" = "{old_column}" '
-            f'WHERE "{old_column}" IS NOT NULL AND "{new_column}" IS NULL'
+            sql.SQL(
+                "UPDATE res_partner SET {new_column} = {old_column} "
+                "WHERE {old_column} IS NOT NULL AND {new_column} IS NULL"
+            ).format(
+                new_column=sql.Identifier(new_column),
+                old_column=sql.Identifier(old_column),
+            )
         )

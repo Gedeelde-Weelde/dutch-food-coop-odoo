@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <!-- These xmlids are adopted onto the pre-existing "cc actief" /
          "cc te verlengen" / "cc inactief" tags in migrations/16.0.1.2.0/

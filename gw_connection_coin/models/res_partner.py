@@ -49,10 +49,13 @@ class ResPartner(models.Model):
         if not 0 <= nummer < 10**self.CONNECTION_COIN_NUMMER_MAX_DIGITS:
             raise ValidationError(
                 _(
-                    "Connection Coin nummer %s is ongeldig: mag maximaal uit "
-                    "%s cijfers bestaan."
+                    "Connection Coin nummer %(nummer)s is ongeldig: mag "
+                    "maximaal uit %(max_digits)s cijfers bestaan."
                 )
-                % (cc_nummer, self.CONNECTION_COIN_NUMMER_MAX_DIGITS)
+                % {
+                    "nummer": cc_nummer,
+                    "max_digits": self.CONNECTION_COIN_NUMMER_MAX_DIGITS,
+                }
             )
         return "042" + str(nummer).zfill(self.CONNECTION_COIN_NUMMER_MAX_DIGITS)
 
@@ -264,7 +267,9 @@ class ResPartner(models.Model):
         threshold = today - relativedelta(
             months=self.CONNECTION_COIN_AUTO_END_GRACE_MONTHS
         )
-        template = self.env.ref("gw_connection_coin.mail_template_connection_coin_ended")
+        template = self.env.ref(
+            "gw_connection_coin.mail_template_connection_coin_ended"
+        )
         partners = self.search(
             [
                 ("cc_renewal_date", "!=", False),

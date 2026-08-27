@@ -156,7 +156,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         item: "none",
                     },
                 ],
-                cancelText: component.env._t("Close"),            });
+                cancelText: component.env._t("Close"),
+            });
             if (action === "stop") {
                 await stopConnectionCoin(component, partner);
             } else if (action === "renew") {
@@ -191,7 +192,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
                         item: "none",
                     },
                 ],
-                cancelText: component.env._t("Close"),            });
+                cancelText: component.env._t("Close"),
+            });
             if (action === "activate") {
                 await addConnectionCoinRenewalProduct(component, partner);
             }

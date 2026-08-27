@@ -40,22 +40,22 @@ odoo.define("gw_connection_coin.DiscountButton", function (require) {
             .forEach((line) => order.remove_orderline(line));
 
         // Add one discount line per tax group
-        let linesByTax = order.get_orderlines_grouped_by_tax_ids();
-        for (let [tax_ids, lines] of Object.entries(linesByTax)) {
+        const linesByTax = order.get_orderlines_grouped_by_tax_ids();
+        for (const [tax_ids, lines] of Object.entries(linesByTax)) {
             // Note that tax_ids_array is an Array of tax_ids that apply to these lines
             // That is, the use case of products with more than one tax is supported.
-            let tax_ids_array = tax_ids
+            const tax_ids_array = tax_ids
                 .split(",")
                 .filter((id) => id !== "")
                 .map((id) => Number(id));
 
-            let baseToDiscount = order.calculate_base_amount(
+            const baseToDiscount = order.calculate_base_amount(
                 tax_ids_array,
                 lines.filter((ll) => ll.isGlobalDiscountApplicable())
             );
 
             // We add the price as manually set to avoid recomputation when changing customer.
-            let discount = (-pc / 100.0) * baseToDiscount;
+            const discount = (-pc / 100.0) * baseToDiscount;
             if (discount !== 0) {
                 order.add_product(product, {
                     price: discount,

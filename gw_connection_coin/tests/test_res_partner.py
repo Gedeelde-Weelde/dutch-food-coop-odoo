@@ -378,9 +378,7 @@ class TestResPartnerConnectionCoinCron(TransactionCase):
 class TestResPartnerConnectionCoinValidation(TransactionCase):
     def test_non_numeric_cc_nummer_raises(self):
         with self.assertRaises(ValidationError):
-            self.env["res.partner"].create(
-                {"name": "Test Partner", "cc_number": "ABC"}
-            )
+            self.env["res.partner"].create({"name": "Test Partner", "cc_number": "ABC"})
 
     def test_cc_nummer_too_long_raises(self):
         with self.assertRaises(ValidationError):
