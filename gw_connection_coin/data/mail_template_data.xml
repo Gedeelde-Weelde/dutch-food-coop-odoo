@@ -3,15 +3,7 @@
     <!-- noupdate="1": this content was ported verbatim from the templates
          actually running in production (mail.template ids 36 and 111,
          nl_NL body/subject) and is meant to be edited afterwards by staff
-         through the UI. A module update must never overwrite that content.
-
-         Both bodies render `object.x_aanschrijfnaam`, a manually-added
-         (Studio) field on res.partner that this module does not declare
-         (kept verbatim on purpose - see conversation). It only exists on
-         databases where it was added by hand; on any database without it,
-         rendering raises and _cron_send_connection_coin_reminders /
-         _cron_end_overdue_connection_coins log the failure and skip that
-         partner instead of crashing the whole run. -->
+         through the UI. A module update must never overwrite that content. -->
     <data noupdate="1">
         <record id="mail_template_connection_coin_reminder" model="mail.template">
             <field name="name">Connection Coin: Verlengen</field>
@@ -24,7 +16,7 @@
             <field name="use_default_to" eval="False"/>
             <field name="body_html" type="html">
 <p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
-      <font style="font-size: 14px;"><font style="font-size:14px;">Beste <t t-out="object.x_aanschrijfnaam or ''' '''"/>,</font>
+      <font style="font-size: 14px;"><font style="font-size:14px;">Beste <t t-out="object.firstname or ''' '''"/>,</font>
 
     </font></p><p style="margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;">
       <font style="font-size: 14px;">Het is alweer bijna een jaar geleden dat je de Connection Coin van Gedeelde Weelde hebt aangeschaft of verlengd. We willen je daar nogmaals voor bedanken!</font></p>
@@ -110,7 +102,7 @@
 <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; "/>
     <p style="box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; ">
 
-        <span style="font-size:14px">Beste <t t-out="object.x_aanschrijfnaam or &quot;&quot;"/>,</span>
+        <span style="font-size:14px">Beste <t t-out="object.firstname or &quot;&quot;"/>,</span>
         <br/>
 
     </p>
