@@ -16,9 +16,7 @@ class ResPartner(models.Model):
     CONNECTION_COIN_AUTO_END_GRACE_MONTHS = 2
     CONNECTION_COIN_NUMMER_MAX_DIGITS = 5
     # Fields that drive both the validation constraints and the status
-    # label below - x_is_ondernemerslid is deliberately not declared in
-    # this module (see the comment above _compute_is_member), so it's
-    # handled defensively wherever it's read.
+    # label below.
     CONNECTION_COIN_STATUS_FIELDS = (
         "cc_number",
         "cc_renewal_date",
@@ -103,29 +101,11 @@ class ResPartner(models.Model):
         self.cc_forgotten += 1
         return self.cc_forgotten
 
-    @api.constrains("cc_renewal_date", "x_is_ondernemerslid")
-    def _check_connection_coin_ondernemerslid(self):
-        if "x_is_ondernemerslid" not in self._fields:
-            return
-        for partner in self:
-            if partner.x_is_ondernemerslid and partner.cc_renewal_date:
-                raise ValidationError(
-                    _(
-                        "Connection Coin: %s is ondernemerslid, dan mag er "
-                        "geen 'CC Verlengdatum' ingevuld staan."
-                    )
-                    % partner.display_name
-                )
-
-    @api.constrains(*CONNECTION_COIN_STATUS_FIELDS, "x_is_ondernemerslid")
+    @api.constrains(*CONNECTION_COIN_STATUS_FIELDS)
     def _check_connection_coin_consistency(self):
-        has_ondernemerslid = "x_is_ondernemerslid" in self._fields
         for partner in self:
             heeft_nummer = bool(partner.cc_number)
             begin = partner.cc_start_date
-            is_ondernemerslid = (
-                partner.x_is_ondernemerslid if has_ondernemerslid else False
-            )
 
             if partner.cc_end_date:
                 if not begin:
@@ -192,15 +172,11 @@ class ResPartner(models.Model):
                     )
                     % partner.display_name
                 )
-            if (
-                not partner.cc_renewal_date
-                and not partner.cc_end_date
-                and not is_ondernemerslid
-            ):
+            if not partner.cc_renewal_date and not partner.cc_end_date:
                 raise ValidationError(
                     _(
                         "Connection Coin: 'CC Verlengdatum' of 'CC Einddatum' "
-                        "is verplicht voor %s (behalve voor ondernemersleden)."
+                        "is verplicht voor %s."
                     )
                     % partner.display_name
                 )

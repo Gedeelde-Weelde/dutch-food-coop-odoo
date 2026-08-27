@@ -50,7 +50,9 @@ class TestResPartner(TransactionCase):
                 "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
             }
         )
-        partner.write({"cc_number": False, "cc_renewal_date": False})
+        partner.write(
+            {"cc_number": False, "cc_start_date": False, "cc_renewal_date": False}
+        )
         self.assertEqual(partner.barcode, False)
 
     def test_end_connection_coin_sets_einde_to_verleng(self):
@@ -431,27 +433,6 @@ class TestResPartnerConnectionCoinValidation(TransactionCase):
         )
         self.assertTrue(partner)
 
-
-class TestResPartnerConnectionCoinManualFields(TransactionCase):
-    # x_is_ondernemerslid simulates the pre-existing manual (Studio-added)
-    # field that the constraints and label logic read defensively, without
-    # gw_connection_coin declaring it in code (see the comment above
-    # CONNECTION_COIN_STATUS_FIELDS for why).
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        model_id = cls.env["ir.model"]._get_id("res.partner")
-        cls.env["ir.model.fields"].create(
-            [
-                {
-                    "name": "x_is_ondernemerslid",
-                    "field_description": "Ondernemerslid",
-                    "model_id": model_id,
-                    "ttype": "boolean",
-                },
-            ]
-        )
-
     def test_verleng_requires_begin(self):
         with self.assertRaises(ValidationError):
             self.env["res.partner"].create(
@@ -491,29 +472,6 @@ class TestResPartnerConnectionCoinManualFields(TransactionCase):
                     "cc_end_date": begin - relativedelta(days=1),
                 }
             )
-
-    def test_ondernemerslid_with_verleng_raises(self):
-        with self.assertRaises(ValidationError):
-            self.env["res.partner"].create(
-                {
-                    "name": "Test Partner",
-                    "cc_number": "711",
-                    "cc_start_date": fields.Date.today(),
-                    "x_is_ondernemerslid": True,
-                    "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
-                }
-            )
-
-    def test_ondernemerslid_without_dates_is_valid(self):
-        partner = self.env["res.partner"].create(
-            {
-                "name": "Test Partner",
-                "cc_number": "711",
-                "cc_start_date": fields.Date.today(),
-                "x_is_ondernemerslid": True,
-            }
-        )
-        self.assertTrue(partner)
 
     def test_not_yet_started_gets_no_label(self):
         actief = self.env.ref("gw_connection_coin.category_cc_actief")
@@ -589,7 +547,9 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
             }
         )
         self.assertEqual(self._label(partner), self.actief)
-        partner.write({"cc_number": False, "cc_renewal_date": False})
+        partner.write(
+            {"cc_number": False, "cc_start_date": False, "cc_renewal_date": False}
+        )
         self.assertFalse(self._label(partner))
 
     def test_label_updates_on_extend_connection_coin(self):
