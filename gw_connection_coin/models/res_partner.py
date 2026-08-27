@@ -29,13 +29,13 @@ class ResPartner(models.Model):
         "inactief": "gw_connection_coin.category_cc_inactief",
     }
 
-    cc_number = fields.Char(string="CC Nummer")
-    cc_renewal_date = fields.Date(string="CC Verlengdatum")
-    cc_end_date = fields.Date(string="CC Einddatum")
-    cc_start_date = fields.Date(string="CC Begindatum")
-    cc_extra_holders = fields.Char(string="Extra Coin houders")
-    cc_forgotten = fields.Integer(string="CC Keer Vergeten", default=0)
-    cc_reminder_sent_date = fields.Date(string="CC Herinnering Verzonden")
+    cc_number = fields.Char(string="CC Number")
+    cc_renewal_date = fields.Date(string="CC Renewal Date")
+    cc_end_date = fields.Date(string="CC End Date")
+    cc_start_date = fields.Date(string="CC Start Date")
+    cc_extra_holders = fields.Char(string="Extra Coin Holders")
+    cc_forgotten = fields.Integer(string="CC Times Forgotten", default=0)
+    cc_reminder_sent_date = fields.Date(string="CC Reminder Sent Date")
     is_member = fields.Boolean(compute="_compute_is_member")
 
     @api.model

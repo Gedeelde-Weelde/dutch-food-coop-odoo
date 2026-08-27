@@ -59,33 +59,39 @@ msgid "Base class for Digi Sync models"
 msgstr ""
 
 #. module: gw_connection_coin
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_start_date
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_start_date
-msgid "CC Begindatum"
-msgstr ""
-
-#. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_end_date
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_end_date
-msgid "CC Einddatum"
-msgstr ""
-
-#. module: gw_connection_coin
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
-#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_forgotten
-msgid "CC Keer Vergeten"
+msgid "CC End Date"
 msgstr ""
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_number
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_number
-msgid "CC Nummer"
+msgid "CC Number"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_reminder_sent_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_reminder_sent_date
+msgid "CC Reminder Sent Date"
 msgstr ""
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_renewal_date
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_renewal_date
-msgid "CC Verlengdatum"
+msgid "CC Renewal Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_start_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_start_date
+msgid "CC Start Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_forgotten
+msgid "CC Times Forgotten"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -178,7 +184,7 @@ msgstr ""
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_extra_holders
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_extra_holders
-msgid "Extra Coin houders"
+msgid "Extra Coin Holders"
 msgstr ""
 
 #. module: gw_connection_coin
