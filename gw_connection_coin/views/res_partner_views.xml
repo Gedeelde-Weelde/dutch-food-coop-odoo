@@ -106,4 +106,23 @@
             </xpath>
         </field>
     </record>
+
+    <record id="view_partner_form_connection_coin" model="ir.ui.view">
+        <field name="name">res.partner.form.connection.coin</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="connection_coin" string="Connection Coin">
+                    <group name="connection_coin" string="Connection Coin">
+                        <field name="cc_number" />
+                        <field name="cc_start_date" />
+                        <field name="cc_renewal_date" />
+                        <field name="cc_end_date" />
+                        <field name="cc_extra_holders" />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
 </odoo>
