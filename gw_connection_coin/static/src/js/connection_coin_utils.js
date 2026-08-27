@@ -160,8 +160,13 @@ odoo.define("gw_connection_coin.utils", function (require) {
             });
             if (action === "stop") {
                 await stopConnectionCoin(component, partner);
+                return false;
             } else if (action === "renew") {
+                // AddConnectionCoinRenewalProduct already applied the
+                // discount; reporting valid here stops
+                // syncConnectionCoinDiscount from immediately clearing it.
                 await addConnectionCoinRenewalProduct(component, partner);
+                return true;
             }
             return false;
         }
@@ -195,7 +200,12 @@ odoo.define("gw_connection_coin.utils", function (require) {
                 cancelText: component.env._t("Close"),
             });
             if (action === "activate") {
+                // Same reasoning as the "renew" branch above: reporting
+                // valid here keeps syncConnectionCoinDiscount from
+                // clearing the discount addConnectionCoinRenewalProduct
+                // just applied.
                 await addConnectionCoinRenewalProduct(component, partner);
+                return true;
             }
             return false;
         }
