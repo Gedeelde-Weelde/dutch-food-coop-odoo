@@ -36,7 +36,8 @@ jobs:
         /opt/odoo/addons,
         /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-queue,
         /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-brand,
-        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-pos
+        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-pos,
+        /__w/dutch-food-coop-odoo/dutch-food-coop-odoo/extra-addons-partner-contact
     strategy:
       fail-fast: false
       matrix:
@@ -77,6 +78,12 @@ jobs:
           ref: '16.0'
           repository: OCA/pos
           path: "${{ github.workspace }}/extra-addons-pos"
+      - name: Checkout extra Odoo partner-contact module
+        uses: actions/checkout@v4
+        with:
+          ref: '16.0'
+          repository: OCA/partner-contact
+          path: "${{ github.workspace }}/extra-addons-partner-contact"
       - name: Install addons and dependencies
         run: oca_install_addons
       - name: Check licenses
