@@ -17,6 +17,21 @@ class TestPosOrderAnonymization(TransactionCase):
         self.regular_product = self.env["product.product"].create(
             {"name": "Regular Product"}
         )
+        # account.move.create({}) needs a 'general' journal to pick as its
+        # default; a bare test company has no chart of accounts (no
+        # l10n_* module is installed), so none exists unless we add one.
+        if not self.env["account.journal"].search(
+            [("company_id", "=", self.env.company.id), ("type", "=", "general")],
+            limit=1,
+        ):
+            self.env["account.journal"].create(
+                {
+                    "name": "Miscellaneous Operations",
+                    "code": "MISC",
+                    "type": "general",
+                    "company_id": self.env.company.id,
+                }
+            )
 
     def _order_line_vals(self, product):
         return (
