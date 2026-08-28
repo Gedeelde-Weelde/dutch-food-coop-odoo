@@ -92,7 +92,7 @@ msgstr "CC Begindatum"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_forgotten
 msgid "CC Times Forgotten"
-msgstr "CC Keer Vergeten"
+msgstr "CC Aantal Keer Vergeten"
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple

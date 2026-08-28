@@ -120,6 +120,7 @@
                         <field name="cc_renewal_date" />
                         <field name="cc_end_date" />
                         <field name="cc_extra_holders" />
+                        <field name="cc_forgotten" />
                     </group>
                 </page>
             </xpath>
