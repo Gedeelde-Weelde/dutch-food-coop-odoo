@@ -92,7 +92,8 @@ odoo.define("gw_connection_coin.utils", function (require) {
                     luxon.DateTime.DATE_FULL
                 )
             ),
-            confirmText: component.env._t("Ok"),
+            confirmText: component.env._t("Close"),
+            hideCancel: true,
         });
     }
 
