@@ -42,7 +42,7 @@ odoo.define("gw_connection_coin.PartnerListScreen", function (require) {
                 this.trigger("close-temp-screen");
             }
             clickPartner(partner) {
-                // clickPartner always moves the selection away from
+                // ClickPartner always moves the selection away from
                 // whoever was previously selected, either to null
                 // (clicking the same partner deselects them) or to a
                 // different partner (swap). Either way, a discount that
@@ -50,7 +50,10 @@ odoo.define("gw_connection_coin.PartnerListScreen", function (require) {
                 // no longer applies and must be dropped.
                 const previousPartner = this.state.selectedPartner;
                 if (previousPartner) {
-                    ConnectionCoinUtils.removeConnectionCoinDiscount(this, previousPartner);
+                    ConnectionCoinUtils.removeConnectionCoinDiscount(
+                        this,
+                        previousPartner
+                    );
                 }
                 super.clickPartner(partner);
             }
