@@ -62,7 +62,7 @@ msgstr "Product"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_end_date
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_end_date
 msgid "CC End Date"
-msgstr "Einde CC"
+msgstr "CC Einddatum"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_number
@@ -80,13 +80,13 @@ msgstr "CC Herinnering Verzonden"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_renewal_date
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_renewal_date
 msgid "CC Renewal Date"
-msgstr "Verlengdatum CC"
+msgstr "CC Verlengdatum"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_start_date
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_start_date
 msgid "CC Start Date"
-msgstr "Start CC"
+msgstr "CC Begindatum"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
