@@ -271,6 +271,17 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
     }
 
+    // Removes any connection-coin discount lines from the order when a
+    // partner with a connection coin is deselected in the
+    // PartnerListScreen. No-op if the partner has no connection coin,
+    // since there is nothing to clean up in that case.
+    function removeConnectionCoinDiscount(component, partner) {
+        if (!partner || !partner.cc_number) {
+            return;
+        }
+        clearDiscount(component);
+    }
+
     async function markConnectionCoinForgotten(component, partner) {
         const newCount = await component.rpc({
             model: "res.partner",
@@ -290,6 +301,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         isConnectionCoinValid,
         checkConnectionCoinExpiry,
         syncConnectionCoinDiscount,
+        removeConnectionCoinDiscount,
         markConnectionCoinForgotten,
     };
 });

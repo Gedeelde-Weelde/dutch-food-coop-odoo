@@ -41,6 +41,19 @@ odoo.define("gw_connection_coin.PartnerListScreen", function (require) {
                 this.props.resolve({confirmed: false, payload: false});
                 this.trigger("close-temp-screen");
             }
+            clickPartner(partner) {
+                // clickPartner always moves the selection away from
+                // whoever was previously selected, either to null
+                // (clicking the same partner deselects them) or to a
+                // different partner (swap). Either way, a discount that
+                // was applied for the previous partner's connection coin
+                // no longer applies and must be dropped.
+                const previousPartner = this.state.selectedPartner;
+                if (previousPartner) {
+                    ConnectionCoinUtils.removeConnectionCoinDiscount(this, previousPartner);
+                }
+                super.clickPartner(partner);
+            }
         };
 
     Registries.Component.extend(PartnerListScreen, GWConnectionCoinPartnerListScreen);
