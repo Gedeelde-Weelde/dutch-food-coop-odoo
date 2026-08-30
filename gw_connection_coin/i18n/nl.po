@@ -68,7 +68,7 @@ msgstr "CC Einddatum"
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_number
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_number
 msgid "CC Number"
-msgstr "Nummer Connection Coin"
+msgstr "CC Nummer"
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_reminder_sent_date
