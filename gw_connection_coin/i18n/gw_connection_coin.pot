@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-20 00:00+0000\n"
-"PO-Revision-Date: 2026-08-20 00:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -23,10 +21,134 @@ msgid "%s must be flagged as a Connection Coin Product."
 msgstr ""
 
 #. module: gw_connection_coin
-#. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
-#, python-format
-msgid "/ 3"
+#: model:mail.template,body_html:gw_connection_coin.mail_template_connection_coin_ended
+msgid ""
+"<p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; \"></p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; \">\n"
+"\n"
+"        <span style=\"font-size:14px\">Beste <t t-out='object.firstname or \"\"'></t>,</span>\n"
+"        <br>\n"
+"\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; \">\n"
+"      <font style=\"font-size:14px\">\n"
+"        <br>\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">Tot op heden hebben we geen bericht meer van je ontvangen over de verlenging of beëindiging van jouw Connection Coin. We gaan er daarom vanuit dat je er geen gebruik meer van wil maken en hebben dit in onze administratie stopgezet. We vinden het fijn als je de Coin inlevert in onze winkel.</span>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">\n"
+"        <br>\n"
+"      </span>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">Mocht je toch nog gebruik willen maken van de Connection Coin, dan kun je dat natuurlijk kenbaar maken bij de kassa.</span></p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">\n"
+"        <br>\n"
+"      </span>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">Bij voorbaat dank en vriendelijke groet,</span>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">Edith Schmeits / Robin van Hontem.</span>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; \">\n"
+"      <font style=\"font-size:14px\">\n"
+"        <img src=\"data:image/png;base64,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\" style=\"box-sizing:border-box;border-image-repeat:stretch;border-image-outset:0;border-image-width:1;border-image-slice:100%;border-image-source:none;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;border-top-color:currentcolor;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-style:none;vertical-align:middle; border:0px; width:auto; height:auto;\" width=\"auto\" height=\"90\">\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif; \">\n"
+"      <font style=\"font-size:14px\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold\">\n"
+"          <a href=\"https://gedeeldeweelde.nl/\" style=\"box-sizing:border-box;text-decoration:none;background-color:transparent;color:#337ab7; \">www.gedeeldeweelde.nl</a>\n"
+"        </b>\n"
+"      </font>\n"
+"    </p>\n"
+"\n"
+"\n"
+"\n"
+"            "
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:mail.template,body_html:gw_connection_coin.mail_template_connection_coin_reminder
+msgid ""
+"<p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size: 14px;\"><font style=\"font-size:14px;\">Beste <t t-out=\"object.firstname or ''' '''\"></t>,</font>\n"
+"\n"
+"    </font></p><p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size: 14px;\">Het is alweer bijna een jaar geleden dat je de Connection Coin van Gedeelde Weelde hebt aangeschaft of verlengd. We willen je daar nogmaals voor bedanken!</font></p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"color:#ff671f; font-size: 14px;\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold;\">Verlengen Connection Coin</b>\n"
+"      </font></p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size: 14px;\">Jouw Connection Coin loopt af op <t t-out=\"object.cc_renewal_date.strftime('%d-%m-%Y') if object.cc_renewal_date else ''\"></t>. Natuurlijk zouden we het leuk vinden als je de Connection Coin verlengt, zodat je ook na deze datum weer opnieuw een jaar lang kunt genieten van 10% kassakorting op al je boodschappen. Je Connection Coin verlengen kan bij de kassa in de Gedeelde Weelde winkel voor €110,- (of €100,- voor leden). Dus gewoon bij het doen van je volgende boodschappen, wel zo makkelijk!</font>\n"
+"    </p><p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\"></p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">\n"
+"        <a style=\"text-decoration:none;box-sizing:border-box;background-color:transparent;cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-decoration-line:none;color:#337ab7;\" href=\"https://gedeeldeweelde.nl/connectioncoin/\">Hier vind je alles over de Connection Coin nog eens op een rijtje...</a>\n"
+"      </font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"color:#ff671f;font-size: 14px;\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold;\">Niet verlengen</b>\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">Wil je de Connection Coin niet verlengen, laat ons dat dan even weten als reactie op deze e-mail. Verder vinden we het prettig als je de Connection Coin dan inlevert in de winkel.</font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"color:#ff671f;font-size: 14px;\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold;\">2e houder Connection Coin</b>\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size: 14px;\">Wil je een extra coin voor één of meerdere andere personen in je huishouden? Dat kan. Stuur een mail naar connectioncoin@gedeeldeweelde.nl met de volledige naam van deze perso(o)n(en) en jouw eigen coin nummer. Zodra de coin klaar is krijg je een bevestigingsmail dat je deze af kan halen in de winkel. De extra coins kosten eenmalig €10,- per stuk, te betalen aan de kassa bij het ophalen.</font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"color:#ff671f; font-size: 14px;\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold;\">Controleren gegevens</b>\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">Voor onze administratie hebben we jouw inschrijfgegevens opgevoerd in onze digitale administratie. Het zou fijn zijn als je deze gegevens kunt controleren en eventuele wijzigingen en aanvullingen als reactie op deze e-mail aan ons doorgeeft. Het gaat om de volgende gegevens:</font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">Naam: <t t-out=\"object.name or ''' '''\"></t><br>Adres: <t t-out=\"object.street or ''' '''\"></t><br>Postcode: <t t-out=\"object.zip or ''' '''\"></t><br>Woonplaats: <t t-out=\"object.city or ''' '''\"></t><br>Telefoonnummer: <t t-out=\"object.phone or ''' '''\"></t><br>Mobiel: <t t-out=\"object.mobile or ''' '''\"></t></font></p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">Nogmaals dank voor je vertrouwen en tot ziens in de winkel!</font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">Hartelijke groet,</font>\n"
+"    </p>\n"
+"\n"
+"    <p style=\"box-sizing:border-box;margin:0px;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;\">\n"
+"      <span style=\"font-size:14px;\">Edith Schmeits / Robin van Hontem</span>\n"
+"      <br>\n"
+"      <br>\n"
+"    </p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">\n"
+"        <img height=\"90\" width=\"auto\" style=\"box-sizing:border-box;border-image-repeat:stretch;border-image-outset:0;border-image-width:1;border-image-slice:100%;border-image-source:none;border-left-color:currentcolor;border-bottom-color:currentcolor;border-right-color:currentcolor;border-top-color:currentcolor;border-left-width:0px;border-bottom-width:0px;border-right-width:0px;border-top-width:0px;border-style:none;vertical-align:middle;border: 0px; width: auto; height: auto;\" src=\"data:image/png;base64,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\">\n"
+"      </font>\n"
+"    </p>\n"
+"    <p style=\"margin:0px 0 12px 0;box-sizing:border-box;font-size:13px;font-family:'Lucida Grande', Helvetica, Verdana, Arial, sans-serif;margin-inline-end:0px;margin-inline-start:0px;margin-block-end:1em;margin-block-start:0px;\">\n"
+"      <font style=\"font-size:14px;\">\n"
+"        <b style=\"box-sizing:border-box;font-weight:bold;\">\n"
+"          <a style=\"text-decoration:none;box-sizing:border-box;background-color:transparent;cursor:pointer;text-decoration-color:initial;text-decoration-style:initial;text-decoration-thickness:initial;text-decoration-line:none;color:#337ab7;\" href=\"https://gedeeldeweelde.nl/\">www.gedeeldeweelde.nl</a></b></font></p>\n"
+"            "
 msgstr ""
 
 #. module: gw_connection_coin
@@ -104,13 +226,20 @@ msgstr ""
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Close"
 msgstr ""
 
 #. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: gw_connection_coin
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_connection_coin
 #, python-format
 msgid "Connection Coin"
 msgstr ""
@@ -150,10 +279,134 @@ msgid "Connection Coin invalid"
 msgstr ""
 
 #. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin nummer %(nummer)s is ongeldig: mag maximaal uit "
+"%(max_digits)s cijfers bestaan."
+msgstr ""
+
+#. module: gw_connection_coin
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Connection Coin stopped"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: %s heeft een 'CC Einddatum', dan mag er geen 'CC "
+"Verlengdatum' meer ingevuld staan."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: 'CC Begindatum' is verplicht zodra er een 'CC Nummer' is "
+"ingevuld bij %s."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: 'CC Einddatum' mag niet vóór 'CC Begindatum' liggen bij %s."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid "Connection Coin: 'CC Nummer' %s moet een getal zijn."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: 'CC Verlengdatum' mag niet vóór 'CC Begindatum' liggen bij "
+"%s."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: 'CC Verlengdatum' of 'CC Einddatum' is verplicht voor %s."
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.server,name:gw_connection_coin.ir_cron_connection_coin_auto_end_ir_actions_server
+#: model:ir.cron,cron_name:gw_connection_coin.ir_cron_connection_coin_auto_end
+msgid "Connection Coin: Beëindig verlopen coins"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:mail.template,name:gw_connection_coin.mail_template_connection_coin_ended
+msgid "Connection Coin: Einde gebruik connection coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:mail.template,name:gw_connection_coin.mail_template_connection_coin_reminder
+msgid "Connection Coin: Verlengen"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.server,name:gw_connection_coin.ir_cron_connection_coin_reminder_ir_actions_server
+#: model:ir.cron,cron_name:gw_connection_coin.ir_cron_connection_coin_reminder
+msgid "Connection Coin: Verstuur herinnering verlengdatum"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: er staat een 'CC Begindatum' bij %s, maar geen 'CC Nummer'."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: er staat een 'CC Einddatum' bij %s, maar geen 'CC "
+"Begindatum'."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: er staat een 'CC Einddatum' bij %s, maar geen 'CC Nummer'."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: er staat een 'CC Verlengdatum' bij %s, maar geen 'CC "
+"Begindatum'."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/res_partner.py:0
+#, python-format
+msgid ""
+"Connection Coin: er staat een 'CC Verlengdatum' bij %s, maar geen 'CC "
+"Nummer'."
 msgstr ""
 
 #. module: gw_connection_coin
@@ -182,6 +435,11 @@ msgid "Duplicate check"
 msgstr ""
 
 #. module: gw_connection_coin
+#: model:mail.template,subject:gw_connection_coin.mail_template_connection_coin_ended
+msgid "Einde gebruik Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_extra_holders
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_extra_holders
 msgid "Extra Coin Holders"
@@ -200,6 +458,12 @@ msgid "Individuals"
 msgstr ""
 
 #. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__is_member
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__is_member
+msgid "Is Member"
+msgstr ""
+
+#. module: gw_connection_coin
 #. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
 #, python-format
@@ -208,6 +472,7 @@ msgstr ""
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__member_connection_coin_product_id
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_config_settings__pos_member_connection_coin_product_id
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
 msgid "Member Connection Coin Product"
 msgstr ""
@@ -225,22 +490,35 @@ msgid "No connection coin product found"
 msgstr ""
 
 #. module: gw_connection_coin
-#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__non_member_connection_coin_product_id
-#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
-msgid "Non-Member Connection Coin Product"
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/discount_button.js:0
+#, python-format
+msgid "No discount product found"
 msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/discount_button.js:0
 #, python-format
-msgid "Ok"
+msgid "No tax"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__non_member_connection_coin_product_id
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_config_settings__pos_non_member_connection_coin_product_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Non-Member Connection Coin Product"
 msgstr ""
 
 #. module: gw_connection_coin
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__same_name_partner_id
 #: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__same_name_partner_id
 msgid "Partner with same name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_pos_config
+msgid "Point of Sale Configuration"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -261,16 +539,21 @@ msgstr ""
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
-msgid "Product added to the order when renewing a member's Connection Coin"
+msgid ""
+"Product added to the order when renewing a\n"
+"                            non-member's Connection Coin"
 msgstr ""
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
-msgid "Product added to the order when renewing a non-member's Connection Coin"
+msgid ""
+"Product added to the order when renewing a member's\n"
+"                            Connection Coin"
 msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Renew"
@@ -283,6 +566,7 @@ msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Stop Coin"
@@ -300,11 +584,34 @@ msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/discount_button.js:0
+#, python-format
+msgid "Tax: %s"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s expired on %s and no longer provides a discount. "
+"Ask the customer if they want to renew from this date or stop permanently."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid ""
 "The Connection Coin of %s expires on %s. Ask the customer if they want to "
 "renew or stop from this date."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "The Connection Coin of %s has been stopped as of %s."
 msgstr ""
 
 #. module: gw_connection_coin
@@ -318,28 +625,10 @@ msgstr ""
 
 #. module: gw_connection_coin
 #. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
-#, python-format
-msgid ""
-"The Connection Coin of %s expired on %s and no longer provides a "
-"discount. Ask the customer if they want to renew from this date or stop "
-"permanently."
-msgstr ""
-
-#. module: gw_connection_coin
-#. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
-#, python-format
-msgid "The Connection Coin of %s has been stopped as of %s."
-msgstr ""
-
-#. module: gw_connection_coin
-#. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
 #, python-format
 msgid ""
-"The connection coin product '%s' requires a customer to be selected "
-"first."
+"The connection coin product '%s' requires a customer to be selected first."
 msgstr ""
 
 #. module: gw_connection_coin
@@ -347,8 +636,22 @@ msgstr ""
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid ""
-"The connection coin product for this partner's membership status is "
-"not configured. Set it up in the Point of Sale settings."
+"The connection coin product for this partner's membership status is not "
+"configured. Set it up in the Point of Sale settings."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/discount_button.js:0
+#, python-format
+msgid ""
+"The discount product seems misconfigured. Make sure it is flagged as 'Can be"
+" Sold' and 'Available in Point of Sale'."
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:mail.template,subject:gw_connection_coin.mail_template_connection_coin_reminder
+msgid "Verlengen Connection Coin"
 msgstr ""
 
 #. module: gw_connection_coin
@@ -361,4 +664,19 @@ msgstr ""
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
 msgid "ZIP"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:res.partner.category,name:gw_connection_coin.category_cc_actief
+msgid "cc actief"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:res.partner.category,name:gw_connection_coin.category_cc_inactief
+msgid "cc inactief"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:res.partner.category,name:gw_connection_coin.category_cc_te_verlengen
+msgid "cc te verlengen"
 msgstr ""
