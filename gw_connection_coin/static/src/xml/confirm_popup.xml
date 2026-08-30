@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+
+    <!-- Core ConfirmPopup always renders both a confirm and a cancel
+         button, even for popups that are purely informational (e.g.
+         gw_connection_coin.utils' "Connection Coin stopped" notice, which
+         has nothing to cancel). Add an opt-in `hideCancel` prop that
+         drops the cancel button for those callers, leaving every other
+         ConfirmPopup usage unaffected since it defaults to falsy. -->
+    <t
+        t-name="ConfirmPopup"
+        t-inherit="point_of_sale.ConfirmPopup"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('cancel')]" position="attributes">
+            <attribute name="t-if">!props.hideCancel</attribute>
+        </xpath>
+    </t>
+
+</templates>

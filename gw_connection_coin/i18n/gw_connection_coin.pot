@@ -1,0 +1,364 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gw_connection_coin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-20 00:00+0000\n"
+"PO-Revision-Date: 2026-08-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: gw_connection_coin
+#. odoo-python
+#: code:addons/gw_connection_coin/models/pos_config.py:0
+#, python-format
+msgid "%s must be flagged as a Connection Coin Product."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "/ 3"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "A contact with the same name already exists:"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Activate"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Activate Connection Coin Discount"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Address"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_product_template
+msgid "Base class for Digi Sync models"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_end_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_end_date
+msgid "CC End Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_number
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_number
+msgid "CC Number"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_reminder_sent_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_reminder_sent_date
+msgid "CC Reminder Sent Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_renewal_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_renewal_date
+msgid "CC Renewal Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_start_date
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_start_date
+msgid "CC Start Date"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_forgotten
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_forgotten
+msgid "CC Times Forgotten"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "City"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Close"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_product_product__is_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_product_template__is_connection_coin
+msgid "Connection Coin Product"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin expires soon"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin has been terminated"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin has expired"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Connection Coin invalid"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Connection Coin stopped"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_res_partner
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Contact"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Country"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Do nothing"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Duplicate check"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__cc_extra_holders
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__cc_extra_holders
+msgid "Extra Coin Holders"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Forgotten count:"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_res_partner_filter_inherit
+msgid "Individuals"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
+#, python-format
+msgid "Keer coin vergeten"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__member_connection_coin_product_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Member Connection Coin Product"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.actions.act_window,name:gw_connection_coin.action_res_partner_simple_form
+msgid "New Individual Contact"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "No connection coin product found"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_pos_config__non_member_connection_coin_product_id
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Non-Member Connection Coin Product"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Ok"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__same_name_partner_id
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__same_name_partner_id
+msgid "Partner with same name"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_pos_order
+msgid "Point of Sale Orders"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model,name:gw_connection_coin.model_pos_session
+msgid "Point of Sale Session"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_partner__potential_duplicate_ids
+#: model:ir.model.fields,field_description:gw_connection_coin.field_res_users__potential_duplicate_ids
+msgid "Potential Duplicates"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Product added to the order when renewing a member's Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.res_config_settings_view_form
+msgid "Product added to the order when renewing a non-member's Connection Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Renew"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "State"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "Stop Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Street 2..."
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "Street..."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s expires on %s. Ask the customer if they want to "
+"renew or stop from this date."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s has been terminated on %s. Inform the customer "
+"about this and ask if the coin should be activated from today."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The Connection Coin of %s expired on %s and no longer provides a "
+"discount. Ask the customer if they want to renew from this date or stop "
+"permanently."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid "The Connection Coin of %s has been stopped as of %s."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid ""
+"The connection coin product '%s' requires a customer to be selected "
+"first."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
+#, python-format
+msgid ""
+"The connection coin product for this partner's membership status is "
+"not configured. Set it up in the Point of Sale settings."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/js/barcode_handler.js:0
+#, python-format
+msgid "You must select a customer first"
+msgstr ""
+
+#. module: gw_connection_coin
+#: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
+msgid "ZIP"
+msgstr ""

@@ -2,3 +2,4 @@
 queue_job
 product_brand
 pos_container_deposit
+partner_firstname

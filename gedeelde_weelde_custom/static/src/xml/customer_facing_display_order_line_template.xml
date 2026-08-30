@@ -42,29 +42,24 @@
             </div>
         </xpath>
     </t>
+    <t t-inherit="point_of_sale.CustomerFacingDisplayOrder" t-inherit-mode="extension">
+        <xpath expr="//div[hasclass('pos-company_logo')]" position="attributes">
+            <attribute
+                name="t-attf-style"
+            >background-image:url(/gedeelde_weelde_custom/static/src/img/company_logo.png)</attribute>
+        </xpath>
+    </t>
     <t
         t-name="CustomerFacingDisplayHead"
         t-inherit="point_of_sale.CustomerFacingDisplayHead"
         t-inherit-mode="extension"
     >
     <xpath expr="//div[@class='resources']" position="inside">
-        <style>
-            .pos_orderline_list_discount {
-                color: #ff671f;
-                font-weight: bold;
-            }
-            body .pos-customer_facing_display .pos-customer_products .pos_orderlines .pos_orderlines_item:last-of-type {
-                animation: none;
-            }
-
-            body .pos-customer_facing_display.pos-palette_01 .pos-payment_info .pos-payment_info_details .pos-total > div:nth-child(2n) {
-                font-size: 140%
-            }
-            body .pos-customer_facing_display.pos-palette_01 .pos-customer_products,
-            body .pos-customer_facing_display.pos-palette_01 .pos-payment_info {
-                height: 96%;
-            }
-        </style>
+        <link
+                rel="stylesheet"
+                type="text/css"
+                t-att-href="origin + '/gedeelde_weelde_custom/static/src/css/customer_facing_display.css'"
+            />
     </xpath>
 </t>
 

@@ -1,0 +1,8 @@
+body .pos-customer_facing_display .pos-payment_info .gw-cc-discount-banner {
+    background-image: url(/gw_connection_coin/static/src/img/connectionCoinCustomerDisplay.png);
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    flex: 0 0 37%;
+    margin-bottom: 10%;
+}
