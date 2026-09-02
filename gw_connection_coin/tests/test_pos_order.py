@@ -114,6 +114,15 @@ class TestPosOrderAnonymization(TransactionCase):
             self.partner.cc_renewal_date, fields.Date.from_string("2027-01-01")
         )
 
+    def test_partner_cleared_on_create_with_no_lines(self):
+        # The POS frontend allows validating an order with zero orderlines
+        # as long as it isn't marked to_invoice (PaymentScreen only blocks
+        # that combination). Odoo core's _order_fields then serializes such
+        # an order as `'lines': False` rather than omitting the key or
+        # sending `[]`, which must not crash order creation.
+        order = self._create_order(partner=self.partner, lines=False)
+        self.assertEqual(order.partner_id.id, False)
+
     def test_cc_renewal_date_unchanged_on_regular_order(self):
         self.partner.write(
             {

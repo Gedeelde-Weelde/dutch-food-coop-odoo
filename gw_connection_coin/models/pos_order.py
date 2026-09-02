@@ -25,7 +25,7 @@ class PosOrder(models.Model):
     def _vals_has_connection_coin(self, vals):
         product_ids = [
             line_vals.get("product_id")
-            for command, _id, line_vals in vals.get("lines", [])
+            for command, _id, line_vals in vals.get("lines") or []
             if command == 0
         ]
         if not product_ids:
