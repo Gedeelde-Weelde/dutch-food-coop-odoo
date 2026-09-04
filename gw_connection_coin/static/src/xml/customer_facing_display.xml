@@ -15,6 +15,22 @@
         <t t-jquery=".pos-company_logo" t-operation="after">
             <div t-if="order and order.has_discount()" class="gw-cc-discount-banner" />
         </t>
+        <t t-jquery=".pos-total" t-operation="before">
+            <div t-if="order and order.has_discount()" class="gw-cc-discount-summary">
+                <div class="gw-cc-discount-summary-line">
+                    <div><span>Subtotal</span></div>
+                    <div>
+                        <span t-esc="pos.format_currency(order.get_total_before_discount())" />
+                    </div>
+                </div>
+                <div class="gw-cc-discount-summary-line">
+                    <div><span>Discount</span></div>
+                    <div>
+                        <span t-esc="pos.format_currency(order.get_discount_total())" />
+                    </div>
+                </div>
+            </div>
+        </t>
     </t>
 
 </templates>
