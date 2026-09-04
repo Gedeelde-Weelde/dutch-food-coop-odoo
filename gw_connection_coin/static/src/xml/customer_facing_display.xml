@@ -20,7 +20,9 @@
                 <div class="gw-cc-discount-summary-line">
                     <div><span>Subtotal</span></div>
                     <div>
-                        <span t-esc="pos.format_currency(order.get_total_before_discount())" />
+                        <span
+                            t-esc="pos.format_currency(order.get_total_before_discount())"
+                        />
                     </div>
                 </div>
                 <div class="gw-cc-discount-summary-line">
