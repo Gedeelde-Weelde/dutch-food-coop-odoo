@@ -3,6 +3,17 @@
     <!-- noupdate="1": scheduling (interval, nextcall, active) is meant to be
          tunable by staff via the UI without a module update reverting it. -->
     <data noupdate="1">
+        <record id="ir_cron_connection_coin_update_labels" model="ir.cron">
+            <field name="name">Connection Coin: Werk statuslabels bij</field>
+            <field name="model_id" ref="base.model_res_partner" />
+            <field name="state">code</field>
+            <field name="code">model._cron_update_connection_coin_labels()</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False" />
+        </record>
+
         <record id="ir_cron_connection_coin_reminder" model="ir.cron">
             <field
                 name="name"

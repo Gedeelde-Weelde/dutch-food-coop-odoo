@@ -232,6 +232,13 @@ msgid "Close"
 msgstr ""
 
 #. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
+#, python-format
+msgid "Coin Discount"
+msgstr ""
+
+#. module: gw_connection_coin
 #: model:ir.model,name:gw_connection_coin.model_res_config_settings
 msgid "Config Settings"
 msgstr ""
@@ -570,6 +577,13 @@ msgstr ""
 #: code:addons/gw_connection_coin/static/src/js/connection_coin_utils.js:0
 #, python-format
 msgid "Stop Coin"
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
+#, python-format
+msgid "Subtotal"
 msgstr ""
 
 #. module: gw_connection_coin
