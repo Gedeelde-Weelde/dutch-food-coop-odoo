@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 <div class="gw-cc-discount-summary-line">
-                    <div><span>Discount</span></div>
+                    <div><span>Coin Discount</span></div>
                     <div>
                         <span t-esc="pos.format_currency(order.get_discount_total())" />
                     </div>
