@@ -374,6 +374,12 @@ msgid "Connection Coin: Verstuur herinnering verlengdatum"
 msgstr ""
 
 #. module: gw_connection_coin
+#: model:ir.actions.server,name:gw_connection_coin.ir_cron_connection_coin_update_labels_ir_actions_server
+#: model:ir.cron,cron_name:gw_connection_coin.ir_cron_connection_coin_update_labels
+msgid "Connection Coin: Werk statuslabels bij"
+msgstr ""
+
+#. module: gw_connection_coin
 #. odoo-python
 #: code:addons/gw_connection_coin/models/res_partner.py:0
 #, python-format
@@ -580,13 +586,6 @@ msgid "Stop Coin"
 msgstr ""
 
 #. module: gw_connection_coin
-#. odoo-javascript
-#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
-#, python-format
-msgid "Subtotal"
-msgstr ""
-
-#. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
 msgid "Street 2..."
 msgstr ""
@@ -594,6 +593,13 @@ msgstr ""
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
 msgid "Street..."
+msgstr ""
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
+#, python-format
+msgid "Subtotal"
 msgstr ""
 
 #. module: gw_connection_coin
