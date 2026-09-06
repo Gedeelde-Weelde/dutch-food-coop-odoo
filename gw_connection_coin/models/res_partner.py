@@ -231,6 +231,11 @@ class ResPartner(models.Model):
             partner.write({"category_id": commands})
 
     @api.model
+    def _cron_update_connection_coin_labels(self):
+        partners = self.search([("cc_number", "!=", False)])
+        partners._update_connection_coin_labels()
+
+    @api.model
     def _cron_send_connection_coin_reminders(self):
         today = fields.Date.context_today(self)
         target_date = today + relativedelta(

@@ -110,6 +110,13 @@ msgstr "Sluiten"
 
 #. module: gw_connection_coin
 #. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
+#, python-format
+msgid "Coin Discount"
+msgstr "Coin Korting"
+
+#. module: gw_connection_coin
+#. odoo-javascript
 #: code:addons/gw_connection_coin/static/src/xml/partner_list_screen.xml:0
 #, python-format
 msgid "Connection Coin"
@@ -291,6 +298,13 @@ msgstr "Provincie"
 #, python-format
 msgid "Stop Coin"
 msgstr "Stop Coin"
+
+#. module: gw_connection_coin
+#. odoo-javascript
+#: code:addons/gw_connection_coin/static/src/xml/customer_facing_display.xml:0
+#, python-format
+msgid "Subtotal"
+msgstr "Subtotaal"
 
 #. module: gw_connection_coin
 #: model_terms:ir.ui.view,arch_db:gw_connection_coin.view_partner_form_simple
