@@ -73,8 +73,17 @@ class TestPosOrderAnonymization(TransactionCase):
             },
         )
 
+    def _payment_vals(self, payment_method):
+        return (0, 0, {"amount": 0.0, "payment_method_id": payment_method.id})
+
     def _create_order(
-        self, partner=None, account_move=None, to_invoice=None, lines=None, session=None
+        self,
+        partner=None,
+        account_move=None,
+        to_invoice=None,
+        lines=None,
+        payments=None,
+        session=None,
     ):
         vals = {
             "session_id": (session or self.pos_session).id,
@@ -93,6 +102,8 @@ class TestPosOrderAnonymization(TransactionCase):
             vals["to_invoice"] = to_invoice
         if lines is not None:
             vals["lines"] = lines
+        if payments is not None:
+            vals["payment_ids"] = payments
         return self.env["pos.order"].create(vals)
 
     def test_partner_cleared_on_create_without_invoice(self):
@@ -118,6 +129,28 @@ class TestPosOrderAnonymization(TransactionCase):
         order = self._create_order(account_move=invoice)
         order.write({"partner_id": self.partner.id})
         self.assertEqual(order.partner_id, self.partner)
+
+    def test_partner_kept_on_create_with_split_transactions_payment_method(self):
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=True
+        )
+        order = self._create_order(
+            partner=self.partner,
+            session=session,
+            payments=[self._payment_vals(payment_method)],
+        )
+        self.assertEqual(order.partner_id, self.partner)
+
+    def test_partner_cleared_on_create_with_non_split_transactions_payment_method(self):
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=False
+        )
+        order = self._create_order(
+            partner=self.partner,
+            session=session,
+            payments=[self._payment_vals(payment_method)],
+        )
+        self.assertEqual(order.partner_id.id, False)
 
     def test_partner_kept_on_write_with_split_transactions_payment_method(self):
         session, payment_method = self._create_session_with_payment_method(

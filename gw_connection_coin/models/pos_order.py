@@ -14,6 +14,7 @@ class PosOrder(models.Model):
                 not vals.get("to_invoice")
                 and not vals.get("account_move")
                 and not connection_coin
+                and not self._vals_has_split_transactions_payment(vals)
             ):
                 vals["partner_id"] = False
         orders = super().create(vals_list)
@@ -33,6 +34,23 @@ class PosOrder(models.Model):
         return bool(
             self.env["product.product"].search_count(
                 [("id", "in", product_ids), ("is_connection_coin", "=", True)]
+            )
+        )
+
+    def _vals_has_split_transactions_payment(self, vals):
+        payment_method_ids = [
+            line_vals.get("payment_method_id")
+            for command, _id, line_vals in vals.get("payment_ids") or []
+            if command == 0
+        ]
+        if not payment_method_ids:
+            return False
+        return bool(
+            self.env["pos.payment.method"].search_count(
+                [
+                    ("id", "in", payment_method_ids),
+                    ("split_transactions", "=", True),
+                ]
             )
         )
 
