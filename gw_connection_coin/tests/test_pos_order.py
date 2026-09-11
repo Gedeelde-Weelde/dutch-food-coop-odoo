@@ -33,6 +33,34 @@ class TestPosOrderAnonymization(TransactionCase):
                 }
             )
 
+    def _create_session_with_payment_method(self, split_transactions):
+        # pos.config forbids changing payment_method_ids while a session is
+        # open (see setUp's self.pos_session), so the payment method must be
+        # attached to a config at creation time, on a separate session.
+        payment_method = self.env["pos.payment.method"].create(
+            {
+                "name": "Test Payment Method",
+                "split_transactions": split_transactions,
+            }
+        )
+        pos_config = self.env["pos.config"].create(
+            {
+                "name": "Test Config With Payment Method",
+                "payment_method_ids": [(4, payment_method.id)],
+            }
+        )
+        session = self.env["pos.session"].create({"config_id": pos_config.id})
+        return session, payment_method
+
+    def _add_payment(self, order, payment_method):
+        self.env["pos.payment"].create(
+            {
+                "pos_order_id": order.id,
+                "amount": 0.0,
+                "payment_method_id": payment_method.id,
+            }
+        )
+
     def _order_line_vals(self, product):
         return (
             0,
@@ -46,10 +74,10 @@ class TestPosOrderAnonymization(TransactionCase):
         )
 
     def _create_order(
-        self, partner=None, account_move=None, to_invoice=None, lines=None
+        self, partner=None, account_move=None, to_invoice=None, lines=None, session=None
     ):
         vals = {
-            "session_id": self.pos_session.id,
+            "session_id": (session or self.pos_session).id,
             "date_order": fields.Datetime.now(),
             "company_id": self.env.company.id,
             "amount_tax": 0.0,
@@ -90,6 +118,24 @@ class TestPosOrderAnonymization(TransactionCase):
         order = self._create_order(account_move=invoice)
         order.write({"partner_id": self.partner.id})
         self.assertEqual(order.partner_id, self.partner)
+
+    def test_partner_kept_on_write_with_split_transactions_payment_method(self):
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=True
+        )
+        order = self._create_order(session=session)
+        self._add_payment(order, payment_method)
+        order.write({"partner_id": self.partner.id})
+        self.assertEqual(order.partner_id, self.partner)
+
+    def test_partner_cleared_on_write_with_non_split_transactions_payment_method(self):
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=False
+        )
+        order = self._create_order(session=session)
+        self._add_payment(order, payment_method)
+        order.write({"partner_id": self.partner.id})
+        self.assertEqual(order.partner_id.id, False)
 
     def test_partner_kept_on_create_with_connection_coin_product(self):
         order = self._create_order(

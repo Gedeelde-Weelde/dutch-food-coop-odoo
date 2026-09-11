@@ -39,7 +39,12 @@ class PosOrder(models.Model):
     def write(self, vals):
         result = super().write(vals)
         if vals.get("partner_id"):
-            uninvoiced = self.filtered(lambda order: not order.account_move)
-            if uninvoiced:
-                super(PosOrder, uninvoiced).write({"partner_id": False})
+            anonymizable = self.filtered(
+                lambda order: not order.account_move
+                and not order.payment_ids.payment_method_id.filtered(
+                    "split_transactions"
+                )
+            )
+            if anonymizable:
+                super(PosOrder, anonymizable).write({"partner_id": False})
         return result
