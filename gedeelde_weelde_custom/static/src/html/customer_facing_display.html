@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="pragma" content="no-cache" />
+    <title>Customer Display</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/web/static/src/libs/fontawesome/css/font-awesome.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/point_of_sale/static/src/css/customer_facing_display.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/gedeelde_weelde_custom/static/src/css/customer_facing_display.css"
+    />
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+      }
+      .gw-customer-display-waiting {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: sans-serif;
+        font-size: 1.5em;
+        color: #888;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="gw-customer-display-waiting">Waiting for the till&hellip;</div>
+    <script>
+      (function () {
+        "use strict";
+
+        // This page intentionally has no dependency on the POS's JS runtime: it is
+        // opened as a standalone window/tab and paints itself purely from
+        // localStorage. The opener (main POS window) writes the latest order's
+        // rendered HTML to STORAGE_KEY on every change; this page repaints on the
+        // native "storage" event that fires automatically in this document
+        // whenever that happens, and re-reads the same key whenever the page
+        // becomes visible again or is (re)loaded - which covers the case where
+        // the browser discarded/reloaded this window while it was in the
+        // background and it missed storage events while gone.
+        //
+        // We paint straight into <body> (rather than a wrapper <div>) because
+        // point_of_sale's CSS sizes ".pos-customer_facing_display" with
+        // height: 100%, which only resolves if every ancestor up to <body> also
+        // has a definite height - an extra unstyled wrapper div in between
+        // breaks that chain and collapses the layout.
+        var STORAGE_KEY = "gw_customer_display_last_render";
+
+        function paint(bodyHtml) {
+          if (!bodyHtml) {
+            return;
+          }
+          document.body.innerHTML = bodyHtml;
+          var orderlines = document.body.querySelector(".pos_orderlines_list");
+          if (orderlines) {
+            orderlines.scrollTop = orderlines.scrollHeight;
+          }
+        }
+
+        function paintFromStorage() {
+          var raw;
+          try {
+            raw = window.localStorage.getItem(STORAGE_KEY);
+          } catch (error) {
+            return;
+          }
+          if (!raw) {
+            return;
+          }
+          try {
+            paint(JSON.parse(raw).bodyHtml);
+          } catch (error) {
+            // Malformed payload - keep showing whatever was last painted.
+          }
+        }
+
+        window.addEventListener("storage", function (event) {
+          if (event.key !== STORAGE_KEY || !event.newValue) {
+            return;
+          }
+          try {
+            paint(JSON.parse(event.newValue).bodyHtml);
+          } catch (error) {
+            // Malformed payload - ignore this update.
+          }
+        });
+
+        document.addEventListener("visibilitychange", function () {
+          if (document.visibilityState === "visible") {
+            paintFromStorage();
+          }
+        });
+
+        paintFromStorage();
+      })();
+    </script>
+  </body>
+</html>

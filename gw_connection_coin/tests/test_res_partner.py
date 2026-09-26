@@ -242,9 +242,7 @@ class TestResPartner(TransactionCase):
         )
         restricted_user = self._create_restricted_user("restricted_pos_user_extend")
         partner.with_user(restricted_user).extend_connection_coin()
-        self.assertEqual(
-            partner.cc_renewal_date, fields.Date.from_string("2027-01-01")
-        )
+        self.assertEqual(partner.cc_renewal_date, fields.Date.from_string("2027-01-01"))
 
     def test_is_member_false_when_membership_fields_absent(self):
         # On a database without the manually-added x_lid_begin/x_lid_einde
