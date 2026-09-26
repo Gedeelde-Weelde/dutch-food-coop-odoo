@@ -593,6 +593,26 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
         self.assertFalse(self._label(partner))
 
+    def test_empty_string_nummer_gets_no_label(self):
+        partner = self.env["res.partner"].create(
+            {"name": "Test Partner", "cc_number": ""}
+        )
+        self.assertFalse(self._label(partner))
+
+    def test_zero_nummer_gets_no_label(self):
+        # cc_number is a Char field, so "0" is a non-empty, truthy string;
+        # a plain `bool(cc_number)` check would wrongly treat this as a
+        # valid, active coin.
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "0",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
+            }
+        )
+        self.assertFalse(self._label(partner))
+
     def test_label_removed_when_nummer_cleared(self):
         partner = self.env["res.partner"].create(
             {

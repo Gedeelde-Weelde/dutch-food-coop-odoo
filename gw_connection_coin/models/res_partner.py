@@ -214,7 +214,15 @@ class ResPartner(models.Model):
 
     def _compute_connection_coin_status(self):
         self.ensure_one()
-        if not self.cc_number:
+        # cc_number is a Char field, so "0" is a non-empty string and
+        # `bool(self.cc_number)` would wrongly treat it as a valid number.
+        # TODO: once cc_number is changed to an Integer field, this can go
+        # back to a plain `if not self.cc_number:` check.
+        try:
+            has_cc_number = int(self.cc_number) > 0
+        except (TypeError, ValueError):
+            has_cc_number = False
+        if not has_cc_number:
             return None
         today = fields.Date.context_today(self)
         if self.cc_start_date and self.cc_start_date > today:
