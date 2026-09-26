@@ -73,17 +73,33 @@ class TestPosOrderAnonymization(TransactionCase):
             },
         )
 
-    def _payment_vals(self, payment_method):
-        return (0, 0, {"amount": 0.0, "payment_method_id": payment_method.id})
+    def _call_process_payment_lines(self, order, payment_method, partner=None, draft=False):
+        # Mirrors how odoo core's _process_order() calls this method: with
+        # the raw ui order dict (here just the keys _process_payment_lines
+        # and _payment_fields actually read) as first argument, and the
+        # already created/written pos.order record as second argument.
+        ui_order = {
+            "statement_ids": [
+                (
+                    0,
+                    0,
+                    {
+                        "amount": 0.0,
+                        "name": fields.Datetime.now(),
+                        "payment_method_id": payment_method.id,
+                    },
+                )
+            ],
+            "amount_return": 0.0,
+        }
+        if partner is not None:
+            ui_order["partner_id"] = partner.id
+        self.env["pos.order"]._process_payment_lines(
+            ui_order, order, order.session_id, draft
+        )
 
     def _create_order(
-        self,
-        partner=None,
-        account_move=None,
-        to_invoice=None,
-        lines=None,
-        payments=None,
-        session=None,
+        self, partner=None, account_move=None, to_invoice=None, lines=None, session=None
     ):
         vals = {
             "session_id": (session or self.pos_session).id,
@@ -102,8 +118,6 @@ class TestPosOrderAnonymization(TransactionCase):
             vals["to_invoice"] = to_invoice
         if lines is not None:
             vals["lines"] = lines
-        if payments is not None:
-            vals["payment_ids"] = payments
         return self.env["pos.order"].create(vals)
 
     def test_partner_cleared_on_create_without_invoice(self):
@@ -130,28 +144,6 @@ class TestPosOrderAnonymization(TransactionCase):
         order.write({"partner_id": self.partner.id})
         self.assertEqual(order.partner_id, self.partner)
 
-    def test_partner_kept_on_create_with_split_transactions_payment_method(self):
-        session, payment_method = self._create_session_with_payment_method(
-            split_transactions=True
-        )
-        order = self._create_order(
-            partner=self.partner,
-            session=session,
-            payments=[self._payment_vals(payment_method)],
-        )
-        self.assertEqual(order.partner_id, self.partner)
-
-    def test_partner_cleared_on_create_with_non_split_transactions_payment_method(self):
-        session, payment_method = self._create_session_with_payment_method(
-            split_transactions=False
-        )
-        order = self._create_order(
-            partner=self.partner,
-            session=session,
-            payments=[self._payment_vals(payment_method)],
-        )
-        self.assertEqual(order.partner_id.id, False)
-
     def test_partner_kept_on_write_with_split_transactions_payment_method(self):
         session, payment_method = self._create_session_with_payment_method(
             split_transactions=True
@@ -168,6 +160,33 @@ class TestPosOrderAnonymization(TransactionCase):
         order = self._create_order(session=session)
         self._add_payment(order, payment_method)
         order.write({"partner_id": self.partner.id})
+        self.assertEqual(order.partner_id.id, False)
+
+    def test_partner_restored_after_process_payment_lines_with_split_transactions_payment_method(
+        self,
+    ):
+        # This is the real-world path: odoo core's _order_fields() (used to
+        # build create()/write() vals from _process_order()) never includes
+        # payment info, so the payment method is unknown to create()/write()
+        # at anonymization time. Payments only get attached afterwards, via
+        # _process_payment_lines(), which is where the partner must be
+        # restored instead.
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=True
+        )
+        order = self._create_order(session=session)
+        self.assertEqual(order.partner_id.id, False)
+        self._call_process_payment_lines(order, payment_method, partner=self.partner)
+        self.assertEqual(order.partner_id, self.partner)
+
+    def test_partner_stays_cleared_after_process_payment_lines_with_non_split_transactions_payment_method(
+        self,
+    ):
+        session, payment_method = self._create_session_with_payment_method(
+            split_transactions=False
+        )
+        order = self._create_order(session=session)
+        self._call_process_payment_lines(order, payment_method, partner=self.partner)
         self.assertEqual(order.partner_id.id, False)
 
     def test_partner_kept_on_create_with_connection_coin_product(self):
