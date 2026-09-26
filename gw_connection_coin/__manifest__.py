@@ -1,6 +1,6 @@
 {
     "name": "Gedeelde Weelde Connection Coin",
-    "version": "16.0.1.4.0",
+    "version": "16.0.1.5.0",
     "category": "Point of Sale",
     "summary": "Connection Coin for Gedeelde Weelde",
     "author": "Gedeelde Weelde",

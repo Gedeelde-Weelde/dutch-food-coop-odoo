@@ -108,8 +108,12 @@ class ResPartner(models.Model):
             partner.sudo().write(vals)
 
     def mark_connection_coin_forgotten(self):
+        # sudo(): called directly from the POS frontend by the logged-in
+        # cashier, who has no general write access to res.partner. Safe to
+        # elevate narrowly here because the write is always this one fixed
+        # increment, never caller-supplied.
         self.ensure_one()
-        self.cc_forgotten += 1
+        self.sudo().write({"cc_forgotten": self.cc_forgotten + 1})
         return self.cc_forgotten
 
     @api.constrains(*CONNECTION_COIN_STATUS_FIELDS)

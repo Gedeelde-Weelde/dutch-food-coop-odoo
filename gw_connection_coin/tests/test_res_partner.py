@@ -188,13 +188,28 @@ class TestResPartner(TransactionCase):
         partner.mark_connection_coin_forgotten()
         self.assertEqual(partner.cc_forgotten, 2)
 
+    def test_mark_connection_coin_forgotten_works_without_partner_write_access(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
+            }
+        )
+        restricted_user = self._create_restricted_user("restricted_pos_user_forgotten")
+        result = partner.with_user(restricted_user).mark_connection_coin_forgotten()
+        self.assertEqual(result, 1)
+        self.assertEqual(partner.cc_forgotten, 1)
+
     def _create_restricted_user(self, login):
         # base.group_user alone has no write access to res.partner (see
         # base's own ir.model.access.csv), matching a plain POS cashier who
-        # hasn't separately been granted contact-manager rights. Both
-        # end_connection_coin() and extend_connection_coin() are called
-        # from the POS frontend in that user's context, so they must not
-        # depend on write access the caller doesn't have.
+        # hasn't separately been granted contact-manager rights.
+        # end_connection_coin(), extend_connection_coin() and
+        # mark_connection_coin_forgotten() are all called from the POS
+        # frontend in that user's context, so they must not depend on write
+        # access the caller doesn't have.
         return self.env["res.users"].create(
             {
                 "name": "Restricted POS User",
