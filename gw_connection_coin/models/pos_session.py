@@ -24,3 +24,13 @@ class PosSession(models.Model):
             ]
         )
         return super()._get_pos_ui_product_product(params)
+
+    def _validate_session(
+        self, balancing_account=False, amount_to_balance=0, bank_payment_method_diffs=None
+    ):
+        result = super()._validate_session(
+            balancing_account, amount_to_balance, bank_payment_method_diffs
+        )
+        if self.state == "closed":
+            self.order_ids._anonymize_after_session_close()
+        return result
