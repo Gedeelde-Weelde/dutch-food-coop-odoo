@@ -188,6 +188,62 @@ class TestResPartner(TransactionCase):
         partner.mark_connection_coin_forgotten()
         self.assertEqual(partner.cc_forgotten, 2)
 
+    def test_mark_connection_coin_forgotten_works_without_partner_write_access(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
+            }
+        )
+        restricted_user = self._create_restricted_user("restricted_pos_user_forgotten")
+        result = partner.with_user(restricted_user).mark_connection_coin_forgotten()
+        self.assertEqual(result, 1)
+        self.assertEqual(partner.cc_forgotten, 1)
+
+    def _create_restricted_user(self, login):
+        # base.group_user alone has no write access to res.partner (see
+        # base's own ir.model.access.csv), matching a plain POS cashier who
+        # hasn't separately been granted contact-manager rights.
+        # end_connection_coin(), extend_connection_coin() and
+        # mark_connection_coin_forgotten() are all called from the POS
+        # frontend in that user's context, so they must not depend on write
+        # access the caller doesn't have.
+        return self.env["res.users"].create(
+            {
+                "name": "Restricted POS User",
+                "login": login,
+                "groups_id": [(6, 0, [self.env.ref("base.group_user").id])],
+            }
+        )
+
+    def test_end_connection_coin_works_without_partner_write_access(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        restricted_user = self._create_restricted_user("restricted_pos_user_end")
+        partner.with_user(restricted_user).end_connection_coin()
+        self.assertEqual(partner.cc_end_date, fields.Date.from_string("2026-01-01"))
+
+    def test_extend_connection_coin_works_without_partner_write_access(self):
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "711",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.from_string("2026-01-01"),
+            }
+        )
+        restricted_user = self._create_restricted_user("restricted_pos_user_extend")
+        partner.with_user(restricted_user).extend_connection_coin()
+        self.assertEqual(partner.cc_renewal_date, fields.Date.from_string("2027-01-01"))
+
     def test_is_member_false_when_membership_fields_absent(self):
         # On a database without the manually-added x_lid_begin/x_lid_einde
         # fields (e.g. this test database), is_member must degrade to False
@@ -533,6 +589,26 @@ class TestResPartnerConnectionCoinLabels(TransactionCase):
 
     def test_no_nummer_gets_no_label(self):
         partner = self.env["res.partner"].create({"name": "Test Partner"})
+        self.assertFalse(self._label(partner))
+
+    def test_empty_string_nummer_gets_no_label(self):
+        partner = self.env["res.partner"].create(
+            {"name": "Test Partner", "cc_number": ""}
+        )
+        self.assertFalse(self._label(partner))
+
+    def test_zero_nummer_gets_no_label(self):
+        # cc_number is a Char field, so "0" is a non-empty, truthy string;
+        # a plain `bool(cc_number)` check would wrongly treat this as a
+        # valid, active coin.
+        partner = self.env["res.partner"].create(
+            {
+                "name": "Test Partner",
+                "cc_number": "0",
+                "cc_start_date": DEFAULT_CC_START_DATE,
+                "cc_renewal_date": fields.Date.today() + relativedelta(days=10),
+            }
+        )
         self.assertFalse(self._label(partner))
 
     def test_label_removed_when_nummer_cleared(self):

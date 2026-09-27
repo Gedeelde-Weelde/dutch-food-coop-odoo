@@ -75,6 +75,10 @@ class ResPartner(models.Model):
         return partners
 
     def end_connection_coin(self):
+        # sudo(): called directly from the POS frontend by the logged-in
+        # cashier, who has no general write access to res.partner. Safe to
+        # elevate narrowly here because vals is always this fixed,
+        # self-computed set of cc_* fields, never caller-supplied.
         result = {}
         for partner in self:
             vals = {
@@ -82,11 +86,15 @@ class ResPartner(models.Model):
                 "cc_renewal_date": False,
                 "cc_reminder_sent_date": False,
             }
-            partner.write(vals)
+            partner.sudo().write(vals)
             result[partner.id] = vals
         return result
 
     def extend_connection_coin(self):
+        # sudo(): called from PosOrder.create() in the logged-in cashier's
+        # context, who has no general write access to res.partner. Safe to
+        # elevate narrowly here because vals is always this fixed,
+        # self-computed set of cc_* fields, never caller-supplied.
         today = fields.Date.context_today(self)
         for partner in self:
             vals = {"cc_forgotten": 0, "cc_reminder_sent_date": False}
@@ -97,11 +105,15 @@ class ResPartner(models.Model):
                 vals["cc_renewal_date"] = partner.cc_renewal_date + relativedelta(
                     years=1
                 )
-            partner.write(vals)
+            partner.sudo().write(vals)
 
     def mark_connection_coin_forgotten(self):
+        # sudo(): called directly from the POS frontend by the logged-in
+        # cashier, who has no general write access to res.partner. Safe to
+        # elevate narrowly here because the write is always this one fixed
+        # increment, never caller-supplied.
         self.ensure_one()
-        self.cc_forgotten += 1
+        self.sudo().write({"cc_forgotten": self.cc_forgotten + 1})
         return self.cc_forgotten
 
     @api.constrains(*CONNECTION_COIN_STATUS_FIELDS)
@@ -202,7 +214,15 @@ class ResPartner(models.Model):
 
     def _compute_connection_coin_status(self):
         self.ensure_one()
-        if not self.cc_number:
+        # cc_number is a Char field, so "0" is a non-empty string and
+        # `bool(self.cc_number)` would wrongly treat it as a valid number.
+        # TODO: once cc_number is changed to an Integer field, this can go
+        # back to a plain `if not self.cc_number:` check.
+        try:
+            has_cc_number = int(self.cc_number) > 0
+        except (TypeError, ValueError):
+            has_cc_number = False
+        if not has_cc_number:
             return None
         today = fields.Date.context_today(self)
         if self.cc_start_date and self.cc_start_date > today:

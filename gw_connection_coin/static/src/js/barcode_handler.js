@@ -27,7 +27,7 @@ odoo.define("gw_connection_coin.ProductScreen", function (require) {
                 }
                 await super._addProduct(product, options);
                 if (product.is_connection_coin) {
-                    ConnectionCoinUtils.applyDiscount(this);
+                    ConnectionCoinUtils.applyDiscountFirstTime(this);
                 } else {
                     this._updateDiscount();
                 }

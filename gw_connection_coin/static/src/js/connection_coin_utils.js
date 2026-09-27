@@ -36,6 +36,19 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
     }
 
+    // This function exists because we want the discount to scroll into view the first time it is added.
+    // This is a separate function for readability.
+    function applyDiscountFirstTime(component) {
+        const discountProductId = getDiscountProductId(component);
+        if (!discountProductId) {
+            return;
+        }
+        DiscountButton.prototype.apply_discount.call(
+            component,
+            component.env.pos.config.discount_pc
+        );
+    }
+
     function clearDiscount(component) {
         if (!getDiscountProductId(component)) {
             return;
@@ -65,7 +78,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             return;
         }
         component.env.pos.get_order().add_product(product, {});
-        applyDiscount(component);
+        applyDiscountFirstTime(component);
     }
 
     // Stops the connection coin on the backend, syncs the partner fields on
@@ -266,7 +279,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
         const isValid = await checkConnectionCoinExpiry(component, partner);
         if (isValid) {
-            applyDiscount(component);
+            applyDiscountFirstTime(component);
         } else {
             clearDiscount(component);
         }
@@ -297,6 +310,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
     return {
         getDiscountProductId,
         applyDiscount,
+        applyDiscountFirstTime,
         clearDiscount,
         stopConnectionCoin,
         isConnectionCoinValid,

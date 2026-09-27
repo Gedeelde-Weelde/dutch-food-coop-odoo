@@ -6,63 +6,29 @@ class PosOrder(models.Model):
 
     @api.model_create_multi
     def create(self, vals_list):
-        has_connection_coin = [
-            self._vals_has_connection_coin(vals) for vals in vals_list
-        ]
-        for vals, connection_coin in zip(vals_list, has_connection_coin, strict=False):
-            if (
-                not vals.get("to_invoice")
-                and not vals.get("account_move")
-                and not connection_coin
-                and not self._vals_has_split_transactions_payment(vals)
-            ):
-                vals["partner_id"] = False
         orders = super().create(vals_list)
-        for order, connection_coin in zip(orders, has_connection_coin, strict=False):
-            if connection_coin and order.partner_id:
+        for order in orders:
+            if order.partner_id and order.lines.product_id.filtered(
+                "is_connection_coin"
+            ):
                 order.partner_id.extend_connection_coin()
         return orders
 
-    def _vals_has_connection_coin(self, vals):
-        product_ids = [
-            line_vals.get("product_id")
-            for command, _id, line_vals in vals.get("lines") or []
-            if command == 0
-        ]
-        if not product_ids:
-            return False
+    def _has_split_transactions_payment(self):
+        self.ensure_one()
+        return bool(self.payment_ids.payment_method_id.filtered("split_transactions"))
+
+    def _should_keep_partner(self):
+        self.ensure_one()
         return bool(
-            self.env["product.product"].search_count(
-                [("id", "in", product_ids), ("is_connection_coin", "=", True)]
-            )
+            self.account_move
+            or self.lines.product_id.filtered("is_connection_coin")
+            or self._has_split_transactions_payment()
         )
 
-    def _vals_has_split_transactions_payment(self, vals):
-        payment_method_ids = [
-            line_vals.get("payment_method_id")
-            for command, _id, line_vals in vals.get("payment_ids") or []
-            if command == 0
-        ]
-        if not payment_method_ids:
-            return False
-        return bool(
-            self.env["pos.payment.method"].search_count(
-                [
-                    ("id", "in", payment_method_ids),
-                    ("split_transactions", "=", True),
-                ]
-            )
+    def _anonymize_after_session_close(self):
+        anonymizable = self.filtered(
+            lambda order: order.partner_id and not order._should_keep_partner()
         )
-
-    def write(self, vals):
-        result = super().write(vals)
-        if vals.get("partner_id"):
-            anonymizable = self.filtered(
-                lambda order: not order.account_move
-                and not order.payment_ids.payment_method_id.filtered(
-                    "split_transactions"
-                )
-            )
-            if anonymizable:
-                super(PosOrder, anonymizable).write({"partner_id": False})
-        return result
+        if anonymizable:
+            anonymizable.write({"partner_id": False})

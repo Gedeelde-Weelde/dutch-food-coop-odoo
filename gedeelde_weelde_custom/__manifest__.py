@@ -27,6 +27,8 @@
             "gedeelde_weelde_custom/static/src/js/extend_payment_screen.js",
             "gedeelde_weelde_custom/static/src/js/focus_warning_pos_component.js",
             "gedeelde_weelde_custom/static/src/js/pos_order_receipt.js",
+            "gedeelde_weelde_custom/static/src/js/customer_facing_display_reliability.js",
+            "gedeelde_weelde_custom/static/src/js/customer_facing_display_button_reliability.js",
             "gedeelde_weelde_custom/static/src/xml/receipt_screen.xml",
             "gedeelde_weelde_custom/static/src/xml/mouse_leave_overlay.xml",
             "gedeelde_weelde_custom/static/src/xml/order_receipt.xml",
