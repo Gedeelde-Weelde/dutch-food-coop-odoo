@@ -20,6 +20,29 @@ odoo.define("gw_connection_coin.utils", function (require) {
         if (!discountProductId) {
             return;
         }
+        const order = component.env.pos.get_order();
+        const selectedLine = order.get_selected_orderline();
+        // Maintain the current numpad mode after applying the discount.
+        const currentMode = component.env.pos.numpadMode;
+        DiscountButton.prototype.apply_discount.call(
+            component,
+            component.env.pos.config.discount_pc
+        );
+        if (selectedLine && selectedLine.product.id !== discountProductId) {
+            order.select_orderline(selectedLine);
+            if (component.env.pos.numpadMode !== currentMode) {
+                component.env.pos.numpadMode = currentMode;
+            }
+        }
+    }
+
+    // This function exists because we want the discount to scroll into view the first time it is added.
+    // This is a separate function for readability.
+    function applyDiscountFirstTime(component) {
+        const discountProductId = getDiscountProductId(component);
+        if (!discountProductId) {
+            return;
+        }
         DiscountButton.prototype.apply_discount.call(
             component,
             component.env.pos.config.discount_pc
@@ -55,7 +78,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
             return;
         }
         component.env.pos.get_order().add_product(product, {});
-        applyDiscount(component);
+        applyDiscountFirstTime(component);
     }
 
     // Stops the connection coin on the backend, syncs the partner fields on
@@ -256,7 +279,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
         }
         const isValid = await checkConnectionCoinExpiry(component, partner);
         if (isValid) {
-            applyDiscount(component);
+            applyDiscountFirstTime(component);
         } else {
             clearDiscount(component);
         }
@@ -287,6 +310,7 @@ odoo.define("gw_connection_coin.utils", function (require) {
     return {
         getDiscountProductId,
         applyDiscount,
+        applyDiscountFirstTime,
         clearDiscount,
         stopConnectionCoin,
         isConnectionCoinValid,
