@@ -6,8 +6,13 @@ odoo.define(
         const {PosGlobalState} = require("point_of_sale.models");
         const Registries = require("point_of_sale.Registries");
 
-        const CUSTOMER_DISPLAY_STORAGE_KEY = "gw_customer_display_last_render";
         const IMAGE_LOAD_TIMEOUT_MS = 5000;
+        // Attribute set on the popup's <html> right after we paint it, so a
+        // later health check can tell a live, styled popup apart from a
+        // fresh/blank document (the browser discarded and reloaded a
+        // backgrounded popup - win.closed stays false, but the document,
+        // and everything we wrote into it, is gone).
+        const PAINTED_ATTRIBUTE = "data-gw-customer-display-painted";
 
         const CustomerFacingDisplayReliability = (PosGlobalState) =>
             class extends PosGlobalState {
@@ -51,12 +56,48 @@ odoo.define(
                     });
                 }
 
+                // Paints the popup from scratch: head (every installed
+                // module's CustomerFacingDisplayHead extension - stylesheets,
+                // title, ...) and body, both freshly rendered from the same
+                // live QWeb templates core uses. Used on the first click and
+                // to repaint a popup the health check finds un-painted.
+                // Keeping this as the one place that touches the popup's head
+                // means there's a single source of truth for it (the real
+                // template bundle) instead of a hand-maintained copy that can
+                // drift out of sync with what modules actually add to it.
+                async paint_customer_facing_display() {
+                    const win = this.customer_display;
+                    if (!win) return;
+                    const rendered_html =
+                        await this.render_html_for_customer_facing_display();
+                    const $renderedHtml = $("<div>").html(rendered_html);
+                    $(win.document.head).html($renderedHtml.find(".resources").html());
+                    $(win.document.body).html(
+                        $renderedHtml.find(".pos-customer_facing_display")
+                    );
+                    win.document.documentElement.setAttribute(PAINTED_ATTRIBUTE, "1");
+                }
+
+                is_customer_facing_display_painted() {
+                    const win = this.customer_display;
+                    if (!win) return false;
+                    try {
+                        return (
+                            win.document.documentElement.getAttribute(
+                                PAINTED_ATTRIBUTE
+                            ) === "1"
+                        );
+                    } catch (error) {
+                        return false;
+                    }
+                }
+
                 send_current_order_to_customer_facing_display() {
                     if (!this.config.iface_customer_facing_display) return;
                     this.render_html_for_customer_facing_display().then(
                         (rendered_html) => {
                             if (this.customer_display) {
-                                this._publishCustomerDisplayRender(rendered_html);
+                                this._writeCustomerFacingDisplayBody(rendered_html);
                             } else if (
                                 this.config.iface_customer_facing_display_via_proxy &&
                                 this.env.proxy.posbox_supports_display
@@ -69,36 +110,27 @@ odoo.define(
                     );
                 }
 
-                // Local mode used to reach directly into the popup's DOM
-                // (`customer_display.document.body`). That is fragile: if the
-                // browser discarded/reloaded the popup to save memory, or the
-                // window was otherwise reset, the write either throws (silently,
-                // since nothing here awaited/caught it) or lands in a document
-                // that's about to be replaced - the display then sits frozen on
-                // the last frame with no way to recover short of the cashier
-                // noticing and re-clicking the button.
-                //
-                // Instead, publish the render to localStorage. The popup
-                // (customer_facing_display.html) paints itself from this key on
-                // load and on every native "storage" event, so it keeps working
-                // even if it was reset while still open - no cross-window DOM
-                // access required here at all, so this can never throw due to a
-                // dead/stale window.
-                _publishCustomerDisplayRender(rendered_html) {
+                // Same body-only DOM write core always did on every order
+                // change. The only change from core: the popup reference can
+                // go stale (closed, or its document reset by the browser)
+                // between one update and the next, and core let that throw
+                // uncaught. Here a failed write just leaves the display stale
+                // until the toolbar button's health check notices
+                // (is_customer_facing_display_painted() above) and repaints
+                // it, instead of crashing.
+                _writeCustomerFacingDisplayBody(rendered_html) {
                     try {
                         const $renderedHtml = $("<div>").html(rendered_html);
-                        const bodyHtml = $renderedHtml
-                            .find(".pos-customer_facing_display")
-                            .prop("outerHTML");
-                        if (!bodyHtml) return;
-                        window.localStorage.setItem(
-                            CUSTOMER_DISPLAY_STORAGE_KEY,
-                            JSON.stringify({bodyHtml, savedAt: Date.now()})
+                        $(this.customer_display.document.body).html(
+                            $renderedHtml.find(".pos-customer_facing_display")
                         );
+                        const orderlines = $(this.customer_display.document.body).find(
+                            ".pos_orderlines_list"
+                        );
+                        orderlines.scrollTop(orderlines.prop("scrollHeight"));
                     } catch (error) {
-                        // LocalStorage can be unavailable (private browsing,
-                        // quota exceeded) - the popup just won't update, nothing
-                        // else we can do from here.
+                        // Window closed/reset - surfaced via the toolbar
+                        // button's health check instead of failing here.
                     }
                 }
             };
